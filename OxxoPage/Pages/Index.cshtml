@@ -1,10 +1,47 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "LOGIN";
+    Layout = null;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LogIn</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="~/css/LogIn.css" asp-append-version="true">
+        <!-- #region <link rel="stylesheet" type="text/css" href= "estilos.css" /> -->
+    </head>
+
+    <main>
+
+        <section class="LogIn">
+            <div class="contenedorLogIn ">
+                <img src ="~/assets/Oxxo_Logo.jpeg"/>
+                    <div class="botones">
+                       <div class="USUARIO">
+                            <label for="UserName">Usuario</label>
+                            <input type="UserName" class="form-control" id="UserName" placeholder="name@OXXO.com">
+                        </div>
+                        <div class="PASSWORD">
+                            <label for="Password">Password</label>
+                            <input type="Password" class="form-control" id="UserPasswordName" placeholder="Password">
+                        </div>
+                        <button type="sumbit">Ingresar</button>
+
+                    </div>
+
+            </div>
+            
+
+
+        </section>
+
+
+    </main>
+
+
+
+</html>
+
