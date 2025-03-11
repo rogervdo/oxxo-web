@@ -1,0 +1,87 @@
+body {
+    background-color: #f0f0f0; /* Fondo gris claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.contenedorLogIn {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 350px;
+    text-align: center;
+}
+
+.contenedorLogIn img {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.botones {
+    background: #8B0000; /* Rojo oscuro */
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    color: white;
+}
+
+.botones::before {
+    content: "";
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    width: 80%;
+    height: 80%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.USUARIO, .PASSWORD {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.USUARIO label, .PASSWORD label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: white;
+    color: #8B0000;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #ddd;
+}
+
+a {
+    display: block;
+    font-size: 12px;
+    color: yellow;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
