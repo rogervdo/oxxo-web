@@ -16,4 +16,5 @@ public class IndexModel : PageModel
     {
 
     }
+
 }
