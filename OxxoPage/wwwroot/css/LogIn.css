@@ -99,16 +99,19 @@ body {
     margin: 10px auto;
 }
 
-/* Texto amarillo subrayado */
 .register-text {
     color: white;
     margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .register-link {
     color: #e8a042;
     font-size: 14px;
     cursor: pointer;
-    padding-left: 115px;
-    text-decoration: underline; /* Subrayado */
+    text-decoration: underline;
+    padding-left: 115px; /* Espacio entre ambos elementos */
 }
+
