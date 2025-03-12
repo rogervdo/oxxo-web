@@ -1,17 +1,33 @@
+html{
+    color: #555555;
+}
+
 .gradient{
-    background: linear-gradient(0deg, #FAFAFA 50%, rgba(253,196,3,1) 90%);
+    background: linear-gradient(0deg, #FAFAFA 50%, rgba(253,196,3,1) 80%);
 }
 
-.container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-    width: 100%;
-    gap: 20px;
+.usuario{
+    width: 160px; 
+    height: 160px;
+    border-radius: 50%;
+    margin: 20px;
 }
 
-.texto{
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
+.card {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    border-radius: 10px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.texto h1{
+    font-size: 70px;
+}
+
+.card-image{
+    width: 100px; 
+    height: 100px;
 }
