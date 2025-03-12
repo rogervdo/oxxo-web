@@ -22,7 +22,6 @@
 #datetime {
     font-size: 18px;
     align-items: center;
-    color: #555555;
 }
 
 .navbar .container-fluid {
@@ -36,7 +35,6 @@
     align-items: center;
     gap: 10px; 
     white-space: nowrap;
-    color:  #555555; 
     font-size: 16px;
 }
 
@@ -58,14 +56,11 @@
     align-items: center;
     text-decoration: none;
     font-size: 13px;
-    color: black;
+    color: #212529;
 }
 
 .logout{
     border-radius: 0;
 }
 
-.texto{
-    color: #555555;
-}
 
