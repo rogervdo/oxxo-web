@@ -21,13 +21,13 @@ namespace OxxoPage.Pages
         {
             Colaboradores = new List<Colaborador>
             {
-                new Colaborador { Posicion = 4, Nombre = "Rafael Pereira", ImagenUrl = "rafael.jpg", Medallas = 20 },
-                new Colaborador { Posicion = 5, Nombre = "Debora Carranza", ImagenUrl = "debora.jpg", Medallas = 19 },
-                new Colaborador { Posicion = 6, Nombre = "Alma Teresa", ImagenUrl = "alma.jpg", Medallas = 16 },
-                new Colaborador { Posicion = 7, Nombre = "Benito López", ImagenUrl = "benito.jpg", Medallas = 12 },
-                new Colaborador { Posicion = 8, Nombre = "Kai Cenat", ImagenUrl = "kai.jpg", Medallas = 8 },
-                new Colaborador { Posicion = 9, Nombre = "Dolores González", ImagenUrl = "dolores.jpg", Medallas = 5 },
-                new Colaborador { Posicion = 10, Nombre = "Elver Farías", ImagenUrl = "elver.jpg", Medallas = 3 },
+                new Colaborador { Posicion = 4, Nombre = "Rafael Pereira", ImagenUrl = "rafael.jpeg", Medallas = 20 },
+                new Colaborador { Posicion = 5, Nombre = "Debora Carranza", ImagenUrl = "debora.jpeg", Medallas = 19 },
+                new Colaborador { Posicion = 6, Nombre = "Alma Teresa", ImagenUrl = "alma.jpeg", Medallas = 16 },
+                new Colaborador { Posicion = 7, Nombre = "Benito López", ImagenUrl = "benito.jpeg", Medallas = 12 },
+                new Colaborador { Posicion = 8, Nombre = "Kai Cenat", ImagenUrl = "kai.jpeg", Medallas = 8 },
+                new Colaborador { Posicion = 9, Nombre = "Dolores González", ImagenUrl = "dolores.jpeg", Medallas = 5 },
+                new Colaborador { Posicion = 10, Nombre = "Elver Farías", ImagenUrl = "elver.jpeg", Medallas = 3 },
             };
             
             // Los 3 primeros lugares se muestran en el podio, no en la tabla

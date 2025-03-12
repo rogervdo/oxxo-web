@@ -1,10 +1,11 @@
 ﻿@page "/TablaPuntajes"
-@model TablaPuntajesModel
+@model OxxoPage.Pages.TablaPuntajesModel
 @{
     ViewData["Title"] = "Tabla de puntajes";
 }
 
-
+<!-- Referencia al archivo de estilos personalizado -->
+<link rel="stylesheet" href="~/css/TablaPuntajes.css" />
 
 <div class="container mt-4">
     <h2 class="mb-4">Tabla de puntajes</h2>
@@ -75,7 +76,7 @@
                 <div class="text-center">
                     <div class="position-relative mb-2">
                         <div class="avatar-container" style="width: 110px; height: 110px; background-color: #f0f0f0; border-radius: 50%; overflow: hidden; border: 4px solid #e0e0e0;">
-                            <img src="~/images/avatars/nicki.jpg" class="w-100 h-100 object-fit-cover" alt="Nicki Minaj">
+                            <img src="~/assets/img/nicki.jpeg" class="w-100 h-100 object-fit-cover" alt="Nicki Minaj">
                         </div>
                         <div class="bg-primary text-white px-3 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x">
                             Nicki Minaj
@@ -95,7 +96,7 @@
                 <div class="text-center">
                     <div class="position-relative mb-2">
                         <div class="avatar-container" style="width: 130px; height: 130px; background-color: #f0f0f0; border-radius: 50%; overflow: hidden; border: 4px solid #e0e0e0;">
-                            <img src="~/images/avatars/ibai.jpg" class="w-100 h-100 object-fit-cover" alt="Ibai Pelirojo">
+                            <img src="~/assets/img/ibai.png" class="w-100 h-100 object-fit-cover" alt="Ibai Pelirojo">
                         </div>
                         <div class="bg-primary text-white px-3 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x">
                             Ibai Pelirojo
@@ -114,7 +115,7 @@
                 <div class="text-center">
                     <div class="position-relative mb-2">
                         <div class="avatar-container" style="width: 110px; height: 110px; background-color: #f0f0f0; border-radius: 50%; overflow: hidden; border: 4px solid #e0e0e0;">
-                            <img src="~/images/avatars/shakira.jpg" class="w-100 h-100 object-fit-cover" alt="Shakira">
+                            <img src="~/assets/img/shakira.jpg" class="w-100 h-100 object-fit-cover" alt="Shakira">
                         </div>
                         <div class="bg-primary text-white px-3 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x">
                             Shakira
@@ -153,7 +154,7 @@
                                         <td class="align-middle">@colaborador.Posicion</td>
                                         <td>
                                             <div class="avatar-small rounded-circle" style="width: 45px; height: 45px; overflow: hidden;">
-                                                <img src="~/images/avatars/@colaborador.ImagenUrl" class="w-100 h-100 object-fit-cover" alt="@colaborador.Nombre">
+                                                <img src="~/assets/img/@colaborador.ImagenUrl" class="w-100 h-100 object-fit-cover" alt="@colaborador.Nombre">
                                             </div>
                                         </td>
                                         <td class="align-middle">@colaborador.Nombre</td>
