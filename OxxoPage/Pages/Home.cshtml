@@ -1,9 +1,19 @@
-﻿@page "/home"
+﻿@page "/Inicio"
 @model Home
 @{
     ViewData["Title"] = "Inicio";
     ViewData["NavTitle"] = "Inicio";
 }
-<h1>@ViewData["Title"]</h1>
-
-<p>Use this page to detail your site's privacy policy.</p>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/css/Home.css" asp-append-version="true">
+    </head>
+    <body class="gradient">
+        <div class=" mt-5">
+            <img src="~/img/usuario.pn" alt="imagen" class="">
+            <div class="texto">
+                <h1>Hola, Bienvenido nuevo nuevo Usuario</h1>
+            </div>
+        </div>
+    </body>
+</html>
