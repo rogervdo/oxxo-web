@@ -115,3 +115,6 @@ body {
     padding-left: 115px; /* Espacio entre ambos elementos */
 }
 
+.btn:hover {
+    background: #e8a042;
+}

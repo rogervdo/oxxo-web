@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @model IndexModel
 @{
     ViewData["Title"] = "LOGIN";
@@ -35,7 +35,8 @@
         </form>
 
         <div class="divider"></div>
-        <p class="register-text">¿No tienes una cuenta? <br> <span class="register-link">Regístrate Aquí</span></p>
+        <p class="register-text"> ¿No tienes una cuenta? <br> <a asp-page="/SignUp" class="register-link">Regístrate Aquí</a>
+</p>
     </div>
 </body>
 </html>

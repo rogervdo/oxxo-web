@@ -9,74 +9,106 @@ body {
 }
 
 .login-container {
-    background: white;
-    padding: 20px;
+    background: #9b101a; /* Rojo OXXO */
+    padding: 65px 40px 50px; /* Más padding arriba */
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 300px;
+    width: 400px; /* Aumentar ancho */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 3px solid black; /* Borde negro */
+    position: relative;
 }
 
 .logo {
-    width: 100px;
+    width: 200px;
     margin-bottom: 20px;
 }
 
 .input-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    text-align: left;
+    margin-top: 40px; /* Espacio entre el logo y los inputs */
 }
 
+/* Contenedor del input con icono */
 .input-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 8px;
+    width: 100%;
 }
 
 .input-wrapper i {
-    margin-right: 10px;
-    color: #888;
+    position: absolute;
+    left: 10px;
+    color: white; /* Ícono en blanco */
+    font-size: 20px;
+    top: 35%; /* Subir icono */
+    transform: translateY(-50%);
 }
 
+/* Estilo de los inputs transparentes */
 .input-wrapper input {
-    border: none;
-    outline: none;
     width: 100%;
-    background: transparent;
+    padding: 12px;
+    padding-left: 40px; /* Espacio para el ícono */
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 2px solid white; /* Mantiene visible el borde */
+    font-size: 16px;
+    background-color: transparent; /* Fondo transparente */
+    color: white; /* Texto en blanco */
+    outline: none; /* Quita borde azul al hacer clic */
+}
+
+/* Placeholder en blanco con opacidad */
+::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 1;
 }
 
 .btn {
-    background: #D32F2F;
-    color: white;
+    background: white;
+    color: black;
+    padding: 12px;
     border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
     width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: normal; /* Quitar negrita */
     margin-top: 10px;
+    
 }
 
 .btn:hover {
-    background: #B71C1C;
+    background: #e8a042;
 }
 
 .register-text {
+    color: white;
     margin-top: 10px;
-    font-size: 14px;
-    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .register-link {
-    color: #D32F2F;
-    font-weight: bold;
+    color: #e8a042;
+    font-size: 14px;
     cursor: pointer;
+    text-decoration: underline;
+    padding-left: 125px; /* Espacio entre ambos elementos */
 }
 
 .register-link:hover {
     text-decoration: underline;
+}
+
+.divider {
+    width: 97%; /* No llega hasta el borde */
+    height: 1px;
+    background-color: white;
+    margin: 10px auto;
 }

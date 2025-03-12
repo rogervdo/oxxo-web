@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
-     <link rel="stylesheet" href="~/css/SignUp.css" asp-append-version="true" />
+     <link rel="stylesheet" href="~/css/SingUp.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -43,8 +43,9 @@
             </div>
             <button type="submit" class="btn">CREAR CUENTA</button>
         </form>
+        <div class="divider"></div>
+        <p class="register-text">¿Ya tienes cuenta? <a asp-page="/Index" class="register-link">Ingresa Aquí</a></p>
 
-        <p class="register-text">¿Ya tienes cuenta? <span class="register-link">Ingresa Aquí</span></p>
     </div>
 </body>
 </html>
