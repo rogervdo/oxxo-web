@@ -1,14 +1,20 @@
+/* Estilos generales */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #fafafa;
     font-family: Arial, sans-serif;
+    background-color: #fafafa;
 }
 
+/* Contenedor del login con imagen de fondo */
 .login-container {
-    background: #9b101a; /* Rojo OXXO */
+    background-image: url('/assets/FONDO.png'); /* Ruta correcta de la imagen */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
     padding: 65px 40px 50px; /* Más padding arriba */
     border-radius: 10px;
     text-align: center;
@@ -18,11 +24,13 @@ body {
     position: relative;
 }
 
+/* Logo */
 .logo {
     width: 200px;
     margin-bottom: 20px;
 }
 
+/* Contenedor de inputs */
 .input-container {
     display: flex;
     flex-direction: column;
