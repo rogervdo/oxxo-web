@@ -1,0 +1,170 @@
+﻿@page "/TablaPuntajes"
+@model TablaPuntajesModel
+@{
+    ViewData["Title"] = "Tabla de puntajes";
+}
+
+
+
+<div class="container mt-4">
+    <h2 class="mb-4">Tabla de puntajes</h2>
+    
+    <!-- Tarjetas de métricas -->
+    <div class="row mb-4">
+        <!-- Total de medallas del mes -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                            <i class="bi bi-award text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="card-subtitle mb-1">Total de medallas del mes</h6>
+                            <h1 class="card-title mb-0">147</h1>
+                            <p class="card-text text-muted"><span class="text-warning">81,6%</span> de meta mensual alcanzada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Capacitaciones del día -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-success d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                            <i class="bi bi-graph-up text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="card-subtitle mb-1">Capacitaciones del día</h6>
+                            <h1 class="card-title mb-0">13</h1>
+                            <p class="card-text text-muted"><span class="text-success">109,72%</span> de meta diaria alcanzada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Meta del mes -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-danger d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                            <i class="bi bi-bullseye text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="card-subtitle mb-1">Meta del mes</h6>
+                            <h1 class="card-title mb-0">180</h1>
+                            <p class="card-text text-muted"><span class="text-danger">33</span> cursos para alcanzar la meta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Podio y tabla de clasificación -->
+    <div class="row">
+        <!-- Podio con avatares -->
+        <div class="col-md-5">
+            <div class="d-flex justify-content-around align-items-end mb-4">
+                <!-- Segundo lugar -->
+                <div class="text-center">
+                    <div class="position-relative mb-2">
+                        <div class="avatar-container" style="width: 110px; height: 110px; background-color: #f0f0f0; border-radius: 50%; overflow: hidden; border: 4px solid #e0e0e0;">
+                            <img src="~/images/avatars/nicki.jpg" class="w-100 h-100 object-fit-cover" alt="Nicki Minaj">
+                        </div>
+                        <div class="bg-primary text-white px-3 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x">
+                            Nicki Minaj
+                        </div>
+                    </div>
+                    <div class="bg-danger text-white p-2 rounded text-center" style="width: 110px;">
+                        <div class="medal-icon">
+                            <i class="bi bi-award-fill"></i>
+                            <span class="position-absolute" style="font-size: 0.8rem; top: 50%; left: 50%; transform: translate(-50%, -50%);">2</span>
+                        </div>
+                        <h3 class="mb-0">22</h3>
+                        <p class="mb-0">Medallas</p>
+                    </div>
+                </div>
+                
+                <!-- Primer lugar -->
+                <div class="text-center">
+                    <div class="position-relative mb-2">
+                        <div class="avatar-container" style="width: 130px; height: 130px; background-color: #f0f0f0; border-radius: 50%; overflow: hidden; border: 4px solid #e0e0e0;">
+                            <img src="~/images/avatars/ibai.jpg" class="w-100 h-100 object-fit-cover" alt="Ibai Pelirojo">
+                        </div>
+                        <div class="bg-primary text-white px-3 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x">
+                            Ibai Pelirojo
+                        </div>
+                    </div>
+                    <div class="bg-danger text-white p-2 rounded text-center" style="width: 130px;">
+                        <div class="trophy-icon text-center mb-1">
+                            <i class="bi bi-trophy-fill" style="font-size: 2rem;"></i>
+                        </div>
+                        <h3 class="mb-0">24</h3>
+                        <p class="mb-0">Medallas</p>
+                    </div>
+                </div>
+                
+                <!-- Tercer lugar -->
+                <div class="text-center">
+                    <div class="position-relative mb-2">
+                        <div class="avatar-container" style="width: 110px; height: 110px; background-color: #f0f0f0; border-radius: 50%; overflow: hidden; border: 4px solid #e0e0e0;">
+                            <img src="~/images/avatars/shakira.jpg" class="w-100 h-100 object-fit-cover" alt="Shakira">
+                        </div>
+                        <div class="bg-primary text-white px-3 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x">
+                            Shakira
+                        </div>
+                    </div>
+                    <div class="bg-danger text-white p-2 rounded text-center" style="width: 110px;">
+                        <div class="medal-icon">
+                            <i class="bi bi-award-fill"></i>
+                            <span class="position-absolute" style="font-size: 0.8rem; top: 50%; left: 50%; transform: translate(-50%, -50%);">3</span>
+                        </div>
+                        <h3 class="mb-0">21</h3>
+                        <p class="mb-0">Medallas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabla de clasificación -->
+        <div class="col-md-7">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Posición</th>
+                                    <th scope="col">Foto</th>
+                                    <th scope="col">Colaborador</th>
+                                    <th scope="col" class="text-center">Medallas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var colaborador in Model.Colaboradores)
+                                {
+                                    <tr class="border-bottom">
+                                        <td class="align-middle">@colaborador.Posicion</td>
+                                        <td>
+                                            <div class="avatar-small rounded-circle" style="width: 45px; height: 45px; overflow: hidden;">
+                                                <img src="~/images/avatars/@colaborador.ImagenUrl" class="w-100 h-100 object-fit-cover" alt="@colaborador.Nombre">
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">@colaborador.Nombre</td>
+                                        <td class="align-middle text-center fw-bold @(colaborador.Medallas > 15 ? "text-purple" : "")">@colaborador.Medallas</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

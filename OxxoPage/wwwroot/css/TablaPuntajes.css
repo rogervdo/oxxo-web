@@ -1,0 +1,102 @@
+.avatar-container {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #e0e0e0;
+}
+
+.avatar-small {
+    border: 2px solid #e0e0e0;
+    background-color: #f8f9fa;
+}
+
+/* Colores personalizados */
+.bg-oxxo-red {
+    background-color: #e91f35 !important;
+}
+
+.text-oxxo-red {
+    color: #e91f35 !important;
+}
+
+/* Colores para medallas según puntuación */
+.text-purple {
+    color: #8e44ad;
+}
+
+.text-indigo {
+    color: #6610f2;
+}
+
+.text-teal {
+    color: #20c997;
+}
+
+/* Estilos para las tarjetas métricas */
+.metric-card {
+    transition: transform 0.2s;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+}
+
+.rounded-icon {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Estilos para el podio */
+.podium-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.podium-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.medal-icon, .trophy-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.medal-number {
+    position: absolute;
+    font-size: 0.8rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Animaciones para destacar cambios en los puntajes */
+@keyframes highlight {
+    0% { background-color: rgba(255, 255, 0, 0.3); }
+    100% { background-color: transparent; }
+}
+
+.highlight {
+    animation: highlight 2s ease-out;
+}
+
+/* Estilos responsivos */
+@media (max-width: 767.98px) {
+    .podium-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .podium-item {
+        margin-bottom: 20px;
+    }
+}
