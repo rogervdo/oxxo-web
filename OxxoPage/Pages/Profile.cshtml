@@ -4,6 +4,61 @@
     ViewData["Title"] = "Perfil de Usuario";
     ViewData["NavTitle"] = "Perfil de Usuario";
 }
-<h1>@ViewData["Title"]</h1>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/css/Profile.css" asp-append-version="true">
+    </head>
+        <body>
+            <div class="background-container">
+                <div class="background-red"></div>
+                <div class="background-yellow"></div>
+            </div>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container mt-4 content">
+
+
+    <div class="row align-items-center profile-header">
+        <div class="col-auto profile-img-container">
+            <img src="~/img/perfil.jpg" class="rounded-circle profile-img" alt="Foto de Perfil">
+        </div>
+        <div class="col row profile-text">
+            <h1>@Model.UserName</h1>
+            <h4 class="text-muted">@Model.Role</h4>
+        </div>
+            <div class="row col-2 profile-edit">
+            <a href="/EditarPerfil" class="card text-center shadow align-items-center justify-content-center">
+                <h4 class="m-0 me-3">Editar Perfil</h4>
+                <img src="~/img/lapiz.png" class="card-image" alt="Icono">
+            </a>
+        </div>
+    </div>
+            <div class="progress cont mt-2 level-bar">
+            <div class="progress-bar" role="progressbar" style="width: @(Model.Progress)%" aria-valuenow="@Model.Progress" aria-valuemin="0" aria-valuemax="100">@Model.CurrentXP/@Model.RequiredXP</div>
+        </div>
+            <p>Nivel @Model.Level</p>
+    
+    
+
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h3>Biografía</h3>
+            <p>@Model.Biography</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Logros</h3>
+            <ul class="list-group">
+                @foreach (var achievement in Model.Achievements)
+                {
+                    <li class="list-group-item">
+                        <strong>@achievement.Title</strong><br>
+                        @achievement.Date - @achievement.Score/@achievement.TotalCorrect respuestas correctas
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

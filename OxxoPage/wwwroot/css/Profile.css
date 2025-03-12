@@ -1,0 +1,69 @@
+.background-container {
+    position: absolute;
+    width: 100%;
+    height: 12vh;
+    top: 0;
+    left: 0;
+}
+
+.background-red {
+    width: 100%;
+    height: 250px;
+    background-color: #DE2924;
+}
+
+.background-yellow {
+    width: 100%;
+    height: 30px;
+    background-color: #FDC32F;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    padding-top: 90px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+}
+
+.profile-text{
+    margin-top: 120px;
+    align-items: flex-end;
+}
+
+.profile-img {
+    width: 220px;
+    height: 220px;
+    border: 8px solid #DE2924;
+}
+
+.level-bar {
+    height: 20px; 
+    width: 300px;
+    border-radius: 10px;
+}
+
+.profile-edit .card {
+    margin-top: 100px;
+    flex-direction: row;
+    background: #FAFAFA;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: black;
+    height: 20px;
+    width: 170px;
+}
+
+.profile-edit h4 {
+    font-size: 16px;
+}
+
+.card-image {
+    width: 20px;
+    height: 20px;
+}
