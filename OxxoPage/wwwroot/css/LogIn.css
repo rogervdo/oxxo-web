@@ -1,87 +1,114 @@
 body {
-    background-color: #f0f0f0; /* Fondo gris claro */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    background-color: #fafafa;
+    font-family: Arial, sans-serif;
 }
 
-.contenedorLogIn {
-    background-color: white;
+.login-container {
+    background: #9b101a; /* Rojo OXXO */
+    padding: 65px 40px 50px; /* Más padding arriba */
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 350px;
     text-align: center;
+    width: 400px; /* Aumentar ancho */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 3px solid black; /* Borde negro */
+    position: relative;
 }
 
-.contenedorLogIn img {
-    width: 120px;
+.logo {
+    width: 200px;
     margin-bottom: 20px;
 }
 
-.botones {
-    background: #8B0000; /* Rojo oscuro */
-    border-radius: 10px;
-    padding: 20px;
-    position: relative;
-    color: white;
-}
-
-.botones::before {
-    content: "";
-    position: absolute;
-    top: 10%;
-    left: 15%;
-    width: 80%;
-    height: 80%;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-}
-
-.USUARIO, .PASSWORD {
+.input-container {
+    display: flex;
+    flex-direction: column;
     text-align: left;
+    margin-top: 40px; /* Espacio entre el logo y los inputs */
+}
+
+/* Contenedor del input con icono */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 10px;
+    color: white; /* Ícono en blanco */
+    font-size: 20px;
+    top: 35%; /* Subir icono */
+    transform: translateY(-50%);
+}
+
+/* Estilo de los inputs transparentes */
+.input-wrapper input {
+    width: 100%;
+    padding: 12px;
+    padding-left: 40px; /* Espacio para el ícono */
     margin-bottom: 15px;
+    border-radius: 5px;
+    border: 2px solid white; /* Mantiene visible el borde */
+    font-size: 16px;
+    background-color: transparent; /* Fondo transparente */
+    color: white; /* Texto en blanco */
+    outline: none; /* Quita borde azul al hacer clic */
 }
 
-.USUARIO label, .PASSWORD label {
+/* Placeholder en blanco con opacidad */
+::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 1;
+}
+
+/* "¿Olvidaste tu contraseña?" alineado a la derecha y subrayado */
+.forgot-password {
+    color: #e8a042;
     font-size: 14px;
-    font-weight: bold;
-}
-
-input {
-    width: 100%;
-    padding: 8px;
-    border: none;
-    border-radius: 5px;
-    margin-top: 5px;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background: white;
-    color: #8B0000;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
     cursor: pointer;
+    margin-bottom: 15px;
+    text-align: right; /* Alineado a la derecha */
+    text-decoration: underline; /* Subrayado */
+}
+
+/* Botón sin negrita */
+.btn {
+    background: white;
+    color: black;
+    padding: 12px;
+    border: none;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: normal; /* Quitar negrita */
+    margin-bottom: 20px;
+}
+
+/* Línea divisora entre el botón y el texto */
+.divider {
+    width: 97%; /* No llega hasta el borde */
+    height: 1px;
+    background-color: white;
+    margin: 10px auto;
+}
+
+/* Texto amarillo subrayado */
+.register-text {
+    color: white;
     margin-top: 10px;
 }
 
-button:hover {
-    background: #ddd;
-}
-
-a {
-    display: block;
-    font-size: 12px;
-    color: yellow;
-    text-decoration: none;
-    margin-top: 10px;
-}
-
-a:hover {
-    text-decoration: underline;
+.register-link {
+    color: #e8a042;
+    font-size: 14px;
+    cursor: pointer;
+    padding-left: 115px;
+    text-decoration: underline; /* Subrayado */
 }
