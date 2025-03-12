@@ -3,44 +3,52 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OxxoPage</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/OxxoPage.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Navbar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/OxxoPage.styles.css" asp-append-version="true"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">OxxoPage</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        <nav class="navbar navbar-expand-sm navbar-light border-bottom texto">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-left col-3">
+                    <a class="navbar-brand" href="/Profile">
+                        <img src="~/img/Logo.png" alt="OXXO">
+                        <span id="page-title" style="font-size: 20px;">@ViewData["NavTitle"]</span>
+                    </a>
+                </div>
+                <div class="text-center flex-grow-1 align-items-center col-5">
+                    <span class="navbar-text" id="datetime"></span> 
+                    @*<p>hola</p>*@
+                </div>
+                <div class="d-flex align-items-right user-info ">
+                    <span class="me-2">Hola, Usuario</span>
+                    <img src="~/img/perfil.jpg" alt="Avatar" class="rounded-circle me-3">
+                    <div class="nav-icons d-flex">
+                        <a href="#" class="text-center">
+                            <img src="~/img/undo.png" alt="Regresar">
+                            <span style="color:  #555555; font-size: 14px;">Regresar</span>
+                        </a>
+                        <a href="/" class="text-center ms-2">
+                            <img src="~/img/log-out.png" alt="Cerrar sesión">
+                            <span style="color:  #555555; font-size: 14px;">Cerrar Sesión</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - OxxoPage - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

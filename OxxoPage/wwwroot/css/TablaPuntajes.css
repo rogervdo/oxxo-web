@@ -1,0 +1,206 @@
+/* Estilos generales */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Margen superior para separar del navbar */
+.container-fluid.mt-5 {
+    margin-top: 2rem !important;
+}
+
+/* Tarjetas de métricas */
+.card {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.display-4 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.display-3 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Estilos para el podio */
+.podium-container {
+    padding: 1rem 0.5rem;
+}
+
+.podium-item {
+    display: flex;
+    justify-content: center;
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+    overflow: hidden;
+}
+
+.bg-info.bg-opacity-10 {
+    background-color: rgba(13, 202, 240, 0.1) !important;
+}
+
+/* Etiquetas de nombre */
+.bg-primary {
+    background-color: #0d6efd !important;
+}
+
+/* Rectángulos de medallas */
+.medal-rectangle {
+    width: 100%;
+    background-color: #e91f35 !important;
+}
+
+.position-circle {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #e91f35;
+}
+
+/* Borde vertical entre podio y tabla */
+.vertical-separator {
+    width: 1px;
+    background-color: rgba(0,0,0,0.1);
+    height: 100%;
+    position: absolute;
+    left: 41.666%;
+}
+
+/* Tabla de clasificación */
+.table-container {
+    height: auto;
+    overflow-y: visible;
+    padding: 15px;
+
+}
+
+/* Tabla con bordes externos y esquinas redondeadas, sin bordes internos */
+.rounded-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+.rounded-table th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.rounded-table th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.rounded-table tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+.rounded-table tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+/* Quitar bordes internos pero mantener borde externo y separadores horizontales */
+.no-inner-borders {
+    border: 1px solid #dee2e6;
+}
+
+.no-inner-borders th,
+.no-inner-borders td {
+    border: none !important;
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.no-inner-borders tr:last-child td {
+    border-bottom: none !important;
+}
+
+.table {
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.table th {
+    font-weight: 600;
+    color: #6c757d;
+    padding: 0.75rem 1rem;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.table td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Colores para medallas según puntuación */
+.text-purple {
+    color: #8e44ad !important;
+}
+
+.text-indigo {
+    color: #6610f2 !important;
+}
+
+.col-md-7 {
+    padding-top: 20px;
+}
+
+
+/* Primer lugar (rectángulo central) */
+.podium-item:nth-child(2) .medal-rectangle {
+    height: 530px !important; /* Aumentado de 430px */
+}
+
+/* Segundo lugar (rectángulo izquierdo) */
+.podium-item:nth-child(1) .medal-rectangle {
+    height: 470px !important; /* Aumentado de 370px */
+}
+
+/* Tercer lugar (rectángulo derecho) */
+.podium-item:nth-child(3) .medal-rectangle {
+    height: 420px !important; /* Aumentado de 320px */
+}
+
+.table td {
+    padding-top: 1.5rem !important;    /* Aumenta el padding superior */
+    padding-bottom: 1.0rem !important; /* Aumenta el padding inferior */
+    line-height: 2rem;                /* Aumenta el alto de línea */
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    .podium-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .podium-item {
+        width: 100% !important;
+        max-width: 200px;
+        margin-bottom: 20px;
+    }
+    
+    .vertical-separator {
+        display: none !important;
+    }
+    
+    .display-3 {
+        font-size: 3rem;
+    }
+    
+    .medal-rectangle {
+        height: auto !important;
+        min-height: 150px;
+    }
+}

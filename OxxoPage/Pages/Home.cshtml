@@ -1,8 +1,59 @@
-﻿@page
+﻿@page "/Inicio"
 @model Home
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Inicio";
+    ViewData["NavTitle"] = "Inicio";
 }
-<h1>@ViewData["Title"]</h1>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/css/Home.css" asp-append-version="true">
+    </head>
+    <body class="gradient">
+        <div class="d-flex mt-4 text-center justify-content-center align-items-center">
+            <img src="~/img/perfil.jpg" alt="imagen" class="usuario">
+            <div class="texto">
+                <h1>¡Bienvenido de vuelta usuario!</h1>
+            </div>
+        </div>
 
-<p>Use this page to detail your site's privacy policy.</p>
+        <div class="container mt-4">
+            <div class="container mt-4">
+                <div class="row g-3 justify-content-center">
+                    <!-- Primera fila -->
+                    <div class="col-md-5 mb-2">
+                        <div class="card text-center p-3 shadow">
+                            <i class="bi bi-bar-chart fs-1 text-secondary"></i>
+                            <h5 class="mt-2">Tablero de datos</h5>
+                            <img src="~/img/crecimiento.png" class=" card-image" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="card text-center p-3 shadow">
+                            <i class="bi bi-person fs-1 text-secondary"></i>
+                            <h5 class="mt-2">Mi perfil</h5>
+                            <img src="~/img/usuarios.png" class=" card-image" alt="">
+                        </div>
+                    </div>
+
+                    <!-- Segunda fila -->
+                    <div class="col-md-5">
+                        <div class="card text-center p-3 shadow">
+                            <i class="bi bi-trophy fs-1 text-secondary"></i>
+                            <h5 class="mt-2">Tabla de puntajes</h5>
+                            <img src="~/img/leaderboard-icon.png" class=" card-image" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="card text-center p-3 shadow">
+                            <i class="bi bi-controller fs-1 text-secondary"></i>
+                            <h5 class="mt-2">Mis juegos</h5>
+                            <img src="~/img/consola.png" class=" card-image" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </body>
+</html>
