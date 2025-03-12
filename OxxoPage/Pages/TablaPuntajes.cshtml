@@ -7,23 +7,22 @@
 <!-- Referencia al archivo de estilos personalizado -->
 <link rel="stylesheet" href="~/css/TablaPuntajes.css" />
 
-<div class="container mt-4">
-    <h2 class="mb-4">Tabla de puntajes</h2>
-    
-    <!-- Tarjetas de métricas -->
+<!-- Margen superior adicional para separar de la navbar -->
+<div class="container-fluid p-3 mt-5">
+    <!-- Tarjetas de métricas (primera fila) -->
     <div class="row mb-4">
         <!-- Total de medallas del mes -->
         <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-3">
                     <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center me-3" style="width: 70px; height: 70px; min-width: 70px;">
                             <i class="bi bi-award text-white" style="font-size: 2rem;"></i>
                         </div>
-                        <div class="ms-3">
-                            <h6 class="card-subtitle mb-1">Total de medallas del mes</h6>
-                            <h1 class="card-title mb-0">147</h1>
-                            <p class="card-text text-muted"><span class="text-warning">81,6%</span> de meta mensual alcanzada</p>
+                        <div>
+                            <div class="text-muted mb-1">Total de medallas del mes</div>
+                            <h1 class="display-4 fw-bold mb-0">147</h1>
+                            <p class="mb-0"><span class="text-warning fw-bold">81,6%</span> de meta mensual alcanzada</p>
                         </div>
                     </div>
                 </div>
@@ -32,16 +31,16 @@
         
         <!-- Capacitaciones del día -->
         <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-3">
                     <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-success d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <div class="rounded-circle bg-success d-flex align-items-center justify-content-center me-3" style="width: 70px; height: 70px; min-width: 70px;">
                             <i class="bi bi-graph-up text-white" style="font-size: 2rem;"></i>
                         </div>
-                        <div class="ms-3">
-                            <h6 class="card-subtitle mb-1">Capacitaciones del día</h6>
-                            <h1 class="card-title mb-0">13</h1>
-                            <p class="card-text text-muted"><span class="text-success">109,72%</span> de meta diaria alcanzada</p>
+                        <div>
+                            <div class="text-muted mb-1">Capacitaciones del día</div>
+                            <h1 class="display-4 fw-bold mb-0">13</h1>
+                            <p class="mb-0"><span class="text-success fw-bold">109,72%</span> de meta diaria alcanzada</p>
                         </div>
                     </div>
                 </div>
@@ -50,16 +49,16 @@
         
         <!-- Meta del mes -->
         <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-3">
                     <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-danger d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <div class="rounded-circle bg-danger d-flex align-items-center justify-content-center me-3" style="width: 70px; height: 70px; min-width: 70px;">
                             <i class="bi bi-bullseye text-white" style="font-size: 2rem;"></i>
                         </div>
-                        <div class="ms-3">
-                            <h6 class="card-subtitle mb-1">Meta del mes</h6>
-                            <h1 class="card-title mb-0">180</h1>
-                            <p class="card-text text-muted"><span class="text-danger">33</span> cursos para alcanzar la meta</p>
+                        <div>
+                            <div class="text-muted mb-1">Meta del mes</div>
+                            <h1 class="display-4 fw-bold mb-0">180</h1>
+                            <p class="mb-0"><span class="text-danger fw-bold">33</span> cursos para alcanzar la meta</p>
                         </div>
                     </div>
                 </div>
@@ -67,98 +66,111 @@
         </div>
     </div>
     
-    <!-- Podio y tabla de clasificación -->
-    <div class="row">
-        <!-- Podio con avatares -->
-        <div class="col-md-5">
-            <div class="d-flex justify-content-around align-items-end mb-4">
-                <!-- Segundo lugar -->
-                <div class="text-center">
-                    <div class="position-relative mb-2">
-                        <div class="avatar-container" style="width: 110px; height: 110px; background-color: #f0f0f0; border-radius: 50%; overflow: hidden; border: 4px solid #e0e0e0;">
-                            <img src="~/assets/img/nicki.jpeg" class="w-100 h-100 object-fit-cover" alt="Nicki Minaj">
+    <!-- Contenedor blanco que abarca toda la sección inferior -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="row g-0">
+                <!-- Columna del podio -->
+                <div class="col-md-5 d-flex align-items-start">
+                    <div class="podium-container d-flex justify-content-around align-items-end w-100">
+                        <!-- Segundo lugar (izquierda) -->
+                        <div class="podium-item" style="width: 29%;">
+                            <div class="d-flex flex-column align-items-center">
+                                <!-- Avatar y etiqueta de nombre -->
+                                <div class="position-relative mb-2">
+                                    <div class="rounded-circle overflow-hidden bg-info bg-opacity-10" style="width: 90px; height: 90px;">
+                                        <img src="~/assets/img/nicki.jpeg" class="w-100 h-100 object-fit-cover" alt="Nicki Minaj">
+                                    </div>
+                                    <div class="bg-primary text-white px-2 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x" style="font-size: 0.85rem; white-space: nowrap;">
+                                        Nicki Minaj
+                                    </div>
+                                </div>
+                                
+                                <!-- Rectángulo rojo con número 2 -->
+                                <div class="medal-rectangle bg-danger text-white d-flex flex-column align-items-center" style="height: 370px;">
+                                    <div class="position-circle bg-white text-danger rounded-circle d-flex align-items-center justify-content-center mb-1" style="width: 25px; height: 25px; margin-top: 10px;">
+                                        2
+                                    </div>
+                                    <h1 class="display-3 fw-bold mb-0">22</h1>
+                                    <p class="mb-0">Medallas</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="bg-primary text-white px-3 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x">
-                            Nicki Minaj
+                        
+                        <!-- Primer lugar (centro) -->
+                        <div class="podium-item" style="width: 33%;">
+                            <div class="d-flex flex-column align-items-center">
+                                <!-- Avatar y etiqueta de nombre -->
+                                <div class="position-relative mb-2">
+                                    <div class="rounded-circle overflow-hidden bg-info bg-opacity-10" style="width: 110px; height: 110px;">
+                                        <img src="~/assets/img/ibai.png" class="w-100 h-100 object-fit-cover" alt="Ibai Pelirojo">
+                                    </div>
+                                    <div class="bg-primary text-white px-2 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x" style="font-size: 0.85rem; white-space: nowrap;">
+                                        Ibai Pelirojo
+                                    </div>
+                                </div>
+                                
+                                <!-- Rectángulo rojo más largo (primer lugar) -->
+                                <div class="medal-rectangle bg-danger text-white d-flex flex-column align-items-center pt-3" style="height: 430px;">
+                                    <h1 class="display-3 fw-bold mb-0">24</h1>
+                                    <p class="mb-0">Medallas</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="bg-danger text-white p-2 rounded text-center" style="width: 110px;">
-                        <div class="medal-icon">
-                            <i class="bi bi-award-fill"></i>
-                            <span class="position-absolute" style="font-size: 0.8rem; top: 50%; left: 50%; transform: translate(-50%, -50%);">2</span>
+                        
+                        <!-- Tercer lugar (derecha) -->
+                        <div class="podium-item" style="width: 29%;">
+                            <div class="d-flex flex-column align-items-center">
+                                <!-- Avatar y etiqueta de nombre -->
+                                <div class="position-relative mb-2">
+                                    <div class="rounded-circle overflow-hidden bg-info bg-opacity-10" style="width: 90px; height: 90px;">
+                                        <img src="~/assets/img/shakira.jpg" class="w-100 h-100 object-fit-cover" alt="Shakira">
+                                    </div>
+                                    <div class="bg-primary text-white px-2 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x" style="font-size: 0.85rem; white-space: nowrap;">
+                                        Shakira
+                                    </div>
+                                </div>
+                                
+                                <!-- Rectángulo rojo con número 3 (más corto) -->
+                                <div class="medal-rectangle bg-danger text-white d-flex flex-column align-items-center" style="height: 320px;">
+                                    <div class="position-circle bg-white text-danger rounded-circle d-flex align-items-center justify-content-center mb-1" style="width: 25px; height: 25px; margin-top: 10px;">
+                                        3
+                                    </div>
+                                    <h1 class="display-3 fw-bold mb-0">21</h1>
+                                    <p class="mb-0">Medallas</p>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="mb-0">22</h3>
-                        <p class="mb-0">Medallas</p>
                     </div>
                 </div>
                 
-                <!-- Primer lugar -->
-                <div class="text-center">
-                    <div class="position-relative mb-2">
-                        <div class="avatar-container" style="width: 130px; height: 130px; background-color: #f0f0f0; border-radius: 50%; overflow: hidden; border: 4px solid #e0e0e0;">
-                            <img src="~/assets/img/ibai.png" class="w-100 h-100 object-fit-cover" alt="Ibai Pelirojo">
-                        </div>
-                        <div class="bg-primary text-white px-3 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x">
-                            Ibai Pelirojo
-                        </div>
-                    </div>
-                    <div class="bg-danger text-white p-2 rounded text-center" style="width: 130px;">
-                        <div class="trophy-icon text-center mb-1">
-                            <i class="bi bi-trophy-fill" style="font-size: 2rem;"></i>
-                        </div>
-                        <h3 class="mb-0">24</h3>
-                        <p class="mb-0">Medallas</p>
-                    </div>
-                </div>
+                <!-- Borde vertical sutil entre el podio y la tabla -->
+                <div class="vertical-separator d-none d-md-block"></div>
                 
-                <!-- Tercer lugar -->
-                <div class="text-center">
-                    <div class="position-relative mb-2">
-                        <div class="avatar-container" style="width: 110px; height: 110px; background-color: #f0f0f0; border-radius: 50%; overflow: hidden; border: 4px solid #e0e0e0;">
-                            <img src="~/assets/img/shakira.jpg" class="w-100 h-100 object-fit-cover" alt="Shakira">
-                        </div>
-                        <div class="bg-primary text-white px-3 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x">
-                            Shakira
-                        </div>
-                    </div>
-                    <div class="bg-danger text-white p-2 rounded text-center" style="width: 110px;">
-                        <div class="medal-icon">
-                            <i class="bi bi-award-fill"></i>
-                            <span class="position-absolute" style="font-size: 0.8rem; top: 50%; left: 50%; transform: translate(-50%, -50%);">3</span>
-                        </div>
-                        <h3 class="mb-0">21</h3>
-                        <p class="mb-0">Medallas</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Tabla de clasificación -->
-        <div class="col-md-7">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
+                <!-- Columna de la tabla -->
+                <div class="col-md-7">
+                    <div class="table-container pt-3">
+                        <table class="table no-inner-borders rounded-table mb-0 text-center">
                             <thead>
                                 <tr>
-                                    <th scope="col">Posición</th>
-                                    <th scope="col">Foto</th>
-                                    <th scope="col">Colaborador</th>
+                                    <th scope="col" class="text-center">Posición</th>
+                                    <th scope="col" class="text-center">Foto</th>
+                                    <th scope="col" class="text-center">Colaborador</th>
                                     <th scope="col" class="text-center">Medallas</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var colaborador in Model.Colaboradores)
                                 {
-                                    <tr class="border-bottom">
-                                        <td class="align-middle">@colaborador.Posicion</td>
-                                        <td>
-                                            <div class="avatar-small rounded-circle" style="width: 45px; height: 45px; overflow: hidden;">
+                                    <tr>
+                                        <td class="align-middle text-center">@colaborador.Posicion</td>
+                                        <td class="text-center">
+                                            <div class="rounded-circle overflow-hidden mx-auto" style="width: 40px; height: 40px; border: 2px solid #f0f0f0;">
                                                 <img src="~/assets/img/@colaborador.ImagenUrl" class="w-100 h-100 object-fit-cover" alt="@colaborador.Nombre">
                                             </div>
                                         </td>
-                                        <td class="align-middle">@colaborador.Nombre</td>
-                                        <td class="align-middle text-center fw-bold @(colaborador.Medallas > 15 ? "text-purple" : "")">@colaborador.Medallas</td>
+                                        <td class="align-middle text-center">@colaborador.Nombre</td>
+                                        <td class="align-middle text-center fw-bold @(colaborador.Medallas > 15 ? "text-purple" : colaborador.Medallas > 10 ? "text-indigo" : "")">@colaborador.Medallas</td>
                                     </tr>
                                 }
                             </tbody>
