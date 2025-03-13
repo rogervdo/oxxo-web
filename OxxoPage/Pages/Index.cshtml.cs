@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
+using OxxoPage.Model; // Asegúrate de importar el contexto de la BD
 
 namespace OxxoPage.Pages
 {
@@ -15,12 +16,17 @@ namespace OxxoPage.Pages
 
         public string? MensajeError { get; set; }
 
+        private readonly DataBaseContext _db;
+
+        public IndexModel()
+        {
+            _db = new DataBaseContext(); // Inicializa la conexión a la BD
+        }
+
         public void OnGet()
         {
-            // Limpiar mensajes al cargar la página
             MensajeError = "";
         }
-        
 
         public IActionResult OnPost()
         {
@@ -30,14 +36,11 @@ namespace OxxoPage.Pages
                 return Page();
             }
 
-            // Simulación de credenciales correctas (puedes cambiar esto con una base de datos)
-            if (Usuario == "1" && Contrasena == "1")
+            // ⚡ Verifica si el usuario existe en la base de datos
+            if (_db.LoginUser(Usuario, Contrasena))
             {
-                // Guardamos el usuario en la sesión
-                HttpContext.Session.SetString("Usuario", Usuario);
-
-                // Redirigir a otra página después del login exitoso
-                return RedirectToPage("/Home");
+                HttpContext.Session.SetString("Usuario", Usuario); // Guarda la sesión
+                return RedirectToPage("/Home"); // Redirige a la página principal
             }
             else
             {
@@ -47,4 +50,3 @@ namespace OxxoPage.Pages
         }
     }
 }
-

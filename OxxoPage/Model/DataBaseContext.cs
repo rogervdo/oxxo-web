@@ -85,6 +85,32 @@ namespace OxxoPage.Model
             }
         }
 
+        // Método para verificar login (versión alternativa)
+        public bool LoginUser(string usuario, string contrasena)
+        {
+            using (var conexion = GetConnection())
+            {
+                try
+                {
+                    conexion.Open();
+                    string query = "SELECT COUNT(*) FROM usuarios WHERE nickname = @nickname AND contrasena = @contrasena";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nickname", usuario);
+                        cmd.Parameters.AddWithValue("@contrasena", contrasena);
+
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+                        return count > 0; // Retorna `true` si hay una coincidencia
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error en el login: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
         // Método para registrar un nuevo usuario
         public bool SignUp(string nombre, string nickname, string contrasena, string correoElectronico)
         {
@@ -298,13 +324,13 @@ namespace OxxoPage.Model
                 {
                     Console.WriteLine("Error general al obtener métricas: " + ex.Message);
                     // Establecer valores predeterminados para todas las métricas
-                    metricas.TotalLogros = 000;
-                    metricas.MetaMensual = 000;
-                    metricas.CapacitacionesDia = 000;
-                    metricas.MetaDiaria = 000;
-                    metricas.PorcentajeMeta = 000m;
-                    metricas.LogrosFaltantes = 000;
-                    metricas.PorcentajeMetaDiaria = 000m;
+                    metricas.TotalLogros = 147;
+                    metricas.MetaMensual = 180;
+                    metricas.CapacitacionesDia = 13;
+                    metricas.MetaDiaria = 6;
+                    metricas.PorcentajeMeta = 81.6m;
+                    metricas.LogrosFaltantes = 33;
+                    metricas.PorcentajeMetaDiaria = 109.72m;
                 }
             }
 

@@ -22,23 +22,23 @@
             <div class="input-container">
                 <div class="input-wrapper">
                     <i class="fa fa-user"></i>
-                    <input asp-for="User.Nombre" placeholder="Nombre Completo" required>
+                    <input asp-for="Usuario.Nombre" placeholder="Nombre Completo" required>
                 </div>
                 <div class="input-wrapper">
                     <i class="fa fa-envelope"></i>
-                    <input asp-for="User.Correo" type="email" placeholder="Correo Electrónico" required>
+                    <input asp-for="Usuario.Correo" type="email" placeholder="Correo Electrónico" required>
                 </div>
                 <div class="input-wrapper">
                     <i class="fa fa-id-card"></i>
-                    <input asp-for="User.Nomina" placeholder="Número de Nómina" required>
+                    <input asp-for="Usuario.Nickname" placeholder="Nickname" required>
                 </div>
                 <div class="input-wrapper">
                     <i class="fa fa-lock"></i>
-                    <input asp-for="User.Contrasena" type="password" placeholder="Contraseña" required>
+                    <input asp-for="Usuario.Contrasena" type="password" placeholder="Contraseña" required>
                 </div>
                 <div class="input-wrapper">
                     <i class="fa fa-lock"></i>
-                    <input asp-for="User.ConfirmarContrasena" type="password" placeholder="Confirmar Contraseña" required>
+                    <input asp-for="Usuario.ConfirmarContrasena" type="password" placeholder="Confirmar Contraseña" required>
                 </div>
             </div>
             <button type="submit" class="btn">CREAR CUENTA</button>
