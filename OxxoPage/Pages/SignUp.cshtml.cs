@@ -28,7 +28,7 @@ namespace OxxoPage.Pages
                 return Page(); // Si hay errores, vuelve a mostrar la página con los mensajes de error
             }
 
-            bool registrado = _db.SignUp(Usuario.Nombre, Usuario.Nickname, Usuario.Contrasena, Usuario.Correo);
+            bool registrado = _db.SignUp(Usuario.Nombre, Usuario.ApellidoMaterno, Usuario.ApellidoPaterno, Usuario.Nickname, Usuario.Contrasena, Usuario.Correo);
 
             if (registrado)
             {
@@ -47,7 +47,12 @@ namespace OxxoPage.Pages
         [Required(ErrorMessage = "El nombre es obligatorio")]
         public string Nombre { get; set; } = "";
 
-        [Required(ErrorMessage = "El correo es obligatorio")]
+        [Required(ErrorMessage = "El apellido paterno es obligatorio")]
+        public string ApellidoPaterno { get; set; } = "";
+
+        [Required(ErrorMessage = "El apellido materno es obligatorio")]
+        public string ApellidoMaterno { get; set; } = "";
+ 
         [EmailAddress(ErrorMessage = "El formato del correo es inválido")]
         public string Correo { get; set; } = "";
 

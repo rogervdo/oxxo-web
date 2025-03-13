@@ -1,5 +1,7 @@
 @page "/SignUp"
 @model SignUpModel
+@using OxxoPage.Model
+
 @{
     ViewData["Title"] = "Registro OXXO";
     Layout = null;
@@ -23,6 +25,14 @@
                 <div class="input-wrapper">
                     <i class="fa fa-user"></i>
                     <input asp-for="Usuario.Nombre" placeholder="Nombre Completo" required>
+                </div>
+                <div class="input-wrapper">
+                    <i class="fa fa-user"></i>
+                    <input asp-for="Usuario.ApellidoPaterno" placeholder="Apellido Paterno" required>
+                </div>
+                <div class="input-wrapper">
+                    <i class="fa fa-user"></i>
+                    <input asp-for="Usuario.ApellidoMaterno" placeholder="Apellido Materno" required>
                 </div>
                 <div class="input-wrapper">
                     <i class="fa fa-envelope"></i>
