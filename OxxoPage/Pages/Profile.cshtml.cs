@@ -12,7 +12,7 @@ public class Profile : PageModel
     public int RequiredXP { get; set; } = 6000;
     public double Progress => (double)CurrentXP / RequiredXP * 100;
     public string Biography { get; set; } = "Texto de biografía...";
-    public string ProfileImageUrl { get; set; } = "~/img/perfil.jpg";
+    public string ProfileImageUrl { get; set; } = "perfil.jpg";
     
     public List<Achievement> Achievements { get; set; } = new()
     {
