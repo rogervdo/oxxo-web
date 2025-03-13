@@ -11,10 +11,13 @@ namespace OxxoPage.Model
 
         public DataBaseContext()
         {
+            //Emilio
             //"Server=127.0.0.1;Port=3306;Database=bdTest3;Uid=root;Password=root1234;"
-
+            
+            //Pablo
             //ConnectionString = "Server=127.0.0.1;Port=3306;Database=BD_OXXO;Uid=root;Password=root";
 
+            //Jordy
             //ConnectionString = "Server=127.0.0.1;Port=3306;Database=DB_OXXO;Uid=root;Password=root1234";
 
         }
@@ -188,7 +191,7 @@ namespace OxxoPage.Model
                                 IdUsuario = Convert.ToInt32(reader["id_usuario"]),
                                 Nombre = reader["nombre_completo"].ToString(),
                                 Nickname = reader["nickname"].ToString(),
-                                Fotografia = reader["fotografia"] == DBNull.Value ? "default-user.jpg" : reader["fotografia"].ToString(),
+                                Fotografia = reader["fotografia"] == DBNull.Value ? "default.png" : reader["fotografia"].ToString(),
                                 Medallas = medallas,
                                 Posicion = 0 // Se calculará después de ordenar
                             };
@@ -346,5 +349,129 @@ namespace OxxoPage.Model
         }
         
         // Puedes agregar más métodos según sea necesario para otras funcionalidades
+
+        public Usuarios ObtenerDatosUsuario(string nickname)
+        {
+            Usuarios usuario = null;
+            using (var conexion = GetConnection())
+            {
+                try
+                {
+                    conexion.Open();
+                    string query = "SELECT id_usuario, nombre, apellido_paterno, apellido_materno, fotografia, about_me FROM usuarios WHERE nickname = @nickname";
+                    using (var cmd = new MySqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nickname", nickname);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                usuario = new Usuarios
+                                {
+                                    IdUsuario = Convert.ToInt32(reader["id_usuario"]),
+                                    Nombre = reader["nombre"].ToString(),
+                                    ApellidoPaterno = reader["apellido_paterno"]?.ToString() ?? "",
+                                    ApellidoMaterno = reader["apellido_materno"]?.ToString() ?? "",
+                                    Fotografia = !string.IsNullOrEmpty(reader["fotografia"].ToString()) ? reader["fotografia"].ToString() : "default.png",
+                                    AboutMe = reader["about_me"]?.ToString() ?? "Este usuario aún no ha escrito su biografía."
+                                };
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener datos del usuario: " + ex.Message);
+                }
+            }
+            return usuario;
+        }
+
+        //Obtener el rol del usuario
+        public string ObtenerRolUsuario(int userId)
+        {
+            using (var conexion = GetConnection())
+            {
+                try
+                {
+                    conexion.Open();
+
+                    string queryAsesor = "SELECT id_usuario FROM asesores WHERE id_usuario = @userId";
+                    using (var cmd = new MySqlCommand(queryAsesor, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows) return "Asesor de Tienda";
+                        }
+                    }
+
+                    string queryGerente = "SELECT id_usuario FROM gerentes WHERE id_usuario = @userId";
+                    using (var cmd = new MySqlCommand(queryGerente, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows) return "Gerente de Plaza";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener el rol del usuario: " + ex.Message);
+                }
+
+                return "Usuario estándar";
+            }
+        }
+
+        public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP)
+            {
+                List<Achievement> logros = new List<Achievement>();
+                currentXP = 0;
+
+                using (var conexion = GetConnection())
+                {
+                    try
+                    {
+                        conexion.Open();
+                        string query = @"
+                            SELECT l.nombre, l.icono, l.experiencia, i.fecha
+                            FROM logrosasesores la
+                            JOIN instancialogro i ON la.id_instancialogro = i.id_instancialogro
+                            JOIN logros l ON i.id_logro = l.id_logro
+                            JOIN usuarios u ON la.id_asesor = u.id_usuario
+                            WHERE u.nickname = @nickname";
+
+                        using (var cmd = new MySqlCommand(query, conexion))
+                        {
+                            cmd.Parameters.AddWithValue("@nickname", nickname);
+                            using (var reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    int xp = Convert.ToInt32(reader["experiencia"]);
+                                    logros.Add(new Achievement(
+                                        reader["nombre"].ToString(),
+                                        Convert.ToDateTime(reader["fecha"]), // 🔹 Fecha real de la BD
+                                        xp,
+                                        reader["icono"].ToString()
+                                    ));
+                                    currentXP += xp; // 🔹 Sumar la experiencia total del usuario
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al obtener logros del usuario: " + ex.Message);
+                    }
+                }
+                return logros;
+            }
+
+
+
+        
     }
 }
