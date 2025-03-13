@@ -11,17 +11,17 @@ namespace OxxoPage.Model
 
         public DataBaseContext()
         {
-            //Emilio
+            // Emilio
             //"Server=127.0.0.1;Port=3306;Database=bdTest3;Uid=root;Password=root1234;"
             
-            //Pablo
-            //ConnectionString = "Server=127.0.0.1;Port=3306;Database=BD_OXXO;Uid=root;Password=root";
+            // Pablo
+            ConnectionString = "Server=127.0.0.1;Port=3306;Database=BD_OXXO;Uid=root;Password=root";
 
-            //Jordy
+            // Jordy
             //ConnectionString = "Server=127.0.0.1;Port=3306;Database=DB_OXXO;Uid=root;Password=root1234";
-
         }
 
+        // Método privado para obtener la conexión a la base de datos
         private MySqlConnection GetConnection()
         {
             return new MySqlConnection(ConnectionString);
@@ -42,6 +42,7 @@ namespace OxxoPage.Model
                     {
                         while (reader.Read())
                         {
+                            // Creación de un usuario a partir de los datos obtenidos de la base de datos
                             Usuarios usuario = new Usuarios
                             {
                                 IdUsuario = Convert.ToInt32(reader["id_usuario"]),
@@ -59,6 +60,7 @@ namespace OxxoPage.Model
                 }
                 catch (Exception ex)
                 {
+                    // Captura de errores en caso de problemas con la conexión o consulta
                     Console.WriteLine("Error al obtener usuarios: " + ex.Message);
                     // En producción, es mejor registrar este error en un log
                 }
@@ -66,7 +68,7 @@ namespace OxxoPage.Model
             return ListaUsuarios;
         }
 
-        // Método para verificar el login
+        // Método para verificar el login del usuario
         public bool Login(string nickname, string contrasena)
         {
             using (var conexion = GetConnection())
@@ -77,6 +79,7 @@ namespace OxxoPage.Model
                     string query = "SELECT COUNT(*) FROM usuarios WHERE nickname = @nickname AND contrasena = @contrasena";
                     using (MySqlCommand cmd = new MySqlCommand(query, conexion))
                     {
+                        // Parámetros de la consulta para evitar inyecciones SQL
                         cmd.Parameters.AddWithValue("@nickname", nickname);
                         cmd.Parameters.AddWithValue("@contrasena", contrasena);
 
@@ -86,13 +89,14 @@ namespace OxxoPage.Model
                 }
                 catch (Exception ex)
                 {
+                    // Manejo de errores en el login
                     Console.WriteLine("Error en el login: " + ex.Message);
                     return false;
                 }
             }
         }
 
-        // Método para verificar login (versión alternativa)
+        // Método alternativo para verificar login (funcionalidad similar al anterior)
         public bool LoginUser(string usuario, string contrasena)
         {
             using (var conexion = GetConnection())
@@ -112,6 +116,7 @@ namespace OxxoPage.Model
                 }
                 catch (Exception ex)
                 {
+                    // Manejo de errores
                     Console.WriteLine("Error en el login: " + ex.Message);
                     return false;
                 }
@@ -120,35 +125,37 @@ namespace OxxoPage.Model
 
         // Método para registrar un nuevo usuario
         public bool SignUp(string nombre, string apellido_materno, string apellido_paterno, string nickname, string contrasena, string correoElectronico)
-{
-    using (var conexion = GetConnection())
-    {
-        try
         {
-            conexion.Open();
-            string query = "INSERT INTO usuarios (nombre, apellido_materno, apellido_paterno, nickname, contrasena, correo_electronico) VALUES (@nombre, @apellido_materno, @apellido_paterno, @nickname, @contrasena, @correoElectronico)";
-            
-            using (MySqlCommand cmd = new MySqlCommand(query, conexion))
+            using (var conexion = GetConnection())
             {
-                cmd.Parameters.AddWithValue("@nombre", nombre);
-                cmd.Parameters.AddWithValue("@apellido_materno", apellido_materno);
-                cmd.Parameters.AddWithValue("@apellido_paterno", apellido_paterno);
-                cmd.Parameters.AddWithValue("@nickname", nickname);
-                cmd.Parameters.AddWithValue("@contrasena", contrasena);
-                cmd.Parameters.AddWithValue("@correoElectronico", correoElectronico);
+                try
+                {
+                    conexion.Open();
+                    // Consulta SQL para insertar un nuevo usuario en la base de datos
+                    string query = "INSERT INTO usuarios (nombre, apellido_materno, apellido_paterno, nickname, contrasena, correo_electronico) VALUES (@nombre, @apellido_materno, @apellido_paterno, @nickname, @contrasena, @correoElectronico)";
+                    
+                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
+                    {
+                        // Parámetros para la consulta
+                        cmd.Parameters.AddWithValue("@nombre", nombre);
+                        cmd.Parameters.AddWithValue("@apellido_materno", apellido_materno);
+                        cmd.Parameters.AddWithValue("@apellido_paterno", apellido_paterno);
+                        cmd.Parameters.AddWithValue("@nickname", nickname);
+                        cmd.Parameters.AddWithValue("@contrasena", contrasena);
+                        cmd.Parameters.AddWithValue("@correoElectronico", correoElectronico);
 
-                int rowsAffected = cmd.ExecuteNonQuery();
-                return rowsAffected > 0;  // Retorna true si se insertó correctamente
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;  // Retorna true si se insertó correctamente
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de errores en el registro
+                    Console.WriteLine("Error al registrar usuario: " + ex.Message);
+                    return false;
+                }
             }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error al registrar usuario: " + ex.Message);
-            return false;
-        }
-    }
-}
-
 
         // Obtener usuarios con medallas para la tabla de puntajes
         public List<Usuarios> GetUsuariosConMedallas()
@@ -160,7 +167,7 @@ namespace OxxoPage.Model
                 {
                     conexion.Open();
 
-                    // Esta consulta obtiene a todos los usuarios que son asesores
+                    // Consulta para obtener todos los usuarios que son asesores
                     string query = @"SELECT 
                              u.id_usuario,
                              u.nombre,
@@ -178,13 +185,12 @@ namespace OxxoPage.Model
                     using (MySqlCommand cmd = new MySqlCommand(query, conexion))
                     using (var reader = cmd.ExecuteReader())
                     {
-                        // Usaremos el ID del asesor para crear un número predecible de medallas
                         while (reader.Read())
                         {
+                            // Asignación de medallas al usuario con base en su id_asesor
                             int idAsesor = Convert.ToInt32(reader["id_asesor"]);
-                            // Usar el id_asesor para determinar el número de medallas
                             int medallas = 25 - (idAsesor % 16); // Asegura valores entre 9 y 24
-                            if (idAsesor <= 3) medallas += 5; // Dar más medallas a los primeros 3
+                            if (idAsesor <= 3) medallas += 5; // Aumentar medallas a los primeros 3
 
                             Usuarios usuario = new Usuarios
                             {
@@ -193,22 +199,22 @@ namespace OxxoPage.Model
                                 Nickname = reader["nickname"].ToString(),
                                 Fotografia = reader["fotografia"] == DBNull.Value ? "default.png" : reader["fotografia"].ToString(),
                                 Medallas = medallas,
-                                Posicion = 0 // Se calculará después de ordenar
+                                Posicion = 0 // La posición se calcula después
                             };
                             listaUsuarios.Add(usuario);
                         }
                     }
 
-                    // Ordenar por número de medallas (descendente)
+                    // Ordenar los usuarios por medallas (de mayor a menor)
                     listaUsuarios = listaUsuarios.OrderByDescending(u => u.Medallas).ToList();
 
-                    // Asignar posiciones después de ordenar
+                    // Asignar posiciones a los usuarios ordenados
                     for (int i = 0; i < listaUsuarios.Count; i++)
                     {
                         listaUsuarios[i].Posicion = i + 1;
                     }
 
-                    // Limitar a solo los primeros 10 usuarios
+                    // Limitar los resultados a los primeros 10
                     if (listaUsuarios.Count > 10)
                     {
                         listaUsuarios = listaUsuarios.Take(10).ToList();
@@ -216,13 +222,14 @@ namespace OxxoPage.Model
                 }
                 catch (Exception ex)
                 {
+                    // Captura de errores al obtener usuarios con medallas
                     Console.WriteLine("Error al obtener usuarios con medallas: " + ex.Message);
                 }
             }
             return listaUsuarios;
         }
 
-        // Obtener las métricas para el dashboard
+        // Obtener las métricas del dashboard
         public DashboardMetricas GetDashboardMetricas()
         {
             DashboardMetricas metricas = new DashboardMetricas();
@@ -233,37 +240,15 @@ namespace OxxoPage.Model
                 {
                     conexion.Open();
 
-                    // Establecemos manualmente la meta mensual
+                    // Establecer la meta mensual
                     metricas.MetaMensual = 180;
 
-                    // Total de logros del mes de marzo 2025
-                    string queryTotalLogros = @"SELECT 
-                                        COUNT(*) as total_logros 
-                                      FROM instancialogro 
-                                      WHERE MONTH(fecha) = 3 
-                                      AND YEAR(fecha) = 2025";
+                    // Consultas para obtener datos del mes de marzo 2025
+                    string queryTotalLogros = @"SELECT COUNT(*) as total_logros FROM instancialogro WHERE MONTH(fecha) = 3 AND YEAR(fecha) = 2025";
+                    string queryTotalLogrosDefinidos = @"SELECT COUNT(*) as total_logros FROM logros";
+                    string queryJuegosDia = @"SELECT COUNT(*) as juegos_dia FROM instanciajuego WHERE DAY(fecha) = 15 AND MONTH(fecha) = 3 AND YEAR(fecha) = 2025";
+                    string queryJuegosTotales = @"SELECT COUNT(*) as juegos_totales FROM juegos";
 
-                    // Si no hay datos en la tabla, vamos a contar los logros disponibles
-                    string queryTotalLogrosDefinidos = @"SELECT 
-                                               COUNT(*) as total_logros 
-                                             FROM logros";
-
-                    // Capacitaciones o juegos del día 15 de marzo
-                    string queryJuegosDia = @"SELECT 
-                                   COUNT(*) as juegos_dia 
-                                 FROM instanciajuego 
-                                 WHERE DAY(fecha) = 15 
-                                 AND MONTH(fecha) = 3 
-                                 AND YEAR(fecha) = 2025";
-
-                    // Si no hay datos, contar juegos totales disponibles
-                    string queryJuegosTotales = @"SELECT 
-                                       COUNT(*) as juegos_totales 
-                                     FROM juegos";
-
-                    // Ejecutar consultas y obtener resultados
-
-                    // 1. Total de logros del mes
                     try
                     {
                         using (MySqlCommand cmd = new MySqlCommand(queryTotalLogros, conexion))
@@ -271,26 +256,22 @@ namespace OxxoPage.Model
                             object result = cmd.ExecuteScalar();
                             metricas.TotalLogros = result != DBNull.Value ? Convert.ToInt32(result) : 0;
 
-                            // Si no hay logros en marzo, contar el total de logros definidos
                             if (metricas.TotalLogros == 0)
                             {
                                 using (MySqlCommand cmdAlt = new MySqlCommand(queryTotalLogrosDefinidos, conexion))
                                 {
                                     object resultAlt = cmdAlt.ExecuteScalar();
                                     metricas.TotalLogros = resultAlt != DBNull.Value ? Convert.ToInt32(resultAlt) * 15 : 147;
-                                    // Multiplicamos por un factor para simular múltiples instancias
                                 }
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        // Si hay error, usar un valor predeterminado
                         Console.WriteLine("Error al obtener total de logros: " + ex.Message);
                         metricas.TotalLogros = 147;
                     }
 
-                    // 2. Capacitaciones o juegos del día
                     try
                     {
                         using (MySqlCommand cmd = new MySqlCommand(queryJuegosDia, conexion))
@@ -298,29 +279,26 @@ namespace OxxoPage.Model
                             object result = cmd.ExecuteScalar();
                             metricas.CapacitacionesDia = result != DBNull.Value ? Convert.ToInt32(result) : 0;
 
-                            // Si no hay juegos ese día, contar el total de juegos disponibles
                             if (metricas.CapacitacionesDia == 0)
                             {
                                 using (MySqlCommand cmdAlt = new MySqlCommand(queryJuegosTotales, conexion))
                                 {
                                     object resultAlt = cmdAlt.ExecuteScalar();
                                     metricas.CapacitacionesDia = resultAlt != DBNull.Value ? Convert.ToInt32(resultAlt) * 4 : 13;
-                                    // Multiplicamos por un factor para simular múltiples instancias
                                 }
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        // Si hay error, usar un valor predeterminado
                         Console.WriteLine("Error al obtener capacitaciones del día: " + ex.Message);
                         metricas.CapacitacionesDia = 13;
                     }
 
-                    // 3. Calcular la meta diaria como la meta mensual dividida entre 30
+                    // Calcular la meta diaria
                     metricas.MetaDiaria = (int)Math.Ceiling(metricas.MetaMensual / 30.0m);
 
-                    // 4. Calcular porcentajes y valores restantes
+                    // Calcular porcentajes y valores restantes
                     metricas.PorcentajeMeta = metricas.MetaMensual > 0
                         ? Math.Round((decimal)metricas.TotalLogros / metricas.MetaMensual * 100, 1)
                         : 0;
@@ -333,8 +311,7 @@ namespace OxxoPage.Model
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error general al obtener métricas: " + ex.Message);
-                    // Establecer valores predeterminados para todas las métricas
+                    Console.WriteLine("Error al obtener métricas: " + ex.Message);
                     metricas.TotalLogros = 147;
                     metricas.MetaMensual = 180;
                     metricas.CapacitacionesDia = 13;
@@ -347,9 +324,8 @@ namespace OxxoPage.Model
 
             return metricas;
         }
-        
-        // Puedes agregar más métodos según sea necesario para otras funcionalidades
 
+        // Obtener los datos del usuario basados en su nickname
         public Usuarios ObtenerDatosUsuario(string nickname)
         {
             Usuarios usuario = null;
@@ -387,7 +363,7 @@ namespace OxxoPage.Model
             return usuario;
         }
 
-        //Obtener el rol del usuario
+        // Obtener el rol del usuario (asesor o gerente)
         public string ObtenerRolUsuario(int userId)
         {
             using (var conexion = GetConnection())
@@ -425,53 +401,48 @@ namespace OxxoPage.Model
             }
         }
 
+        // Obtener los logros de un usuario en función de su nickname
         public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP)
+        {
+            List<Achievement> logros = new List<Achievement>();
+            currentXP = 0;
+
+            using (var conexion = GetConnection())
             {
-                List<Achievement> logros = new List<Achievement>();
-                currentXP = 0;
-
-                using (var conexion = GetConnection())
+                try
                 {
-                    try
-                    {
-                        conexion.Open();
-                        string query = @"
-                            SELECT l.nombre, l.icono, l.experiencia, i.fecha
-                            FROM logrosasesores la
-                            JOIN instancialogro i ON la.id_instancialogro = i.id_instancialogro
-                            JOIN logros l ON i.id_logro = l.id_logro
-                            JOIN usuarios u ON la.id_asesor = u.id_usuario
-                            WHERE u.nickname = @nickname";
+                    conexion.Open();
+                    string query = @"SELECT l.nombre, l.icono, l.experiencia, i.fecha FROM logrosasesores la
+                        JOIN instancialogro i ON la.id_instancialogro = i.id_instancialogro
+                        JOIN logros l ON i.id_logro = l.id_logro
+                        JOIN usuarios u ON la.id_asesor = u.id_usuario
+                        WHERE u.nickname = @nickname";
 
-                        using (var cmd = new MySqlCommand(query, conexion))
+                    using (var cmd = new MySqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nickname", nickname);
+                        using (var reader = cmd.ExecuteReader())
                         {
-                            cmd.Parameters.AddWithValue("@nickname", nickname);
-                            using (var reader = cmd.ExecuteReader())
+                            while (reader.Read())
                             {
-                                while (reader.Read())
-                                {
-                                    int xp = Convert.ToInt32(reader["experiencia"]);
-                                    logros.Add(new Achievement(
-                                        reader["nombre"].ToString(),
-                                        Convert.ToDateTime(reader["fecha"]), // 🔹 Fecha real de la BD
-                                        xp,
-                                        reader["icono"].ToString()
-                                    ));
-                                    currentXP += xp; // 🔹 Sumar la experiencia total del usuario
-                                }
+                                int xp = Convert.ToInt32(reader["experiencia"]);
+                                logros.Add(new Achievement(
+                                    reader["nombre"].ToString(),
+                                    Convert.ToDateTime(reader["fecha"]), // Fecha real de la BD
+                                    xp,
+                                    reader["icono"].ToString()
+                                ));
+                                currentXP += xp; // Sumar la experiencia total del usuario
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error al obtener logros del usuario: " + ex.Message);
-                    }
                 }
-                return logros;
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener logros del usuario: " + ex.Message);
+                }
             }
-
-
-
-        
+            return logros;
+        }
     }
 }
