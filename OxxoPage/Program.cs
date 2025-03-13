@@ -1,8 +1,10 @@
 using Microsoft.Extensions.Options;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddHttpContextAccessor(); // <--- Agregar esto para evitar el error
 
 builder.Services.AddDistributedMemoryCache(); // Necesario para almacenar sesiones
 builder.Services.AddSession(options =>
@@ -14,7 +16,6 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 app.UseSession(); // Habilitar sesiones en la aplicación
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
