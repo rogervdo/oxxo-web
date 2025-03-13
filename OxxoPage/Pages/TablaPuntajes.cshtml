@@ -21,8 +21,8 @@
                         </div>
                         <div>
                             <div class="text-muted mb-1">Total de logros del mes</div>
-                            <h1 class="display-4 fw-bold mb-0">147</h1>
-                            <p class="mb-0"><span class="text-warning fw-bold">81,6%</span> de meta mensual alcanzada</p>
+                            <h1 class="display-4 fw-bold mb-0">@Model.TotalLogros</h1>
+                            <p class="mb-0"><span class="text-warning fw-bold">@Model.PorcentajeMeta%</span> de meta mensual alcanzada</p>
                         </div>
                     </div>
                 </div>
@@ -39,8 +39,8 @@
                         </div>
                         <div>
                             <div class="text-muted mb-1">Capacitaciones del día</div>
-                            <h1 class="display-4 fw-bold mb-0">13</h1>
-                            <p class="mb-0"><span class="text-success fw-bold">109,72%</span> de meta diaria alcanzada</p>
+                            <h1 class="display-4 fw-bold mb-0">@Model.CapacitacionesDia</h1>
+                            <p class="mb-0"><span class="text-success fw-bold">@Model.PorcentajeMetaDiaria%</span> de meta diaria alcanzada</p>
                         </div>
                     </div>
                 </div>
@@ -57,8 +57,8 @@
                         </div>
                         <div>
                             <div class="text-muted mb-1">Meta del mes</div>
-                            <h1 class="display-4 fw-bold mb-0">180</h1>
-                            <p class="mb-0"><span class="text-danger fw-bold">33</span> juegos para alcanzar la meta</p>
+                            <h1 class="display-4 fw-bold mb-0">@Model.MetaMes</h1>
+                            <p class="mb-0"><span class="text-danger fw-bold">@Model.LogrosFaltantes</span> juegos para alcanzar la meta</p>
                         </div>
                     </div>
                 </div>
@@ -73,77 +73,86 @@
                 <!-- Columna del podio -->
                 <div class="col-md-5 d-flex align-items-start p-0">
                     <div class="d-flex w-100 p-3 m-0 justify-content-around align-items-end">
-                        <!-- Segundo lugar (izquierda) -->
-                        <div class="flex-equal mx-2">
-                            <div class="d-flex flex-column align-items-center">
-                                <!-- Avatar y etiqueta de nombre -->
-                                <div class="position-relative mb-2">
-                                    <div class="rounded-circle overflow-hidden bg-info bg-opacity-10" style="width: 90px; height: 90px;">
-                                        <img src="~/assets/img/nicki.jpeg" class="w-100 h-100 object-fit-cover" alt="Nicki Minaj">
+                        @if (Model.Podio.Count >= 2)
+                        {
+                            <!-- Segundo lugar (izquierda) -->
+                            <div class="flex-equal mx-2">
+                                <div class="d-flex flex-column align-items-center">
+                                    <!-- Avatar y etiqueta de nombre -->
+                                    <div class="position-relative mb-2">
+                                        <div class="rounded-circle overflow-hidden bg-info bg-opacity-10" style="width: 90px; height: 90px;">
+                                            <img src="~/assets/img/@Model.Podio[1].Fotografia" class="w-100 h-100 object-fit-cover" alt="@Model.Podio[1].Nombre">
+                                        </div>
+                                        <div class="bg-primary text-white px-2 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x" style="font-size: 0.85rem; white-space: nowrap;">
+                                            @Model.Podio[1].Nombre
+                                        </div>
                                     </div>
-                                    <div class="bg-primary text-white px-2 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x" style="font-size: 0.85rem; white-space: nowrap;">
-                                        Nicki Minaj
+                                    
+                                    <!-- Rectángulo con número 2 -->
+                                    <div class="medal-rectangle bg-danger text-white d-flex flex-column align-items-center rounded" style="height: 470px;">
+                                        <div class="position-circle bg-white text-danger rounded-circle d-flex align-items-center justify-content-center mb-1" style="width: 25px; height: 25px; margin-top: 10px;">
+                                            2
+                                        </div>
+                                        <h1 class="display-3 fw-bold mb-0">@Model.Podio[1].Medallas</h1>
+                                        <p class="mb-0">Logros</p>
                                     </div>
-                                </div>
-                                
-                                <!-- Rectángulo con número 2 -->
-                                <div class="medal-rectangle bg-danger text-white d-flex flex-column align-items-center rounded" style="height: 470px;">
-                                    <div class="position-circle bg-white text-danger rounded-circle d-flex align-items-center justify-content-center mb-1" style="width: 25px; height: 25px; margin-top: 10px;">
-                                        2
-                                    </div>
-                                    <h1 class="display-3 fw-bold mb-0">22</h1>
-                                    <p class="mb-0">Logros</p>
                                 </div>
                             </div>
-                        </div>
+                        }
                         
-                        <!-- Primer lugar (centro) -->
-                        <div class="flex-equal mx-2">
-                            <div class="d-flex flex-column align-items-center">
-                                <!-- Avatar y etiqueta de nombre -->
-                                <div class="position-relative mb-2">
-                                    <div class="rounded-circle overflow-hidden bg-info bg-opacity-10" style="width: 110px; height: 110px;">
-                                        <img src="~/assets/img/ibai.png" class="w-100 h-100 object-fit-cover" alt="Ibai Pelirojo">
+                        @if (Model.Podio.Count >= 1)
+                        {
+                            <!-- Primer lugar (centro) -->
+                            <div class="flex-equal mx-2">
+                                <div class="d-flex flex-column align-items-center">
+                                    <!-- Avatar y etiqueta de nombre -->
+                                    <div class="position-relative mb-2">
+                                        <div class="rounded-circle overflow-hidden bg-info bg-opacity-10" style="width: 110px; height: 110px;">
+                                            <img src="~/assets/img/@Model.Podio[0].Fotografia" class="w-100 h-100 object-fit-cover" alt="@Model.Podio[0].Nombre">
+                                        </div>
+                                        <div class="bg-primary text-white px-2 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x" style="font-size: 0.85rem; white-space: nowrap;">
+                                            @Model.Podio[0].Nombre
+                                        </div>
                                     </div>
-                                    <div class="bg-primary text-white px-2 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x" style="font-size: 0.85rem; white-space: nowrap;">
-                                        Ibai Pelirojo
+                                    
+                                    <!-- Rectángulo más largo (primer lugar) -->
+                                    <div class="medal-rectangle bg-danger text-white d-flex flex-column align-items-center rounded" style="height: 530px;">
+                                        <div class="position-circle bg-white text-danger rounded-circle d-flex align-items-center justify-content-center mb-1" style="width: 25px; height: 25px; margin-top: 10px;">
+                                            1
+                                        </div>
+                                        <h1 class="display-3 fw-bold mb-0">@Model.Podio[0].Medallas</h1>
+                                        <p class="mb-0">Logros</p>
                                     </div>
-                                </div>
-                                
-                                <!-- Rectángulo más largo (primer lugar) -->
-                                <div class="medal-rectangle bg-danger text-white d-flex flex-column align-items-center rounded" style="height: 530px;">
-                                    <div class="position-circle bg-white text-danger rounded-circle d-flex align-items-center justify-content-center mb-1" style="width: 25px; height: 25px; margin-top: 10px;">
-                                        1
-                                    </div>
-                                    <h1 class="display-3 fw-bold mb-0">24</h1>
-                                    <p class="mb-0">Logros</p>
                                 </div>
                             </div>
-                        </div>
+                        }
                         
-                        <!-- Tercer lugar (derecha) -->
-                        <div class="flex-equal mx-2">
-                            <div class="d-flex flex-column align-items-center">
-                                <!-- Avatar y etiqueta de nombre -->
-                                <div class="position-relative mb-2">
-                                    <div class="rounded-circle overflow-hidden bg-info bg-opacity-10" style="width: 90px; height: 90px;">
-                                        <img src="~/assets/img/shakira.jpg" class="w-100 h-100 object-fit-cover" alt="Shakira">
+                        @if (Model.Podio.Count >= 3)
+                        {
+                            <!-- Tercer lugar (derecha) -->
+                            <div class="flex-equal mx-2">
+                                <div class="d-flex flex-column align-items-center">
+                                    <!-- Avatar y etiqueta de nombre -->
+                                    <div class="position-relative mb-2">
+                                        <div class="rounded-circle overflow-hidden bg-info bg-opacity-10" style="width: 90px; height: 90px;">
+                                            <img src="~/assets/img/@Model.Podio[2].Fotografia" class="w-100 h-100 object-fit-cover" alt="@Model.Podio[2].Nombre">
+                                        </div>
+                                        <div class="bg-primary text-white px-2 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x" style="font-size: 0.85rem; white-space: nowrap;">
+                                            @Model.Podio[2].Nombre
+                                        </div>
                                     </div>
-                                    <div class="bg-primary text-white px-2 py-1 rounded-pill position-absolute bottom-0 start-50 translate-middle-x" style="font-size: 0.85rem; white-space: nowrap;">
-                                        Shakira
+                                    
+                                    <!-- Rectángulo con número 3 (más corto) -->
+                                    <div class="medal-rectangle bg-danger text-white d-flex flex-column align-items-center rounded" style="height: 420px;">
+                                        <div class="position-circle bg-white text-danger rounded-circle d-flex align-items-center justify-content-center mb-1" style="width: 25px; height: 25px; margin-top: 10px;">
+                                            3
+                                        </div>
+                                        <h1 class="display-3 fw-bold mb-0">@Model.Podio[2].Medallas</h1>
+                                        <p class="mb-0">Logros</p>
                                     </div>
-                                </div>
-                                
-                                <!-- Rectángulo con número 3 (más corto) -->
-                                <div class="medal-rectangle bg-danger text-white d-flex flex-column align-items-center rounded" style="height: 420px;">
-                                    <div class="position-circle bg-white text-danger rounded-circle d-flex align-items-center justify-content-center mb-1" style="width: 25px; height: 25px; margin-top: 10px;">
-                                        3
-                                    </div>
-                                    <h1 class="display-3 fw-bold mb-0">21</h1>
-                                    <p class="mb-0">Logros</p>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
                 
@@ -163,17 +172,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var colaborador in Model.Colaboradores)
+                                @foreach (var usuario in Model.UsuariosTabla)
                                 {
                                     <tr>
-                                        <td class="align-middle text-center">@colaborador.Posicion</td>
+                                        <td class="align-middle text-center">@usuario.Posicion</td>
                                         <td class="text-center">
                                             <div class="rounded-circle overflow-hidden mx-auto" style="width: 40px; height: 40px; border: 2px solid #f0f0f0;">
-                                                <img src="~/assets/img/@colaborador.ImagenUrl" class="w-100 h-100 object-fit-cover" alt="@colaborador.Nombre">
+                                                <img src="~/assets/img/@usuario.Fotografia" class="w-100 h-100 object-fit-cover" alt="@usuario.Nombre">
                                             </div>
                                         </td>
-                                        <td class="align-middle text-center">@colaborador.Nombre</td>
-                                        <td class="align-middle text-center fw-bold @(colaborador.Medallas > 15 ? "text-purple" : colaborador.Medallas > 10 ? "text-indigo" : "")">@colaborador.Medallas</td>
+                                        <td class="align-middle text-center">@usuario.Nombre</td>
+                                        <td class="align-middle text-center fw-bold @(usuario.Medallas > 15 ? "text-purple" : usuario.Medallas > 10 ? "text-indigo" : "")">@usuario.Medallas</td>
                                     </tr>
                                 }
                             </tbody>
