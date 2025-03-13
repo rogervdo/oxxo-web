@@ -16,7 +16,7 @@
             <div class="container mt-4 content">
                 <div class="row align-items-center profile-header">
                     <div class="col-auto profile-img-container">
-                        <img src="~/img/@Model.ProfileImageUrl" class="rounded-circle profile-img" alt="Foto de Perfil">
+                        <img src="~/assets/img/@Model.ProfileImageUrl" class="rounded-circle profile-img" alt="Foto de Perfil">
                     </div>
                     <div class="col row profile-text">
                         <h1>@Model.UserName</h1>
@@ -34,7 +34,7 @@
                         <div class="level-info">
                             <div>
                                 <p class="level-text">Nivel @Model.Level</p>
-                                <p class="xp-text">@(@Model.RequiredXP - @Model.CurrentXP) puntos al siguiente nivel</p>
+                                <p class="xp-text">@(@Model.RequiredXP) puntos al siguiente nivel</p>
                             </div>
                         </div>
 
@@ -43,10 +43,10 @@
 
                             <div class="progress-wrapper">
                                 <div class="progress">
-                                    <div class="progress-bar" style="width: calc(300px * (@Model.CurrentXP / @Model.RequiredXP));">
+                                    <div class="progress-bar" style="width: calc(300px * (@Model.CurrentXP / @Model.RequiredXPBar));">
                                     </div>
                                 </div>
-                                <p class="progress-text">@Model.CurrentXP/@Model.RequiredXP</p>
+                                <p class="progress-text">@Model.CurrentXP/@Model.RequiredXPBar</p>
                             </div>
 
                             <div class="level-circle next-level">@(@Model.Level + 1)</div>
@@ -64,27 +64,37 @@
                     </div>
 
                     <div class="col-md-6">
-    <!-- Título Logros -->
+                        <!-- Título Logros -->
                         <h3 class="logros-title">Logros</h3>
 
                         <!-- Contenedor con sombra -->
                         <div class="logros-card">
-                            <ul class="logros-list">
-                                @foreach (var achievement in Model.Achievements)
-                                {
-                                    <li class="logro-item">
-                                        <div class="logro-icon">
-                                            <img src="~/img/@achievement.IconPath" alt="Logro" />
-                                        </div>
-                                        <div class="logro-content">
-                                            <p class="logro-title">Obtuvo <strong>@achievement.Title</strong></p>
-                                            <p class="logro-details">@achievement.Date  <span class="logro-points">+ @achievement.Score pts.</span></p>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
+                            @if (Model.Achievements.Any()) 
+                            {
+                                <ul class="logros-list">
+                                    @foreach (var logro in Model.Achievements)
+                                    {
+                                        <li class="logro-item">
+                                            <div class="logro-icon">
+                                                <img src="~/img/medal.png" alt="Logro" />
+                                            </div>
+                                            <div class="logro-content">
+                                                <p class="logro-title"><strong>@logro.Nombre</strong></p>
+                                                <p class="logro-details">@logro.Fecha.ToShortDateString()  
+                                                    <span class="logro-points">+ @logro.Experiencia pts.</span>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p class="logro-title">Aún no has obtenido logros.</p>
+                            }
                         </div>
                     </div>
+
 
                 </div>
             </div>
