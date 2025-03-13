@@ -36,7 +36,7 @@ namespace OxxoPage.Pages
                 return Page();
             }
 
-            // ⚡ Verifica si el usuario existe en la base de datos
+            // Verifica si el usuario existe en la base de datos
             if (_db.LoginUser(Usuario, Contrasena))
             {
                 HttpContext.Session.SetString("Usuario", Usuario); // Guarda la sesión
