@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,17 +27,16 @@
                 </div>
                 <div class="text-center flex-grow-1 align-items-center col-5">
                     <span id="datetime"></span> 
-                    @*<p>hola</p>*@
                 </div>
                 <div class="d-flex align-items-right user-info ">
-                    <span class="me-2">Hola, Usuario</span>
+                    <span class="me-2">Hola, @HttpContextAccessor.HttpContext.Session.GetString("Usuario")</span>
                     <img src="~/img/perfil.jpg" alt="Avatar" class="rounded-circle me-3">
                     <div class="nav-icons d-flex">
                         <a href="/Inicio" class="text-center">
                             <img src="~/img/undo.png" alt="Regresar">
                             <span style="color:#212529; font-size: 14px;">Regresar</span>
                         </a>
-                        <a href="/" class="text-center ms-2">
+                        <a href="/Index" class="text-center ms-2">
                             <img src="~/img/log-out.png" alt="Cerrar sesión">
                             <span style="color:#212529; font-size: 14px;">Cerrar Sesión</span>
                         </a>

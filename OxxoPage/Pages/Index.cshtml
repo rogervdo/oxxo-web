@@ -30,6 +30,11 @@
                 </div>
             </div>
 
+            @if (!string.IsNullOrEmpty(Model.MensajeError))
+            {
+                <div class="error-message">@Model.MensajeError</div>
+            }
+
             <div class="forgot-password">¿Olvidaste tu contraseña?</div>
             <button type="submit" class="btn btn-white">INGRESAR</button>
         </form>
