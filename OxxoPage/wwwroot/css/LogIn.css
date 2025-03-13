@@ -1,4 +1,4 @@
-/* Estilos generales */
+
 body {
     display: flex;
     justify-content: center;
@@ -10,7 +10,7 @@ body {
 
 /* Contenedor del login con imagen de fondo */
 .login-container {
-    background-image: url('/assets/FONDO.png'); /* Ruta correcta de la imagen */
+    background-image: url('/assets/FONDO.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -65,8 +65,8 @@ body {
     border: 2px solid white; /* Mantiene visible el borde */
     font-size: 16px;
     background-color: transparent; /* Fondo transparente */
-    color: white; /* Texto en blanco */
-    outline: none; /* Quita borde azul al hacer clic */
+    color: white; 
+    outline: none; 
 }
 
 /* Placeholder en blanco con opacidad */
@@ -75,14 +75,14 @@ body {
     opacity: 1;
 }
 
-/* "¿Olvidaste tu contraseña?" alineado a la derecha y subrayado */
+
 .forgot-password {
     color: #e8a042;
     font-size: 14px;
     cursor: pointer;
     margin-bottom: 15px;
-    text-align: right; /* Alineado a la derecha */
-    text-decoration: underline; /* Subrayado */
+    text-align: right; 
+    text-decoration: underline;
 }
 
 /* Botón sin negrita */
@@ -130,8 +130,8 @@ body {
 /* Estilos del mensaje de error */
 .error-message {
     color: #e8a042;
-    font-size: 14px; /* Ajustar tamaño si es necesario */
-    margin-top: -10px; /* Elimina espacio innecesario encima del mensaje */
+    font-size: 14px;
+    margin-top: -10px; 
     margin-bottom: 10px; /* Espacio adicional debajo del mensaje */
-    text-align: center; /* Alineado a la izquierda para que se vea más integrado */
+    text-align: center; 
 }

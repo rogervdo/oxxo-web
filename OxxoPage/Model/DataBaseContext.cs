@@ -96,7 +96,7 @@ namespace OxxoPage.Model
             }
         }
 
-        // Método alternativo para verificar login (funcionalidad similar al anterior)
+        // Método login
         public bool LoginUser(string usuario, string contrasena)
         {
             using (var conexion = GetConnection())
@@ -123,7 +123,7 @@ namespace OxxoPage.Model
             }
         }
 
-        // Método para registrar un nuevo usuario
+        // Método SignUp
         public bool SignUp(string nombre, string apellido_materno, string apellido_paterno, string nickname, string contrasena, string correoElectronico)
         {
             using (var conexion = GetConnection())
@@ -168,19 +168,11 @@ namespace OxxoPage.Model
                     conexion.Open();
 
                     // Consulta para obtener todos los usuarios que son asesores
-                    string query = @"SELECT 
-                             u.id_usuario,
-                             u.nombre,
-                             CONCAT(u.nombre, ' ', IFNULL(u.apellido_paterno, ''), ' ', IFNULL(u.apellido_materno, '')) as nombre_completo,
-                             u.nickname,
-                             u.fotografia,
-                             a.id_asesor
-                           FROM 
-                             usuarios u
-                           JOIN 
-                             asesores a ON u.id_usuario = a.id_usuario
-                           ORDER BY 
-                             u.id_usuario";
+                    string query = @"SELECT u.id_usuario,u.nombre,CONCAT(u.nombre, ' ', IFNULL(u.apellido_paterno, ''), ' ', IFNULL(u.apellido_materno, '')) as nombre_completo,
+                                    u.nickname,u.fotografia,a.id_asesor
+                                    FROM usuarios u
+                                    JOIN asesores a ON u.id_usuario = a.id_usuario
+                                    ORDER BY u.id_usuario";
 
                     using (MySqlCommand cmd = new MySqlCommand(query, conexion))
                     using (var reader = cmd.ExecuteReader())

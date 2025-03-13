@@ -9,15 +9,15 @@ body {
 }
 
 .login-container {
-    background-image: url('/assets/FONDO.png'); /* Ruta correcta de la imagen */
+    background-image: url('/assets/FONDO.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     
-    padding: 65px 40px 50px; /* Más padding arriba */
+    padding: 65px 40px 50px; 
     border-radius: 10px;
     text-align: center;
-    width: 400px; /* Aumentar ancho */
+    width: 400px; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     border: 3px solid black; /* Borde negro */
     position: relative;
@@ -35,7 +35,7 @@ body {
     margin-top: 40px; /* Espacio entre el logo y los inputs */
 }
 
-/* Contenedor del input con icono */
+/* Contenedor del input  */
 .input-wrapper {
     position: relative;
     display: flex;
@@ -56,14 +56,14 @@ body {
 .input-wrapper input {
     width: 100%;
     padding: 12px;
-    padding-left: 40px; /* Espacio para el ícono */
+    padding-left: 40px;
     margin-bottom: 15px;
     border-radius: 5px;
-    border: 2px solid white; /* Mantiene visible el borde */
+    border: 2px solid white; 
     font-size: 16px;
     background-color: transparent; /* Fondo transparente */
-    color: white; /* Texto en blanco */
-    outline: none; /* Quita borde azul al hacer clic */
+    color: white; 
+    outline: none; 
 }
 
 /* Placeholder en blanco con opacidad */
@@ -81,7 +81,7 @@ body {
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-    font-weight: normal; /* Quitar negrita */
+    font-weight: normal;
     margin-top: 10px;
     
 }
@@ -103,7 +103,7 @@ body {
     font-size: 14px;
     cursor: pointer;
     text-decoration: underline;
-    padding-left: 125px; /* Espacio entre ambos elementos */
+    padding-left: 125px; /* Espacio entre  elementos */
 }
 
 .register-link:hover {
@@ -111,7 +111,7 @@ body {
 }
 
 .divider {
-    width: 97%; /* No llega hasta el borde */
+    width: 97%; 
     height: 1px;
     background-color: white;
     margin: 10px auto;
