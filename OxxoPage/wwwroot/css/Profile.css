@@ -67,3 +67,183 @@
     width: 20px;
     height: 20px;
 }
+
+/* Contenedor de progreso */
+.progress-container {
+    display: flex;
+    align-items: center;
+    width: 400px; /* Tamaño fijo total del componente */
+    margin-top: 10px; /* Centrar el contenedor */
+    height: 50px;
+    gap: 5px;
+}
+
+/* Barra de progreso */
+/* Contenedor de la barra y el texto */
+.progress-wrapper {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el texto debajo */
+    display: flex;
+    align-items: center;
+}
+
+/* Barra de progreso */
+.progress {
+    width: 300px; /* Tamaño fijo de la barra */
+    height: 16px;
+    background-color: #f5dada;
+    border-radius: 12px;
+    position: relative;
+}
+
+/* Relleno de la barra */
+.progress-bar {
+    height: 100%;
+    background-color: #a11717;
+    border-radius: 12px;
+    transition: width 0.3s ease-in-out;
+}
+
+/* Texto debajo de la barra */
+.progress-text {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 5px; /* Espacio entre la barra y el texto */
+    margin-bottom: -27px;
+}
+
+
+/* Círculos de los niveles */
+.level-circle {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #9b101a;
+}
+
+.previous-level {
+    background-color: #9b101a;
+}
+
+.next-level {
+    background-color: #d9a5a5;
+    color: white;
+}
+
+/* Contenedor de la información del nivel */
+.level-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+/* Diseño del texto */
+.level-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.xp-text {
+    font-size: 14px;
+    color: gray;
+    margin: 0;
+}
+
+/* Título "Acerca de mí..." */
+.section-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Card con sombra y borde redondeado */
+.bio-card {
+    background: white;
+    padding: 20px;
+    margin-top: 16px;;
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    max-width: 600px; /* Para que no se haga demasiado ancho */
+}
+
+/* Título de la sección */
+.logros-title {
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: none;
+}
+
+/* Contenedor con sombra y bordes redondeados */
+.logros-card {
+    background: white;
+    padding: 15px;
+    border-radius: 16px; /* Bordes redondeados */
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1); /* Sombra */
+    max-width: 600px; /* Tamaño fijo */
+}
+
+/* Lista de logros */
+.logros-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Cada logro */
+.logro-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd; /* Separador entre logros */
+}
+
+.logro-item:last-child {
+    border-bottom: none; /* Quitar línea al último logro */
+}
+
+/* Icono de logro */
+.logro-icon img {
+    width: 50px;
+    height: 60px;
+}
+
+/* Contenido del logro */
+.logro-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+/* Título del logro */
+.logro-title {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform:none;
+    margin-bottom: 5px;;
+}
+
+/* Detalles del logro */
+.logro-details {
+    font-size: 14px;
+    color: gray;
+    margin: 0;
+}
+
+.logro-points {
+    font-weight: bold;
+    color: #28a745; /* Verde para destacar */
+}
+
