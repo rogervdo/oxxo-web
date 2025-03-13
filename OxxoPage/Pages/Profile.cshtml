@@ -19,7 +19,7 @@
 
     <div class="row align-items-center profile-header">
         <div class="col-auto profile-img-container">
-            <img src="~/img/perfil.jpg" class="rounded-circle profile-img" alt="Foto de Perfil">
+            <img src="~/img/@Model.ProfileImageUrl" class="rounded-circle profile-img" alt="Foto de Perfil">
         </div>
         <div class="col row profile-text">
             <h1>@Model.UserName</h1>
@@ -42,7 +42,7 @@
 
     <div class="row mt-4">
         <div class="col-md-6">
-            <h3>Biografía</h3>
+            <h3>Acerca de mí...</h3>
             <p>@Model.Biography</p>
         </div>
         <div class="col-md-6">
