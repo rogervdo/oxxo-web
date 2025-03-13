@@ -12,7 +12,7 @@ namespace OxxoPage.Model
         public DataBaseContext()
         {
             //"Server=127.0.0.1;Port=3306;Database=bdTest3;Uid=root;Password=root1234;"
-            ConnectionString = "Server=127.0.0.1;Port=3306;Database=bd_oxxo;Uid=root;Password=ef4rqmchwn";
+            ConnectionString = "Server=127.0.0.1;Port=3306;Database=DB_OXXO;Uid=root;Password=root1234";
         }
 
         private MySqlConnection GetConnection()
@@ -112,32 +112,36 @@ namespace OxxoPage.Model
         }
 
         // Método para registrar un nuevo usuario
-        public bool SignUp(string nombre, string nickname, string contrasena, string correoElectronico)
+        public bool SignUp(string nombre, string apellido_materno, string apellido_paterno, string nickname, string contrasena, string correoElectronico)
+{
+    using (var conexion = GetConnection())
+    {
+        try
         {
-            using (var conexion = GetConnection())
+            conexion.Open();
+            string query = "INSERT INTO usuarios (nombre, apellido_materno, apellido_paterno, nickname, contrasena, correo_electronico) VALUES (@nombre, @apellido_materno, @apellido_paterno, @nickname, @contrasena, @correoElectronico)";
+            
+            using (MySqlCommand cmd = new MySqlCommand(query, conexion))
             {
-                try
-                {
-                    conexion.Open();
-                    string query = "INSERT INTO usuarios (nombre, nickname, contrasena, correo_electronico) VALUES (@nombre, @nickname, @contrasena, @correoElectronico)";
-                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
-                    {
-                        cmd.Parameters.AddWithValue("@nombre", nombre);
-                        cmd.Parameters.AddWithValue("@nickname", nickname);
-                        cmd.Parameters.AddWithValue("@contrasena", contrasena);
-                        cmd.Parameters.AddWithValue("@correoElectronico", correoElectronico);
+                cmd.Parameters.AddWithValue("@nombre", nombre);
+                cmd.Parameters.AddWithValue("@apellido_materno", apellido_materno);
+                cmd.Parameters.AddWithValue("@apellido_paterno", apellido_paterno);
+                cmd.Parameters.AddWithValue("@nickname", nickname);
+                cmd.Parameters.AddWithValue("@contrasena", contrasena);
+                cmd.Parameters.AddWithValue("@correoElectronico", correoElectronico);
 
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        return rowsAffected > 0;  // Retorna true si se insertó correctamente
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al registrar usuario: " + ex.Message);
-                    return false;
-                }
+                int rowsAffected = cmd.ExecuteNonQuery();
+                return rowsAffected > 0;  // Retorna true si se insertó correctamente
             }
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al registrar usuario: " + ex.Message);
+            return false;
+        }
+    }
+}
+
 
         // Obtener usuarios con medallas para la tabla de puntajes
         public List<Usuarios> GetUsuariosConMedallas()

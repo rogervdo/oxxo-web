@@ -126,3 +126,12 @@ body {
 .btn:hover {
     background: #e8a042;
 }
+
+/* Estilos del mensaje de error */
+.error-message {
+    color: #e8a042;
+    font-size: 14px; /* Ajustar tamaño si es necesario */
+    margin-top: -10px; /* Elimina espacio innecesario encima del mensaje */
+    margin-bottom: 10px; /* Espacio adicional debajo del mensaje */
+    text-align: center; /* Alineado a la izquierda para que se vea más integrado */
+}

@@ -20,6 +20,11 @@
         
         <form method="post">
             <div class="input-container">
+                @if (!string.IsNullOrEmpty(Model.MensajeError))
+                {
+                    <div class="error-message">@Model.MensajeError</div>
+                }
+                
                 <div class="input-wrapper">
                     <i class="fa fa-user"></i>
                     <input type="text" id="usuario" name="Usuario" placeholder="Usuario" required>
@@ -30,12 +35,7 @@
                 </div>
             </div>
 
-            @if (!string.IsNullOrEmpty(Model.MensajeError))
-            {
-                <div class="error-message">@Model.MensajeError</div>
-            }
-
-            <div class="forgot-password">¿Olvidaste tu contraseña?</div>
+            <div class="forgot-password"><a asp-page="/contrasena" class="register-link">¿Olvidaste tu contraseña?</a></div>
             <button type="submit" class="btn btn-white">INGRESAR</button>
         </form>
 
