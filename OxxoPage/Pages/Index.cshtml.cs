@@ -20,6 +20,7 @@ namespace OxxoPage.Pages
             // Limpiar mensajes al cargar la página
             MensajeError = "";
         }
+        
 
         public IActionResult OnPost()
         {
