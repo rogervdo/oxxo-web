@@ -8,15 +8,16 @@
 <!-- Referencia al archivo de estilos personalizado -->
 <link rel="stylesheet" href="~/css/TablaPuntajes.css" />
 
-<!-- Margen superior adicional para separar de la navbar -->
+<!-- Contenedor principal con margen superior para separar de la navbar -->
 <div class="container-fluid p-3 mt-5">
     <!-- Tarjetas de métricas (primera fila) -->
     <div class="row mb-4">
-        <!-- Total de medallas del mes -->
+        <!-- Total de medallas del mes - Primera métrica -->
         <div class="col-md-4">
             <div class="card shadow-sm border-0">
                 <div class="card-body p-3">
                     <div class="d-flex align-items-center">
+                        <!-- Icono circular para la métrica -->
                         <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center me-3" style="width: 70px; height: 70px; min-width: 70px;">
                             <i class="bi bi-award text-white" style="font-size: 2rem;"></i>
                         </div>
@@ -30,11 +31,12 @@
             </div>
         </div>
         
-        <!-- Capacitaciones del día -->
+        <!-- Capacitaciones del día - Segunda métrica -->
         <div class="col-md-4">
             <div class="card shadow-sm border-0">
                 <div class="card-body p-3">
                     <div class="d-flex align-items-center">
+                        <!-- Icono circular para la métrica -->
                         <div class="rounded-circle bg-success d-flex align-items-center justify-content-center me-3" style="width: 70px; height: 70px; min-width: 70px;">
                             <i class="bi bi-graph-up text-white" style="font-size: 2rem;"></i>
                         </div>
@@ -48,11 +50,12 @@
             </div>
         </div>
         
-        <!-- Meta del mes -->
+        <!-- Meta del mes - Tercera métrica -->
         <div class="col-md-4">
             <div class="card shadow-sm border-0">
                 <div class="card-body p-3">
                     <div class="d-flex align-items-center">
+                        <!-- Icono circular para la métrica -->
                         <div class="rounded-circle bg-info d-flex align-items-center justify-content-center me-3" style="width: 70px; height: 70px; min-width: 70px;">
                             <i class="bi bi-bullseye text-white" style="font-size: 2rem;"></i>
                         </div>
@@ -71,7 +74,7 @@
     <div class="card shadow-sm border-0">
         <div class="card-body p-0">
             <div class="row g-0">
-                <!-- Columna del podio -->
+                <!-- Columna del podio (izquierda) -->
                 <div class="col-md-5 d-flex align-items-start p-0">
                     <div class="d-flex w-100 p-3 m-0 justify-content-around align-items-end">
                         @if (Model.Podio.Count >= 2)
@@ -89,7 +92,7 @@
                                         </div>
                                     </div>
                                     
-                                    <!-- Rectángulo con número 2 -->
+                                    <!-- Rectángulo con número 2 - altura media -->
                                     <div class="medal-rectangle bg-danger text-white d-flex flex-column align-items-center rounded" style="height: 470px;">
                                         <div class="position-circle bg-white text-danger rounded-circle d-flex align-items-center justify-content-center mb-1" style="width: 25px; height: 25px; margin-top: 10px;">
                                             2
@@ -103,7 +106,7 @@
                         
                         @if (Model.Podio.Count >= 1)
                         {
-                            <!-- Primer lugar (centro) -->
+                            <!-- Primer lugar (centro) - más alto -->
                             <div class="flex-equal mx-2">
                                 <div class="d-flex flex-column align-items-center">
                                     <!-- Avatar y etiqueta de nombre -->
@@ -130,7 +133,7 @@
                         
                         @if (Model.Podio.Count >= 3)
                         {
-                            <!-- Tercer lugar (derecha) -->
+                            <!-- Tercer lugar (derecha) - más bajo -->
                             <div class="flex-equal mx-2">
                                 <div class="d-flex flex-column align-items-center">
                                     <!-- Avatar y etiqueta de nombre -->
@@ -160,7 +163,7 @@
                 <!-- Borde vertical sutil entre el podio y la tabla -->
                 <div class="vertical-separator d-none d-md-block"></div>
                 
-                <!-- Columna de la tabla -->
+                <!-- Columna de la tabla (derecha) -->
                 <div class="col-md-7">
                     <div class="table-container pt-3">
                         <table class="table no-inner-borders rounded-table mb-0 text-center">
@@ -183,6 +186,7 @@
                                             </div>
                                         </td>
                                         <td class="align-middle text-center">@usuario.Nombre</td>
+                                        <!-- Color especial según cantidad de medallas -->
                                         <td class="align-middle text-center fw-bold @(usuario.Medallas > 15 ? "text-purple" : usuario.Medallas > 10 ? "text-indigo" : "")">@usuario.Medallas</td>
                                     </tr>
                                 }
