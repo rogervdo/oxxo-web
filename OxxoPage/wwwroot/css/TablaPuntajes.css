@@ -27,14 +27,33 @@ body {
     line-height: 1;
 }
 
-/* Estilos para el podio */
-.podium-container {
-    padding: 1rem 0.5rem;
+/* Estilos para el podio - NUEVO */
+.flex-equal {
+    flex: 1 1 0;
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 30%;
+    width: 30%;
 }
 
-.podium-item {
+/* Rectángulos de medallas */
+.medal-rectangle {
+    width: 100%;
+    background-color: #9B101A !important;
+    border-radius: 8px !important;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.position-circle {
+    width: 25px;
+    height: 25px;
     display: flex;
+    align-items: center;
     justify-content: center;
+    font-weight: bold;
+    color: #e91f35;
 }
 
 .rounded-circle {
@@ -51,22 +70,6 @@ body {
     background-color: #0d6efd !important;
 }
 
-/* Rectángulos de medallas */
-.medal-rectangle {
-    width: 100%;
-    background-color: #e91f35 !important;
-}
-
-.position-circle {
-    width: 25px;
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #e91f35;
-}
-
 /* Borde vertical entre podio y tabla */
 .vertical-separator {
     width: 1px;
@@ -81,7 +84,6 @@ body {
     height: auto;
     overflow-y: visible;
     padding: 15px;
-
 }
 
 /* Tabla con bordes externos y esquinas redondeadas, sin bordes internos */
@@ -156,22 +158,6 @@ body {
     padding-top: 20px;
 }
 
-
-/* Primer lugar (rectángulo central) */
-.podium-item:nth-child(2) .medal-rectangle {
-    height: 530px !important; /* Aumentado de 430px */
-}
-
-/* Segundo lugar (rectángulo izquierdo) */
-.podium-item:nth-child(1) .medal-rectangle {
-    height: 470px !important; /* Aumentado de 370px */
-}
-
-/* Tercer lugar (rectángulo derecho) */
-.podium-item:nth-child(3) .medal-rectangle {
-    height: 420px !important; /* Aumentado de 320px */
-}
-
 .table td {
     padding-top: 1.5rem !important;    /* Aumenta el padding superior */
     padding-bottom: 1.0rem !important; /* Aumenta el padding inferior */
@@ -180,14 +166,9 @@ body {
 
 /* Responsive */
 @media (max-width: 767.98px) {
-    .podium-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .podium-item {
-        width: 100% !important;
-        max-width: 200px;
+    .flex-equal {
+        width: 100%;
+        max-width: 100%;
         margin-bottom: 20px;
     }
     
