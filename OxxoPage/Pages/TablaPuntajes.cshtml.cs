@@ -1,44 +1,57 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
+using OxxoPage.Model;
 
 namespace OxxoPage.Pages
 {
     public class TablaPuntajesModel : PageModel
     {
-        public List<Colaborador> Colaboradores { get; set; }
-        
-        public int TotalMedallas { get; set; } = 147;
-        public decimal PorcentajeMeta { get; set; } = 81.6m;
-        
-        public int CapacitacionesDia { get; set; } = 13;
-        public decimal PorcentajeMetaDiaria { get; set; } = 109.72m;
-        
-        public int MetaMes { get; set; } = 180;
-        public int CursosFaltantes { get; set; } = 33;
-        
+        private readonly DataBaseContext _dbContext;
+
+        public List<Usuarios> TodosUsuarios { get; set; }
+        public List<Usuarios> UsuariosTabla { get; set; } // Los que aparecen en la tabla (posiciones 4+)
+        public List<Usuarios> Podio { get; set; } // Los tres primeros lugares
+
+        // Métricas del dashboard
+        public int TotalLogros { get; set; }
+        public decimal PorcentajeMeta { get; set; }
+
+        public int CapacitacionesDia { get; set; }
+        public decimal PorcentajeMetaDiaria { get; set; }
+
+        public int MetaMes { get; set; }
+        public int LogrosFaltantes { get; set; }
+
+        public TablaPuntajesModel()
+        {
+            _dbContext = new DataBaseContext();
+        }
+
         public void OnGet()
         {
-            Colaboradores = new List<Colaborador>
-            {
-                new Colaborador { Posicion = 4, Nombre = "Rafael Pereira", ImagenUrl = "rafael.jpeg", Medallas = 20 },
-                new Colaborador { Posicion = 5, Nombre = "Debora Carranza", ImagenUrl = "debora.jpeg", Medallas = 19 },
-                new Colaborador { Posicion = 6, Nombre = "Alma Teresa", ImagenUrl = "alma.jpeg", Medallas = 16 },
-                new Colaborador { Posicion = 7, Nombre = "Benito López", ImagenUrl = "benito.jpeg", Medallas = 12 },
-                new Colaborador { Posicion = 8, Nombre = "Kai Cenat", ImagenUrl = "kai.jpeg", Medallas = 8 },
-                new Colaborador { Posicion = 9, Nombre = "Dolores González", ImagenUrl = "dolores.jpeg", Medallas = 5 },
-                new Colaborador { Posicion = 10, Nombre = "Elver Farías", ImagenUrl = "elver.jpeg", Medallas = 3 },
-            };
-            
-            // Los 3 primeros lugares se muestran en el podio, no en la tabla
-        }
-    }
+            // Obtener usuarios con medallas (limitado a 10)
+            TodosUsuarios = _dbContext.GetUsuariosConMedallas();
 
-    public class Colaborador
-    {
-        public int Posicion { get; set; }
-        public string Nombre { get; set; }
-        public string ImagenUrl { get; set; }
-        public int Medallas { get; set; }
+            // Separar los 3 primeros para el podio y el resto para la tabla
+            Podio = TodosUsuarios.Count >= 3
+                ? TodosUsuarios.GetRange(0, 3)
+                : TodosUsuarios;
+
+            UsuariosTabla = TodosUsuarios.Count > 3
+                ? TodosUsuarios.GetRange(3, Math.Min(7, TodosUsuarios.Count - 3)) // Solo hasta completar 10 en total
+                : new List<Usuarios>();
+
+            // Obtener métricas del dashboard
+            var metricas = _dbContext.GetDashboardMetricas();
+
+            // Asignar métricas a propiedades
+            TotalLogros = metricas.TotalLogros;
+            PorcentajeMeta = metricas.PorcentajeMeta;
+            CapacitacionesDia = metricas.CapacitacionesDia;
+            PorcentajeMetaDiaria = metricas.PorcentajeMetaDiaria;
+            MetaMes = metricas.MetaMensual;
+            LogrosFaltantes = metricas.LogrosFaltantes;
+        }
     }
 }
