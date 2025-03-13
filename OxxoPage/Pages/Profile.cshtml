@@ -6,69 +6,84 @@
 }
 <html>
     <head>
+        <!-- Se incluye el archivo CSS para el perfil -->
         <link rel="stylesheet" type="text/css" href="~/css/Profile.css" asp-append-version="true">
     </head>
-        <body>
-            <div class="background-container">
-                <div class="background-red"></div>
-                <div class="background-yellow"></div>
+    <body>
+        <div class="background-container">
+            <!-- Fondo rojo -->
+            <div class="background-red"></div>
+            <!-- Fondo amarillo -->
+            <div class="background-yellow"></div>
+        </div>
+        <div class="container mt-4 content">
+            <div class="row align-items-center profile-header">
+                <!-- Contenedor para la imagen del perfil -->
+                <div class="col-auto profile-img-container">
+                    <!-- Imagen de perfil del usuario -->
+                    <img src="~/assets/img/@Model.ProfileImageUrl" class="rounded-circle profile-img" alt="Foto de Perfil">
+                </div>
+                <div class="col row profile-text">
+                    <!-- Nombre completo del usuario -->
+                    <h1>@Model.UserName</h1>
+                    <!-- Rol del usuario -->
+                    <h4 class="text-muted">@Model.Role</h4>
+                </div>
+                <div class="row col-2 profile-edit">
+                    <!-- Enlace para editar el perfil -->
+                    <a href="/EditarPerfil" class="card text-center shadow align-items-center justify-content-center">
+                        <h4 class="m-0 me-3">Editar Perfil</h4>
+                        <!-- Icono de lápiz para la edición -->
+                        <img src="~/img/lapiz.png" class="card-image" alt="Icono">
+                    </a>
+                </div>
             </div>
-            <div class="container mt-4 content">
-                <div class="row align-items-center profile-header">
-                    <div class="col-auto profile-img-container">
-                        <img src="~/assets/img/@Model.ProfileImageUrl" class="rounded-circle profile-img" alt="Foto de Perfil">
-                    </div>
-                    <div class="col row profile-text">
-                        <h1>@Model.UserName</h1>
-                        <h4 class="text-muted">@Model.Role</h4>
-                    </div>
-                        <div class="row col-2 profile-edit">
-                        <a href="/EditarPerfil" class="card text-center shadow align-items-center justify-content-center">
-                            <h4 class="m-0 me-3">Editar Perfil</h4>
-                            <img src="~/img/lapiz.png" class="card-image" alt="Icono">
-                        </a>
+
+            <div class="container mt-4">
+                <div class="level-info">
+                    <!-- Contenedor de información del nivel -->
+                    <div>
+                        <!-- Muestra el nivel del usuario -->
+                        <p class="level-text">Nivel @Model.Level</p>
+                        <!-- Muestra los puntos restantes al siguiente nivel -->
+                        <p class="xp-text">@(@Model.RequiredXP) puntos al siguiente nivel</p>
                     </div>
                 </div>
 
-                    <div class="container mt-4">
-                        <div class="level-info">
-                            <div>
-                                <p class="level-text">Nivel @Model.Level</p>
-                                <p class="xp-text">@(@Model.RequiredXP) puntos al siguiente nivel</p>
+                <div class="progress-container">
+                    <!-- Muestra el nivel anterior -->
+                    <div class="level-circle previous-level">@Model.Level</div>
+
+                    <div class="progress-wrapper">
+                        <div class="progress">
+                            <!-- Barra de progreso del nivel -->
+                            <div class="progress-bar" style="width: calc(300px * (@Model.CurrentXP / @Model.RequiredXPBar));">
                             </div>
                         </div>
+                        <!-- Muestra la cantidad de XP actual y el XP total necesario -->
+                        <p class="progress-text">@Model.CurrentXP/@Model.RequiredXPBar</p>
+                    </div>
 
-                        <div class="progress-container">
-                            <div class="level-circle previous-level">@Model.Level</div>
-
-                            <div class="progress-wrapper">
-                                <div class="progress">
-                                    <div class="progress-bar" style="width: calc(300px * (@Model.CurrentXP / @Model.RequiredXPBar));">
-                                    </div>
-                                </div>
-                                <p class="progress-text">@Model.CurrentXP/@Model.RequiredXPBar</p>
-                            </div>
-
-                            <div class="level-circle next-level">@(@Model.Level + 1)</div>
-                        </div>
-
-
+                    <!-- Muestra el siguiente nivel -->
+                    <div class="level-circle next-level">@(@Model.Level + 1)</div>
+                </div>
 
                 <div class="row mt-4">
 
                     <div class="col-md-6">
                         <h3 class="section-title">Acerca de mí</h3>
                         <div class="bio-card">
+                            <!-- Muestra la biografía del usuario -->
                             <p>@Model.Biography</p>
                         </div>
                     </div>
 
                     <div class="col-md-6">
-                        <!-- Título Logros -->
+                        <!-- Título de la sección de logros -->
                         <h3 class="logros-title">Logros</h3>
 
-                        <!-- Contenedor con sombra -->
                         <div class="logros-card">
+                            <!-- Si el usuario tiene logros -->
                             @if (Model.Achievements.Any()) 
                             {
                                 <ul class="logros-list">
@@ -76,10 +91,13 @@
                                     {
                                         <li class="logro-item">
                                             <div class="logro-icon">
+                                                <!-- Icono de medalla -->
                                                 <img src="~/img/medal.png" alt="Logro" />
                                             </div>
                                             <div class="logro-content">
+                                                <!-- Nombre del logro -->
                                                 <p class="logro-title"><strong>@logro.Nombre</strong></p>
+                                                <!-- Fecha y puntos obtenidos por el logro -->
                                                 <p class="logro-details">@logro.Fecha.ToShortDateString()  
                                                     <span class="logro-points">+ @logro.Experiencia pts.</span>
                                                 </p>
@@ -90,14 +108,15 @@
                             }
                             else
                             {
+                                <!-- Mensaje si no hay logros -->
                                 <p class="logro-title">Aún no has obtenido logros.</p>
                             }
                         </div>
                     </div>
 
-
                 </div>
             </div>
+        </div>
 
     </body>
 </html>
