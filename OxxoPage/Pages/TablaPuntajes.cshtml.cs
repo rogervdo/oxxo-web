@@ -21,24 +21,7 @@ namespace OxxoPage.Pages
         public List<Usuarios> Podio { get; set; }
 
         // Métricas del dashboard
-        // Total de logros obtenidos en el mes actual
-        public int TotalLogros { get; set; }
-        
-        // Porcentaje de la meta mensual que se ha alcanzado
-        public decimal PorcentajeMeta { get; set; }
-
-        // Capacitaciones completadas hoy
-        public int CapacitacionesDia { get; set; }
-        
-        // Porcentaje de la meta diaria de capacitaciones alcanzado
-        public decimal PorcentajeMetaDiaria { get; set; }
-
-        // Meta total de logros para el mes
-        public int MetaMes { get; set; }
-        
-        // Logros que faltan para cumplir la meta mensual
-        public int LogrosFaltantes { get; set; }
-
+        public DashboardMetricas Metricas { get; set; }
         // Constructor que inicializa el contexto de la base de datos
         public TablaPuntajesModel()
         {
@@ -52,24 +35,14 @@ namespace OxxoPage.Pages
             TodosUsuarios = _dbContext.GetUsuariosConMedallas();
 
             // Separo los 3 primeros para el podio y el resto para la tabla
-            Podio = TodosUsuarios.Count >= 3
-                ? TodosUsuarios.GetRange(0, 3)
-                : TodosUsuarios;
+            Podio = TodosUsuarios.Count >= 3 ? TodosUsuarios.GetRange(0, 3) : TodosUsuarios;
 
             UsuariosTabla = TodosUsuarios.Count > 3
                 ? TodosUsuarios.GetRange(3, Math.Min(7, TodosUsuarios.Count - 3)) // Solo hasta completar 10 en total
                 : new List<Usuarios>();
 
             // Obtengo las métricas del dashboard desde la base de datos
-            var metricas = _dbContext.GetDashboardMetricas();
-
-            // Asigno las métricas a las propiedades del modelo
-            TotalLogros = metricas.TotalLogros;
-            PorcentajeMeta = metricas.PorcentajeMeta;
-            CapacitacionesDia = metricas.CapacitacionesDia;
-            PorcentajeMetaDiaria = metricas.PorcentajeMetaDiaria;
-            MetaMes = metricas.MetaMensual;
-            LogrosFaltantes = metricas.LogrosFaltantes;
+            Metricas = _dbContext.GetDashboardMetricas();
         }
     }
 }

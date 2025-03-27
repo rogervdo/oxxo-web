@@ -6,6 +6,6 @@ public class DashboardMetricas
     public int LogrosFaltantes { get; set; }
     
     public int CapacitacionesDia { get; set; }
-    public int MetaDiaria { get; set; }  // Asegúrate que este sea tipo int
+    public int MetaDiaria { get; set; }  
     public decimal PorcentajeMetaDiaria { get; set; }
 }

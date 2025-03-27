@@ -23,8 +23,8 @@
                         </div>
                         <div>
                             <div class="text-muted mb-1">Total de logros del mes</div>
-                            <h1 class="display-4 fw-bold mb-0">@Model.TotalLogros</h1>
-                            <p class="mb-0"><span class="text-warning fw-bold">@Model.PorcentajeMeta%</span> de meta mensual alcanzada</p>
+                            <h1 class="display-4 fw-bold mb-0">@Model.Metricas.TotalLogros</h1>
+                            <p class="mb-0"><span class="text-warning fw-bold">@Model.Metricas.PorcentajeMeta%</span> de meta mensual alcanzada</p>
                         </div>
                     </div>
                 </div>
@@ -42,8 +42,8 @@
                         </div>
                         <div>
                             <div class="text-muted mb-1">Capacitaciones del día</div>
-                            <h1 class="display-4 fw-bold mb-0">@Model.CapacitacionesDia</h1>
-                            <p class="mb-0"><span class="text-success fw-bold">@Model.PorcentajeMetaDiaria%</span> de meta diaria alcanzada</p>
+                            <h1 class="display-4 fw-bold mb-0">@Model.Metricas.CapacitacionesDia</h1>
+                            <p class="mb-0"><span class="text-success fw-bold">@Model.Metricas.PorcentajeMetaDiaria%</span> de meta diaria alcanzada</p>
                         </div>
                     </div>
                 </div>
@@ -61,8 +61,8 @@
                         </div>
                         <div>
                             <div class="text-muted mb-1">Meta del mes</div>
-                            <h1 class="display-4 fw-bold mb-0">@Model.MetaMes</h1>
-                            <p class="mb-0"><span class="text-danger fw-bold">@Model.LogrosFaltantes</span> juegos para alcanzar la meta</p>
+                            <h1 class="display-4 fw-bold mb-0">@Model.Metricas.MetaMensual</h1>
+                            <p class="mb-0"><span class="text-danger fw-bold">@Model.Metricas.LogrosFaltantes</span> juegos para alcanzar la meta</p>
                         </div>
                     </div>
                 </div>
