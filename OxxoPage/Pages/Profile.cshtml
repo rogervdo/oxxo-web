@@ -1,5 +1,5 @@
 @page "/Perfil"
-@model Profile
+@model OxxoPage.Pages.Profile
 @{
     ViewData["Title"] = "Perfil de Usuario";
     ViewData["NavTitle"] = "Perfil de Usuario";
@@ -21,11 +21,11 @@
                 <!-- Contenedor para la imagen del perfil -->
                 <div class="col-auto profile-img-container">
                     <!-- Imagen de perfil del usuario -->
-                    <img src="~/assets/img/@Model.ProfileImageUrl" class="rounded-circle profile-img" alt="Foto de Perfil">
+                    <img src="~/assets/img/@Model.Usuario.Fotografia" class="rounded-circle profile-img" alt="Foto de Perfil">
                 </div>
                 <div class="col row profile-text">
                     <!-- Nombre completo del usuario -->
-                    <h1>@Model.UserName</h1>
+                    <h1>@Model.Usuario.Nombre @Model.Usuario.ApellidoPaterno @Model.Usuario.ApellidoMaterno</h1>
                     <!-- Rol del usuario -->
                     <h4 class="text-muted">@Model.Role</h4>
                 </div>
@@ -44,28 +44,28 @@
                     <!-- Contenedor de información del nivel -->
                     <div>
                         <!-- Muestra el nivel del usuario -->
-                        <p class="level-text">Nivel @Model.Level</p>
+                        <p class="level-text">Nivel @Model.Experiencia.Level</p>
                         <!-- Muestra los puntos restantes al siguiente nivel -->
-                        <p class="xp-text">@(@Model.RequiredXP) puntos al siguiente nivel</p>
+                        <p class="xp-text">@(@Model.Experiencia.RequiredXP) puntos al siguiente nivel</p>
                     </div>
                 </div>
 
                 <div class="progress-container">
                     <!-- Muestra el nivel anterior -->
-                    <div class="level-circle previous-level">@Model.Level</div>
+                    <div class="level-circle previous-level">@Model.Experiencia.Level</div>
 
                     <div class="progress-wrapper">
                         <div class="progress">
                             <!-- Barra de progreso del nivel -->
-                            <div class="progress-bar" style="width: calc(300px * (@Model.CurrentXP / @Model.RequiredXPBar));">
+                            <div class="progress-bar" style="width: calc(300px * (@Model.Experiencia.CurrentXP / @Model.Experiencia.RequiredXPBar));">
                             </div>
                         </div>
                         <!-- Muestra la cantidad de XP actual y el XP total necesario -->
-                        <p class="progress-text">@Model.CurrentXP/@Model.RequiredXPBar</p>
+                        <p class="progress-text">@Model.Experiencia.CurrentXP/@Model.Experiencia.RequiredXPBar</p>
                     </div>
 
                     <!-- Muestra el siguiente nivel -->
-                    <div class="level-circle next-level">@(@Model.Level + 1)</div>
+                    <div class="level-circle next-level">@(@Model.Experiencia.Level + 1)</div>
                 </div>
 
                 <div class="row mt-4">
@@ -74,7 +74,7 @@
                         <h3 class="section-title">Acerca de mí</h3>
                         <div class="bio-card">
                             <!-- Muestra la biografía del usuario -->
-                            <p>@Model.Biography</p>
+                            <p>@Model.Usuario.AboutMe</p>
                         </div>
                     </div>
 
