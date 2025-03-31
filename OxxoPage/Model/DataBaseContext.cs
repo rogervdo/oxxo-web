@@ -436,5 +436,32 @@ namespace OxxoPage.Model
             }
             return logros;
         }
+
+        public string ObtenerFotoDePerfil(string nickname)
+        {
+            string foto = "default.png"; // Valor por defecto en caso de error
+            using (var conexion = new MySqlConnection(ConnectionString))
+            {
+                try
+                {
+                    conexion.Open();
+                    string query = "SELECT fotografia FROM usuarios WHERE nickname = @nickname";
+                    using (var cmd = new MySqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nickname", nickname);
+                        object result = cmd.ExecuteScalar();
+                        if (result != null && !string.IsNullOrEmpty(result.ToString()))
+                        {
+                            foto = result.ToString();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener la foto de perfil: " + ex.Message);
+                }
+            }
+            return foto;
+        }
     }
 }

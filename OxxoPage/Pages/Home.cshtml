@@ -1,5 +1,5 @@
 ﻿@page "/Inicio" 
-@model Home
+@model OxxoPage.Pages.Home
 @{
     ViewData["Title"] = "Inicio";  // Establece el título de la página
     ViewData["NavTitle"] = "Inicio";  // Establece el título del navegador
@@ -12,10 +12,10 @@
     <body class="gradient">  <!-- Establece el fondo con una clase CSS para el gradiente -->
         <div class="d-flex mt-4 text-center justify-content-center align-items-center">  <!-- Contenedor para la imagen de perfil y texto de bienvenida -->
             <!-- Muestra la imagen de perfil del usuario -->
-            <img src="~/assets/img/@Model.FotoPerfil" alt="imagen" class="usuario">
+            <img src="~/assets/img/@Model.Usuario.Fotografia" alt="imagen" class="usuario">
             <div class="texto">
                 <!-- Muestra el nombre del usuario dinámicamente -->
-                <h1>¡Bienvenido de vuelta @Model.Nickname!</h1>
+                <h1>¡Bienvenido de vuelta @Model.Usuario.Nickname!</h1>
             </div>
         </div>
 
