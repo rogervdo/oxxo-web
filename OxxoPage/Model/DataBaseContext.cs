@@ -13,10 +13,10 @@ namespace OxxoPage.Model
         {
             // Emilio
             //"Server=127.0.0.1;Port=3306;Database=bdTest3;Uid=root;Password=root1234;"
-            
-            // Pablo
-            ConnectionString = "Server=mysql-93cf659-tamtok2-09a8.b.aivencloud.com;Port=23481;Database=BDOxxo;Uid=avnadmin;Password=AVNS_-9SXvTjsy8x6dg2kaJR";
 
+            // Pablo
+            // ConnectionString = "Server=mysql-93cf659-tamtok2-09a8.b.aivencloud.com;Port=23481;Database=BDOxxo;Uid=avnadmin;Password=AVNS_-9SXvTjsy8x6dg2kaJR;SslMode=Required;CertificateFile=ssl/client-cert.pem;CertificateKeyFile=ssl/client-key.pem;CACertificateFile=ssl/ca.pem;";
+            ConnectionString = "Server=mysql-93cf659-tamtok2-09a8.b.aivencloud.com;Port=23481;Database=BDOxxo;Uid=avnadmin;Password=AVNS_-9SXvTjsy8x6dg2kaJR;SslMode=Required;SslCa=ssl/ca.pem;SslCert=ssl/client-cert.pem;SslKey=ssl/client-key.pem;";
             // Jordy
             //ConnectionString = "Server=127.0.0.1;Port=3306;Database=DB_OXXO;Uid=root;Password=root1234";
         }
@@ -133,7 +133,7 @@ namespace OxxoPage.Model
                     conexion.Open();
                     // Consulta SQL para insertar un nuevo usuario en la base de datos
                     string query = "INSERT INTO usuarios (nombre, apellido_materno, apellido_paterno, nickname, contrasena, correo_electronico) VALUES (@nombre, @apellido_materno, @apellido_paterno, @nickname, @contrasena, @correoElectronico)";
-                    
+
                     using (MySqlCommand cmd = new MySqlCommand(query, conexion))
                     {
                         // Parámetros para la consulta
