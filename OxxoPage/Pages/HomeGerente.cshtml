@@ -1,0 +1,84 @@
+@page "/InicioGerente" 
+@model OxxoPage.Pages.HomeGerente
+@{
+    ViewData["Title"] = "InicioGerente";  // Establece el título de la página
+    ViewData["NavTitle"] = "InicioGerente";  // Establece el título del navegador
+}
+<html>
+    <head>
+        <!-- Enlazamos la hoja de estilos CSS -->
+        <link rel="stylesheet" type="text/css" href="~/css/Home.css" asp-append-version="true">
+    </head>
+    <body class="gradient">  <!-- Establece el fondo con una clase CSS para el gradiente -->
+        <div class="d-flex mt-4 text-center justify-content-center align-items-center">  <!-- Contenedor para la imagen de perfil y texto de bienvenida -->
+            <!-- Muestra la imagen de perfil del usuario -->
+            <img src="~/assets/img/@Model.Usuario.Fotografia" alt="imagen" class="usuario">
+            <div class="texto">
+                <!-- Muestra el nombre del usuario dinámicamente -->
+                <h1>¡Bienvenido de vuelta @Model.Usuario.Nickname!</h1>
+            </div>
+        </div>
+
+        <!-- Contenedor principal para las tarjetas -->
+        <div class="container mt-4">
+            <div class="row  justify-content-center mb-0">
+                <!-- Tarjeta para el Tablero de datos -->
+                <div class="col-md-5 mb-2">
+                    <a href="/TabladeDatos">
+                        <div class="card text-center p-3 shadow">
+                            <!-- Ícono de gráfico para el tablero -->
+                            <i class="bi bi-bar-chart fs-1 text-secondary"></i>
+                            <!-- Título de la tarjeta -->
+                            <h4 class="mt-2">Tablero de datos</h4>
+                            <!-- Imagen representativa del tablero -->
+                            <img src="~/img/graph.png" class="card-image" alt="">
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Tarjeta para el perfil del usuario -->
+                <div class="col-md-5">
+                    <a href="/Perfil">
+                        <div class="card text-center p-3 shadow">
+                            <!-- Ícono de perfil para la sección del perfil -->
+                            <i class="bi bi-person fs-1 text-secondary"></i>
+                            <!-- Título de la tarjeta -->
+                            <h4 class="mt-2">Mi perfil</h4>
+                            <!-- Imagen representativa del perfil -->
+                            <img src="~/img/profilep.png" class="card-image" alt="">
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Segunda fila de tarjetas -->
+                <!-- Tarjeta para la tabla de puntajes -->
+                <div class="col-md-5">
+                    <a href="/TablaPuntajes">
+                        <div class="card text-center p-3 shadow">
+                            <!-- Ícono de trofeo para la sección de puntajes -->
+                            <i class="bi bi-trophy fs-1 text-secondary"></i>
+                            <!-- Título de la tarjeta -->
+                            <h4 class="mt-2">Tabla de puntajes</h4>
+                            <!-- Imagen representativa de la tabla de puntajes -->
+                            <img src="~/img/leader.png" class="card-image puntaje" alt="">
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Tarjeta para la sección de juegos -->
+                <div class="col-md-5">
+                    <a href="/Juegos">
+                        <div class="card text-center p-3 shadow">
+                            <!-- Ícono de control para la sección de juegos -->
+                            <i class="bi bi-controller fs-1 text-secondary"></i>
+                            <!-- Título de la tarjeta -->
+                            <h4 class="mt-2">Mis juegos</h4>
+                            <!-- Imagen representativa de los juegos -->
+                            <img src="~/img/control.png" class="card-image" width="120px" alt="">
+                        </div>
+                    </a>    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
