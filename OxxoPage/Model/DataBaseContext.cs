@@ -15,7 +15,7 @@ namespace OxxoPage.Model
             //"Server=127.0.0.1;Port=3306;Database=bdTest3;Uid=root;Password=root1234;"
             
             // Pablo
-            ConnectionString = "Server=127.0.0.1;Port=3306;Database=BD_OXXO;Uid=root;Password=root";
+            ConnectionString = "Server=mysql-93cf659-tamtok2-09a8.b.aivencloud.com;Port=23481;Database=BDOxxo;Uid=avnadmin;Password=AVNS_-9SXvTjsy8x6dg2kaJR";
 
             // Jordy
             //ConnectionString = "Server=127.0.0.1;Port=3306;Database=DB_OXXO;Uid=root;Password=root1234";
