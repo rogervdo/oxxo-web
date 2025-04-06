@@ -1,0 +1,65 @@
+@page "/Settings"
+@model OxxoPage.Pages.Settings
+@{
+    ViewData["Title"] = "Configuración"; // Sets the title of the page
+    ViewData["NavTitle"] = "Configuración"; // Sets the navigation title
+}
+
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/Settings.css" asp-append-version="true">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="background-red">
+            <ul>
+                <li class="active text-center">Manejo De Cuenta</li>
+                <li class="text-center">Apariencia</li>
+            </ul>
+        </div>
+        <div class="background-yellow"></div>
+    </div>
+
+
+    <div class="Title">
+        <div class="management col-8 container">
+            <h1>Manejo de Cuenta</h1>
+            <p>Haz cambios a tu información personal o tipo de cuenta</p>
+        </div>
+    </div>
+
+    <div class="account-settings">
+        <div class="col-7 container">
+            <h3>Tu cuenta</h3>
+            <p>Correo</p>
+            <input type="text" placeholder="seveneleven@gmail.com" required class="form-control" />
+
+            <h3>Contraseña</h3>
+            <div class="password-container">
+                <input type="password" placeholder="Tu contraseña" required class="form-control" />
+                <button type="button" class="btn btn-primary">Cambiar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="Personal_info container">
+        <div class="col-7 container">
+            <h3>Información Personal</h3>
+            <p>Fecha de Nacimiento</p>
+            <input type="date" id="birthday" name="birthday">
+        </div>
+    </div>
+
+
+</body>
+
+
+
+
+
+
+
+</html>
