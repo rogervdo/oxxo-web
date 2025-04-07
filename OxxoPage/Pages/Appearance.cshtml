@@ -1,0 +1,45 @@
+@page "/Appearance"
+@model OxxoPage.Pages.Appearance
+@{
+    ViewData["Title"] = "Apariencia"; // Sets the title of the page
+    ViewData["NavTitle"] = "Apariencia"; // Sets the navigation title
+}
+
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/Appearance.css" asp-append-version="true">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="background-red">
+            <ul>
+                <li class="text-center"><a href="/Settings">Manejo De Cuenta</a></li>
+                <li class="text-center"><a href="/Appearance">Apariencia</a></li>
+            </ul>
+        </div>
+        <div class="background-yellow"></div>
+    </div>
+
+    <div class="Title">
+        <div class="management col-8 container">
+            <h1>Apariencia</h1>
+            <p>Haz cambios a la apariencia de tu cuenta</p>
+        </div>
+    </div>
+
+    </div class="Theme">
+        <div class="col-6 container">
+            <h3>Tema</h3>
+            <p>Ajusta example color de la interfaz para mejorar la visibilidad</p>
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Selecciona un tema</option>
+                <option value="1">Tema Claro</option>
+                <option value="2">Tema Oscuro</option>
+        </div>
+    </div>
+
+</body>
+
+</html>

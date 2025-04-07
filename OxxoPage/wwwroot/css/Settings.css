@@ -1,12 +1,18 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Esto evita que el body tenga scroll */
+}
 .sidebar {
     display: flex;
     flex-direction: row;
     width: 300px;
     height: 100vh;
-    position: fixed;
-    top: absolute;
+    position: absolute;  /* Mantenido como absolute */
+    top: absolute;  /* Asegura que la barra lateral esté alineada en la parte superior */
     left: 0;
     z-index: 1;
+    overflow: hidden;  /* Previene el scroll */
 }
 
 .background-red {
@@ -14,6 +20,8 @@
     width: 300px;
     padding: 20px;
     color: white;
+    height: 100vh;  /* Asegura que la barra lateral tenga una altura fija */
+    overflow: hidden;  /* Previene el scroll dentro de este contenedor */
 }
 
 .background-yellow {
@@ -76,4 +84,32 @@
     display: flex;
     flex-direction: column;
     margin-top: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:hover {
+    color: #fff;
+}
+
+.background-red a {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 999px; /* forma de cápsula */
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    color: #fff;
+}
+
+.background-red a:hover {
+    background-color: #711010; /* color de fondo al hacer hover */
+    color: #fff; /* color de texto al hacer hover */
+}
+
+.gender{
+    margin-top: 20px;
 }
