@@ -1,8 +1,174 @@
 @page "/EditarPerfil"
-@model EditProfile
+@model OxxoPage.Pages.EditProfile
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Editar Perfil de Usuario";
+    ViewData["NavTitle"] = "Editar Perfil de Usuario";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<html>
+    <head>
+        <!-- link CSS para el perfil -->
+        <link rel="stylesheet" type="text/css" href="~/css/EditProfile.css" asp-append-version="true">
+    </head>
+    <body>
+        <div class="background-container">
+            <!-- Fondo rojo -->
+            <div class="background-red"></div>
+            <!-- Fondo amarillo -->
+            <div class="background-yellow"></div>
+        </div>
+
+        <!-- div general contenido -->
+        <div class="container mt-4 content">
+            <div class="row align-items-center profile-header">
+
+                
+                <!-- contenedor imagen perfil-->
+                <div class="col-auto profile-img-wrapper" id="image">
+                    <!-- imagenPerfilUsuario-->
+                    <img src="~/assets/img/@Model.Usuario.Fotografia" class="rounded-circle profile-img" alt="Foto de Perfil">
+                    
+                    <!-- Agregar overlay de Lapiz-->
+                    <div class="hide-icon">
+                        <img src="~/img/lapiz.png" class="card-image" alt="Icono">
+                    </div>
+
+                </div>
+
+                <div class="box" id="box-img">
+                    <div class="pop-up-imgSelect" id="img-Select">
+                        <div class="header">
+                            <h4>Elige una imagen</h4>
+                            <a class="closebtn" id="closeImgSelect-btn"> x </a>
+                        </div>
+                        <div class="box-select">
+                            <div id="upload">
+                                <!-- img+opcion subir img-->
+                                <img src="~/img/UploadImage.png" class="card-image" alt="Icono">
+                                <h6>Subir una Imagen</h6>
+                            </div>
+                            <div id="choose-img">
+                                <!-- img+opcion elegir img-->
+                                <img src="~/img/ChooseImg.png" class="card-image" alt="Icono">
+                                <h6>Elegir Imagen</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="col row profile-text">
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Nombre completo del usuario -->
+                        <h1>@Model.Usuario.Nombre @Model.Usuario.ApellidoPaterno @Model.Usuario.ApellidoMaterno</h1>
+                        <!-- icono editar nombre Usuario -->
+                        <img src="~/img/lapiz.png" class="card-image" alt="Icono">
+                    </div>
+                    <!-- Rol del usuario -->
+                    <h4 class="text-muted">@Model.Role</h4>
+                </div>
+                
+                <!--boton de guardar cambios-->
+                <div class="row col-2 profile-edit">
+                    <a href="/Perfil" class="card text-center shadow align-items-center justify-content-center">
+                        <h4 class="m-0 me-3">Guardar Cambios</h4>
+                        <!-- Icono de lápiz para la edición -->
+                        <img src="~/img/saveIcon.png" class="card-image" alt="Icono">
+                    </a>
+                </div>
+
+                <!-- boton deshacer cambios -->
+                <div class="row col-2 profile-edit">
+                    <a href="/Perfil" class="card text-center shadow align-items-center justify-content-center">
+                        <h4 class="m-0 me-3">Deshacer</h4>
+                        <!-- Icono de lápiz para la edición -->
+                        <img src="~/img/undo.png" class="card-image" alt="Icono">
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Contenedor Nivel Usuario-->
+            <div class="container mt-4">
+                <div class="level-info">
+                    <div>
+                        <!-- Muestra el nivel del usuario -->
+                        <p class="level-text">Nivel @Model.Experiencia.Level</p>
+                        <!-- Muestra los puntos restantes al siguiente nivel -->
+                        <p class="xp-text">@(@Model.Experiencia.RequiredXP) puntos al siguiente nivel</p>
+                    </div>
+                </div>
+
+                <!-- Barra de progreso -->
+                <div class="progress-container">
+                    <!-- Muestra el nivel anterior -->
+                    <div class="level-circle previous-level">@Model.Experiencia.Level</div>
+
+                    <div class="progress-wrapper">
+                        <div class="progress">
+                            <!-- Barra de progreso del nivel -->
+                            <div class="progress-bar" style="width: calc(300px * (@Model.Experiencia.CurrentXP / @Model.Experiencia.RequiredXPBar));">
+                            </div>
+                        </div>
+                        <!-- Muestra la cantidad de XP actual y el XP total necesario -->
+                        <p class="progress-text">@Model.Experiencia.CurrentXP/@Model.Experiencia.RequiredXPBar</p>
+                    </div>
+
+                    <!-- Muestra el siguiente nivel -->
+                    <div class="level-circle next-level">@(@Model.Experiencia.Level + 1)</div>
+                </div>
+
+                <!-- Cont. Acerca de mi / Logros -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h3 class="section-title">Acerca de mí</h3>
+                    
+                        <!-- Muestra la biografía del usuario -->
+                        <div class="bio-card">
+                            <p>@Model.Usuario.AboutMe</p>
+                            <img src="~/img/lapiz.png" class="card-image" alt="Icono">
+                        </div>
+                    </div>
+
+                    <!-- Logros-->
+                    <div class="col-md-6">
+                        <h3 class="logros-title">Logros</h3>
+
+                        <!-- Card donde se van a mostrar Logros-->
+                        <div class="logros-card">
+                        <!-- Si el usuario tiene logros-->
+                            @if (Model.Achievements.Any()) 
+                            {
+                                <ul class="logros-list">
+                                    @foreach (var logro in Model.Achievements)
+                                    {
+                                        <li class="logro-item">
+                                            <div class="logro-icon">
+                                                <!-- Icono de medalla -->
+                                                <img src="~/img/medal.png" alt="Logro" />
+                                            </div>
+                                            <div class="logro-content">
+                                                <!-- Nombre del logro -->
+                                                <p class="logro-title"><strong>@logro.Nombre</strong></p>
+                                                <!-- Fecha y puntos obtenidos por el logro -->
+                                                <p class="logro-details">@logro.Fecha.ToShortDateString()  
+                                                    <span class="logro-points">+ @logro.Experiencia pts.</span>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <!-- Mensaje si no hay logros -->
+                                <p class="logro-title">Aún no has obtenido logros.</p>
+                            }
+                        <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script src="~/js/EditProfile.js"></script>
+    </body>
+</html>
