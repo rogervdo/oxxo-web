@@ -1,7 +1,7 @@
 .sidebar {
     display: flex;
     flex-direction: row;
-    width: 300px;
+    width: 250px;
     height: 100vh;
     position: fixed;
     top: absolute;

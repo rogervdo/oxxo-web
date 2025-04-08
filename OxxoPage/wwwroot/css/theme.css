@@ -1,0 +1,256 @@
+/* Default Light Mode */
+body {
+    background-color: #ffffff;
+    color: #000000;
+    transition: none;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode a {
+    color: #ffffff;
+}
+
+body.dark-mode span {
+    color: #fefefe !important;
+}
+
+/* Profile Card Image */
+.profile-edit .card-image {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Card Styles */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 20px;
+    margin-bottom: auto;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    transition: none;
+}
+
+.card img {
+    width: 110px;
+    height: auto;
+    opacity: 1;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Dark Mode Card */
+body.dark-mode .card {
+    background-color: #2c2626;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #FAFAFA;
+    color: #000000;
+    transition: none;
+}
+
+body.dark-mode .navbar {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+body.dark-mode .navbar a {
+    color: #ffffff;
+}
+
+body.dark-mode .navbar a:hover {
+    color: #FDC32F;
+}
+
+/* Sidebar */
+.sidebar {
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    top: absolute;
+    left: 0;
+    z-index: 1;
+}
+
+.sidebar.dark-mode {
+    background-color: inherit;
+}
+
+/* Specific Backgrounds */
+.background-red.dark-mode {
+    background-color: #7D150F;
+}
+
+.background-yellow.dark-mode {
+    background-color: #FDC32F;
+}
+
+.background-red a.dark-mode {
+    background-color: #711010;
+    color: #ffffff;
+}
+
+/* Gradients */
+.gradient {
+    background: linear-gradient(0deg, #fafafa 65%, #fcc203 85%);
+}
+
+body.dark-mode .gradient {
+    background: linear-gradient(0deg, #1e1e1e 65%, #9b101a 110%) !important;
+}
+
+/* Table Styles */
+.table-container {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.table-container th {
+    background-color: #f8f9fa;
+    color: #000000;
+}
+
+body.dark-mode .table-container {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+body.dark-mode .table-container th {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+body.dark-mode .table-container td,
+body.dark-mode .table-container .fw-bold {
+    color: #ffffff;
+}
+
+/* Bio & Logros Cards */
+.bio-card,
+.logros-card {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.logros-list .logro-item {
+    background-color: #f8f9fa;
+    color: #000000;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Dark Mode Bio & Logros */
+body.dark-mode .bio-card,
+body.dark-mode .logros-card {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+body.dark-mode .logros-list .logro-item {
+    background-color: #3a3a3a;
+    color: #ffffff;
+}
+
+body.dark-mode .logros-title,
+body.dark-mode .section-title {
+    color: #ffffff;
+}
+
+body.dark-mode .logro-details,
+body.dark-mode .logro-points {
+    color: #f0c674;
+}
+
+/* ====================== */
+/* === Form Controls ==== */
+/* ====================== */
+
+/* Shared Styles (Light Mode) */
+input,
+select,
+button {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #fcc203;
+    box-shadow: 0 0 0 2px rgba(252, 194, 3, 0.2);
+}
+
+button {
+    background-color: #fcc203;
+    color: #000000;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e0ae00;
+}
+
+/* Dark Mode Forms */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode button {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+body.dark-mode input::placeholder {
+    color: #bbbbbb;
+}
+
+body.dark-mode select option[value="select"] {
+    color: #bbbbbb;
+}
+
+body.dark-mode button {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.dark-mode button:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.password-container button:hover {
+    background-color: #c62828 !important;
+    border-color: #c62828 !important;
+}
