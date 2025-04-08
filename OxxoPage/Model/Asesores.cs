@@ -1,9 +1,10 @@
 using System;
 namespace OxxoPage.Model
 {
-    public class Usuarios
+    public class Asesores
     {
         public int IdUsuario { get; set; }
+        public int IdAsesor { get; set; }
         public string Nombre { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
@@ -17,32 +18,16 @@ namespace OxxoPage.Model
         public string Municipio { get; set; }
         public string NumCasa { get; set; }
         public string Calle { get; set; }
-        public string Contrasena { get; set; }
-        public string CorreoElectronico { get; set; }
         public string Nickname { get; set; }
         public string AboutMe { get; set; }
         public int Posicion { get; set; }
         public int Medallas { get; set; }
 
+        public int NumOxxos { get; set; }
         // Constructor para Login
-        public Usuarios(string nickname, string contrasena)
-        {
-            Nickname = nickname;
-            Contrasena = contrasena;
-        }
-
-        // Constructor para Sign In 
-        public Usuarios(string nombre, string apellidomaterno, string apellidopaterno, string contrasena, string nickname)
-        {
-            Nombre = nombre;
-            ApellidoMaterno = apellidomaterno;
-            ApellidoPaterno = apellidopaterno;
-            Contrasena = contrasena;
-            Nickname = nickname;
-        }
 
         // Constructor vacío para inicializar el objeto sin parámetros
-        public Usuarios() { }
+        public Asesores() { }
     }
 
 }

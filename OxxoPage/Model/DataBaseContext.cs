@@ -11,14 +11,11 @@ namespace OxxoPage.Model
 
         public DataBaseContext()
         {
-            // Emilio
-            //"Server=127.0.0.1;Port=3306;Database=bdTest3;Uid=root;Password=root1234;"
-            
+
             // Pablo
             ConnectionString = "Server=mysql-93cf659-tamtok2-09a8.b.aivencloud.com;Port=23481;Database=BDOxxo;Uid=avnadmin;Password=AVNS_-9SXvTjsy8x6dg2kaJR";
-
-            // Jordy
-            //ConnectionString = "Server=127.0.0.1;Port=3306;Database=DB_OXXO;Uid=root;Password=root1234";
+            //ConnectionString = "Server=mysql-93cf659-tamtok2-09a8.b.aivencloud.com;Port=23481;Database=BDOxxo;Uid=avnadmin;Password=AVNS_-9SXvTjsy8x6dg2kaJR;SslMode=Required;CertificateFile=ssl/client-cert.pem;CertificateKeyFile=ssl/client-key.pem;CACertificateFile=ssl/ca.pem;";
+            //ConnectionString = "Server=mysql-93cf659-tamtok2-09a8.b.aivencloud.com;Port=23481;Database=BDOxxo;Uid=avnadmin;Password=AVNS_-9SXvTjsy8x6dg2kaJR;SslMode=Required;SslCa=ssl/ca.pem;SslCert=ssl/client-cert.pem;SslKey=ssl/client-key.pem;";
         }
 
         // Método privado para obtener la conexión a la base de datos
@@ -46,13 +43,13 @@ namespace OxxoPage.Model
                             Usuarios usuario = new Usuarios
                             {
                                 IdUsuario = Convert.ToInt32(reader["id_usuario"]),
-                                Nombre = reader["nombre"].ToString(),
-                                ApellidoMaterno = reader["apellido_materno"] != DBNull.Value ? reader["apellido_materno"].ToString() : "",
-                                ApellidoPaterno = reader["apellido_paterno"] != DBNull.Value ? reader["apellido_paterno"].ToString() : "",
-                                Telefono = reader["telefono"] != DBNull.Value ? reader["telefono"].ToString() : "",
-                                Fotografia = reader["fotografia"] != DBNull.Value ? reader["fotografia"].ToString() : "default-user.jpg",
-                                Nickname = reader["nickname"].ToString(),
-                                CorreoElectronico = reader["correo_electronico"].ToString()
+                                Nombre = reader["nombre"]?.ToString() ?? "",
+                                ApellidoMaterno = reader["apellido_materno"]?.ToString() ?? "",
+                                ApellidoPaterno = reader["apellido_paterno"]?.ToString() ?? "",
+                                Telefono = reader["telefono"]?.ToString() ?? "",
+                                Fotografia = reader["fotografia"]?.ToString() ?? "",
+                                Nickname = reader["nickname"]?.ToString() ?? "",
+                                CorreoElectronico = reader["correo_electronico"]?.ToString() ?? "",
                             };
                             ListaUsuarios.Add(usuario);
                         }
@@ -67,6 +64,76 @@ namespace OxxoPage.Model
             }
             return ListaUsuarios;
         }
+
+        public List<Asesores> GetAsesoresDeGerente(int id_gerente)
+        {
+            List<Asesores> ListaAsesores = new List<Asesores>();
+            using (var conexion = GetConnection())
+            {
+                try
+                {
+                    conexion.Open();
+                    string query = @"
+                        SELECT 
+                            a.*, 
+                            u.*, 
+                            COUNT(DISTINCT o.id_oxxo) AS total_oxxos, 
+                            COUNT(DISTINCT il.id_instancialogro) AS total_medallas
+                        FROM asesores a
+                        JOIN usuarios u ON a.id_usuario = u.id_usuario
+                        LEFT JOIN oxxos o ON a.id_asesor = o.id_asesor
+                        LEFT JOIN logrosasesores il ON a.id_asesor = il.id_asesor
+                        WHERE a.id_gerente = @id_gerente
+                        GROUP BY a.id_asesor, u.id_usuario;
+                    ";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@id_gerente", id_gerente);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Creación de un usuario a partir de los datos obtenidos de la base de datos
+                                Asesores asesor = new Asesores
+                                {
+                                    IdUsuario = Convert.ToInt32(reader["id_usuario"]),
+                                    IdAsesor = Convert.ToInt32(reader["id_asesor"]),
+                                    Nombre = reader["nombre"]?.ToString() ?? "",
+                                    ApellidoMaterno = reader["apellido_materno"]?.ToString() ?? "",
+                                    ApellidoPaterno = reader["apellido_paterno"]?.ToString() ?? "",
+                                    Telefono = reader["telefono"]?.ToString() ?? "",
+                                    Fotografia = reader["fotografia"]?.ToString() ?? "",
+                                    Nickname = reader["nickname"]?.ToString() ?? "",
+                                    NumOxxos = Convert.ToInt32(reader["total_oxxos"]),
+                                    Medallas = Convert.ToInt32(reader["total_medallas"])
+                                };
+                                ListaAsesores.Add(asesor);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Captura de errores en caso de problemas con la conexión o consulta
+                    Console.WriteLine("Error al obtener usuarios: " + ex.Message);
+                    // En producción, es mejor registrar este error en un log
+                }
+            }
+
+            // Console.WriteLine("Lista de Asesores:");
+            // foreach (var asesor in ListaAsesores)
+            // {
+            //     Console.WriteLine($"Asesor - IdUsuario: {asesor.IdUsuario}, IdAsesor: {asesor.IdAsesor}, Nombre Completo: {asesor.Nombre}, Fotografía: {asesor.Fotografia}, Número de Oxxos: {asesor.NumOxxos}");
+            // }
+
+            return ListaAsesores;
+        }
+
+        // public int GetIdFromNickname(string nickname)
+        // {
+
+        // };
 
         // Método para verificar el login del usuario
         public bool Login(string nickname, string contrasena)
@@ -133,7 +200,7 @@ namespace OxxoPage.Model
                     conexion.Open();
                     // Consulta SQL para insertar un nuevo usuario en la base de datos
                     string query = "INSERT INTO usuarios (nombre, apellido_materno, apellido_paterno, nickname, contrasena, correo_electronico) VALUES (@nombre, @apellido_materno, @apellido_paterno, @nickname, @contrasena, @correoElectronico)";
-                    
+
                     using (MySqlCommand cmd = new MySqlCommand(query, conexion))
                     {
                         // Parámetros para la consulta
@@ -355,6 +422,84 @@ namespace OxxoPage.Model
             return usuario;
         }
 
+        //bookmark
+        public object? ObtenerUnicoDatoUsuario(object data, string datatypeInput, string datatypeSearch)
+        {
+            object? value = null;
+            using var conexion = GetConnection();
+            try
+            {
+                conexion.Open();
+                Console.WriteLine($"Debug: Connection opened successfully.");
+                Console.WriteLine($"Debug: Query parameters - data: {data}, datatypeInput: {datatypeInput}, datatypeSearch: {datatypeSearch}");
+
+                string query = $"SELECT {datatypeSearch} FROM usuarios WHERE {datatypeInput} = @data";
+                Console.WriteLine($"Debug: Query - {query}");
+
+                using var cmd = new MySqlCommand(query, conexion);
+                cmd.Parameters.AddWithValue("@data", data);
+
+                Console.WriteLine($"Debug: Parameters added to command.");
+
+                using var reader = cmd.ExecuteReader();
+                Console.WriteLine($"Debug: Query executed.");
+
+                if (reader.Read())
+                {
+                    value = reader[datatypeSearch];
+                    Console.WriteLine($"Debug: Value retrieved - {value}");
+                }
+                else
+                {
+                    Console.WriteLine($"Debug: No data found for the given parameters.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener datos del usuario: " + ex.Message);
+            }
+            Console.WriteLine($"Debug: Final value - {value}");
+            return value;
+        }
+
+        public Usuarios ObtenerDatosUsuarioAnyData(object data, string datatype)
+        {
+            Usuarios usuario = null;
+            using (var conexion = GetConnection())
+            {
+                try
+                {
+                    conexion.Open();
+                    string query = "SELECT id_usuario, nombre, apellido_paterno, apellido_materno, fotografia, about_me FROM usuarios WHERE @datatype = @data";
+                    using (var cmd = new MySqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@data", data);
+                        cmd.Parameters.AddWithValue("@datatype", datatype);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                usuario = new Usuarios
+                                {
+                                    IdUsuario = Convert.ToInt32(reader["id_usuario"]),
+                                    Nombre = reader["nombre"].ToString() ?? "defaultname",
+                                    ApellidoPaterno = reader["apellido_paterno"]?.ToString() ?? "defaultpaterno",
+                                    ApellidoMaterno = reader["apellido_materno"]?.ToString() ?? "defaultmaterno",
+                                    Fotografia = reader["nombre"].ToString() ?? "default.png",
+                                    AboutMe = reader["about_me"]?.ToString() ?? "Este usuario aún no ha escrito su biografía."
+                                };
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener datos del usuario: " + ex.Message);
+                }
+            }
+            return usuario;
+        }
+
         // Obtener el rol del usuario (asesor o gerente)
         public string ObtenerRolUsuario(int userId)
         {
@@ -370,7 +515,7 @@ namespace OxxoPage.Model
                         cmd.Parameters.AddWithValue("@userId", userId);
                         using (var reader = cmd.ExecuteReader())
                         {
-                            if (reader.HasRows) return "Asesor de Tienda";
+                            if (reader.HasRows) return "asesor";
                         }
                     }
 
@@ -380,7 +525,51 @@ namespace OxxoPage.Model
                         cmd.Parameters.AddWithValue("@userId", userId);
                         using (var reader = cmd.ExecuteReader())
                         {
-                            if (reader.HasRows) return "Gerente de Plaza";
+                            if (reader.HasRows) return "gerente";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener el rol del usuario: " + ex.Message);
+                }
+
+                return "Usuario estándar";
+            }
+        }
+
+        public string ObtenerRolUsuarioNickname(string nickname)
+        {
+            using (var conexion = GetConnection())
+            {
+                try
+                {
+                    conexion.Open();
+
+                    string queryAsesor = @"SELECT a.id_usuario 
+                                            FROM asesores a
+                                            JOIN usuarios u on u.id_usuario = a.id_usuario
+                                            WHERE u.nickname = @nickname;";
+                    using (var cmd = new MySqlCommand(queryAsesor, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nickname", nickname);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+
+                            if (reader.HasRows) return "asesor";
+                        }
+                    }
+
+                    string queryGerente = @"SELECT a.id_usuario 
+                                            FROM gerentes a
+                                            JOIN usuarios u on u.id_usuario = a.id_usuario
+                                            WHERE u.nickname = @nickname;";
+                    using (var cmd = new MySqlCommand(queryGerente, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nickname", nickname);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows) return "gerente";
                         }
                     }
                 }
