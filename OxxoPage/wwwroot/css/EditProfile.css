@@ -1,0 +1,389 @@
+.background-container {
+  position: absolute;
+  width: 100%;
+  height: 12vh;
+  top: 0;
+  left: 0;
+}
+
+.background-red {
+  width: 100%;
+  height: 250px;
+  background-color: #de2924;
+}
+
+.background-yellow {
+  width: 100%;
+  height: 30px;
+  background-color: #fdc32f;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding-top: 90px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+}
+
+.profile-text {
+  margin-top: 120px;
+  align-items: flex-end;
+}
+
+/* ------------------ */
+/* imagen */
+.profile-img {
+  width: 220px;
+  height: 220px;
+  border: 8px solid #de2924;
+  -webkit-filter: brightness(100%);
+  transition: all 0.5s ease;
+}
+
+/* contenedor */
+.profile-img-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Efecto de opacidad en hover */
+.profile-img-wrapper:hover .profile-img {
+  filter: brightness(70%);
+  cursor: pointer;
+}
+
+.hide-icon {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.profile-img-wrapper:hover .hide-icon {
+  display: block;
+}
+
+.profile-img-wrapper .card-image {
+  filter: brightness(0) invert(1);
+  pointer-events: none;
+  width: 25px;
+  height: 25px;
+}
+/* ------------------ */
+
+/*Elegir imagen perfil*/
+.pop-up-imgSelect {
+  background: white;
+  padding: 20px;
+  margin-top: 16px;
+  border-radius: 12px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 0; /*Ancho inicial*/
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: width 0.5s ease, opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+.pop-up-imgSelect.show {
+  width: 500px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#upload,
+#choose-img {
+  background-color: #d7d7d7;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+#upload:hover,
+#choose-img:hover {
+  cursor: pointer;
+  background-color: #c7c7c7;
+}
+
+.box-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.closebtn {
+  font-size: 25px;
+  cursor: pointer;
+  float: right;
+  text-decoration: none;
+  color: #333;
+}
+
+.closebtn:hover {
+  color: #878787;
+}
+
+h6 {
+  margin-top: 10px;
+}
+
+.box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* fondo oscuro */
+  display: none; /* escondido por default */
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* encima de todo */
+}
+
+/* Modal centrado */
+.pop-up-imgSelect {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+  width: 500px;
+  max-width: 90vw;
+}
+
+/* Mostrar el modal */
+.box.show {
+  display: flex;
+}
+
+/* ------------------ */
+
+.level-bar {
+  height: 20px;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.profile-edit .card {
+  margin-top: 100px;
+  flex-direction: row;
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: black;
+  height: 20px;
+  width: 170px;
+}
+
+.profile-edit h4 {
+  font-size: 16px;
+}
+
+.card-image {
+  width: 20px;
+  height: 20px;
+}
+
+/* ------------------ */
+
+/* Contenedor de progreso */
+.progress-container {
+  display: flex;
+  align-items: center;
+  width: 400px; /* Tamaño fijo total del componente */
+  margin-top: 10px; /* Centrar el contenedor */
+  height: 50px;
+  gap: 5px;
+}
+
+/* Barra de progreso */
+/* Contenedor de la barra y el texto */
+.progress-wrapper {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el texto debajo */
+  display: flex;
+  align-items: center;
+}
+
+/* Barra de progreso */
+.progress {
+  width: 300px; /* Tamaño fijo de la barra */
+  height: 16px;
+  background-color: #f5dada;
+  border-radius: 12px;
+  position: relative;
+}
+
+/* Relleno de la barra */
+.progress-bar {
+  height: 100%;
+  background-color: #a11717;
+  border-radius: 12px;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Texto debajo de la barra */
+.progress-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 5px; /* Espacio entre la barra y el texto */
+  margin-bottom: -27px;
+}
+
+/* Círculos de los niveles */
+.level-circle {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #9b101a;
+}
+
+.previous-level {
+  background-color: #9b101a;
+}
+
+.next-level {
+  background-color: #d9a5a5;
+  color: white;
+}
+
+/* Contenedor de la información del nivel */
+.level-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+/* Diseño del texto */
+.level-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.xp-text {
+  font-size: 14px;
+  color: gray;
+  margin: 0;
+}
+
+/* Título "Acerca de mí..." */
+.section-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Card con sombra y borde redondeado */
+.bio-card {
+  background: white;
+  padding: 20px;
+  margin-top: 16px;
+  border-radius: 12px; /* Bordes redondeados */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  max-width: 600px; /* Para que no se haga demasiado ancho */
+  justify-content: space-between; /*separa texto de icono a extremos opuestos*/
+  display: flex;
+  align-items: center; /* alinea verticalmente */
+}
+
+/* Título de la sección */
+.logros-title {
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: none;
+}
+
+/* Contenedor con sombra y bordes redondeados */
+.logros-card {
+  background: white;
+  padding: 15px;
+  border-radius: 16px; /* Bordes redondeados */
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1); /* Sombra */
+  max-width: 600px; /* Tamaño fijo */
+}
+
+/* Lista de logros */
+.logros-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Cada logro */
+.logro-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd; /* Separador entre logros */
+}
+
+.logro-item:last-child {
+  border-bottom: none; /* Quitar línea al último logro */
+}
+
+/* Icono de logro */
+.logro-icon img {
+  width: 50px;
+  height: 60px;
+}
+
+/* Contenido del logro */
+.logro-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Título del logro */
+.logro-title {
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: none;
+  margin-bottom: 5px;
+}
+
+/* Detalles del logro */
+.logro-details {
+  font-size: 14px;
+  color: gray;
+  margin: 0;
+}
+
+.logro-points {
+  font-weight: bold;
+  color: #28a745; /* Verde para destacar */
+}
