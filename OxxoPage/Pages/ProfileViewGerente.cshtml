@@ -1,8 +1,8 @@
-@page "/PerfilViewGerente"
-@model OxxoPage.Pages.Profile
+@page "/ProfileViewGerente"
+@model OxxoPage.Pages.ProfileViewGerente
 @{
-    ViewData["Title"] = "Perfil de Asesor";
-    ViewData["NavTitle"] = "Perfil de Asesor";
+    ViewData["Title"] = "Perfil de Gerente";
+    ViewData["NavTitle"] = "Perfil de Gerente";
 }
 <html>
     <head>
@@ -21,11 +21,11 @@
                 <!-- Contenedor para la imagen del perfil -->
                 <div class="col-auto profile-img-container">
                     <!-- Imagen de perfil del usuario -->
-                    <img src="~/assets/img/@Model.Usuario.Fotografia" class="rounded-circle profile-img" alt="Foto de Perfil">
+                    <img src="~/assets/img/@Model.UsuarioAsesor.Fotografia" class="rounded-circle profile-img" alt="Foto de Perfil">
                 </div>
                 <div class="col row profile-text">
                     <!-- Nombre completo del usuario -->
-                    <h1>@Model.Usuario.Nombre @Model.Usuario.ApellidoPaterno @Model.Usuario.ApellidoMaterno</h1>
+                    <h1>@Model.UsuarioAsesor.Nombre @Model.UsuarioAsesor.ApellidoPaterno @Model.UsuarioAsesor.ApellidoMaterno</h1>
                     <!-- Rol del usuario -->
                     <h4 class="text-muted">@Model.Role</h4>
                 </div>
@@ -74,7 +74,7 @@
                         <h3 class="section-title">Acerca de mí</h3>
                         <div class="bio-card">
                             <!-- Muestra la biografía del usuario -->
-                            <p>@Model.Usuario.AboutMe</p>
+                            <p>@Model.UsuarioAsesor.AboutMe</p>
                         </div>
                     </div>
 

@@ -25,6 +25,7 @@ namespace OxxoPage.Pages
 
         public void OnGet()
         {
+
             string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario");
 
             if (!string.IsNullOrEmpty(nickname))

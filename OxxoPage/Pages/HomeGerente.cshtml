@@ -4,6 +4,12 @@
     ViewData["Title"] = "InicioGerente";  // Establece el título de la página
     ViewData["NavTitle"] = "InicioGerente";  // Establece el título del navegador
 }
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
 <html>
     <head>
         <!-- Enlazamos la hoja de estilos CSS -->
@@ -22,8 +28,9 @@
         <!-- Contenedor principal para las tarjetas -->
         <div class="container mt-4">
             <div class="row  justify-content-center mb-0">
+
                 <!-- Tarjeta para el Tablero de datos -->
-                <div class="col-md-5 mb-2">
+                <div class="col-md-4 mb-2">
                     <a href="/TabladeDatos">
                         <div class="card text-center p-3 shadow">
                             <!-- Ícono de gráfico para el tablero -->
@@ -37,7 +44,7 @@
                 </div>
 
                 <!-- Tarjeta para el perfil del usuario -->
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <a href="/Perfil">
                         <div class="card text-center p-3 shadow">
                             <!-- Ícono de perfil para la sección del perfil -->
@@ -50,9 +57,8 @@
                     </a>
                 </div>
 
-                <!-- Segunda fila de tarjetas -->
                 <!-- Tarjeta para la tabla de puntajes -->
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <a href="/TablaPuntajes">
                         <div class="card text-center p-3 shadow">
                             <!-- Ícono de trofeo para la sección de puntajes -->
@@ -65,20 +71,48 @@
                     </a>
                 </div>
 
-                <!-- Tarjeta para la sección de juegos -->
-                <div class="col-md-5">
-                    <a href="/Juegos">
-                        <div class="card text-center p-3 shadow">
-                            <!-- Ícono de control para la sección de juegos -->
-                            <i class="bi bi-controller fs-1 text-secondary"></i>
-                            <!-- Título de la tarjeta -->
-                            <h4 class="mt-2">Mis juegos</h4>
-                            <!-- Imagen representativa de los juegos -->
-                            <img src="~/img/control.png" class="card-image" width="120px" alt="">
-                        </div>
-                    </a>    
-                </div>
             </div>
+        </div>
+
+        <div class="container mt-4" style="max-width: 800px; margin: auto;">
+            <table id="sortableTable" class="table table-striped table-bordered compact">
+            <thead>
+                <tr>
+                <th>ID Asesor</th>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Num Oxxos</th>
+                <th>Medallas</th>
+                <th>Perfil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var asesor in Model.AsesoresList)
+                {
+                <tr>
+                    <td>@asesor.IdAsesor</td>
+                    <td>@asesor.Nombre @asesor.ApellidoPaterno @asesor.ApellidoMaterno</td>
+                    <td>@asesor.Telefono</td>
+                    <td>@asesor.NumOxxos</td>
+                    <td>@asesor.Medallas</td>
+                    <td class="text-center">
+                        <a href="/ProfileViewGerente?id=@asesor.Nickname">
+                            <img src="~/img/usuarios.png" alt="Ver Detalles" style="width: 32px; height: 32px;">
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+            </table>
+
+            <script>
+            new DataTable('#sortableTable', {
+                columnDefs: [
+                    { targets: 0, width: '80px' }  // targets the 1st column and sets its width to 80px
+                ]
+            });
+            </script>
+
         </div>
     </body>
 </html>

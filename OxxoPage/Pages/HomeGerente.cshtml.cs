@@ -14,6 +14,8 @@ public class HomeGerente : PageModel
     // Propiedades para almacenar el nickname y la foto de perfil del usuario
     public Usuarios Usuario { get; set; }
 
+    public List<Asesores> AsesoresList { get; set; }
+
     // Constructor que inyecta dependencias para acceso a la sesión y la base de datos
     public HomeGerente(IHttpContextAccessor httpContextAccessor)
     {
@@ -32,5 +34,12 @@ public class HomeGerente : PageModel
             Fotografia = nickname != "Invitado"
                 ? _dbContext.ObtenerFotoDePerfil(nickname) : "default.png"
         };
+        AsesoresList = _dbContext.GetAsesoresDeGerente(1);
+    }
+
+    public void SetUsuarioAsesorSession(string nickname)
+    {
+        HttpContext.Session.SetString("UsuarioAsesor", nickname);
+        Console.WriteLine(nickname);
     }
 }
