@@ -130,6 +130,11 @@ namespace OxxoPage.Model
             return ListaAsesores;
         }
 
+        // public int GetIdFromNickname(string nickname)
+        // {
+
+        // };
+
         // Método para verificar el login del usuario
         public bool Login(string nickname, string contrasena)
         {
@@ -417,6 +422,46 @@ namespace OxxoPage.Model
             return usuario;
         }
 
+        //bookmark
+        public object? ObtenerUnicoDatoUsuario(object data, string datatypeInput, string datatypeSearch)
+        {
+            object? value = null;
+            using var conexion = GetConnection();
+            try
+            {
+                conexion.Open();
+                Console.WriteLine($"Debug: Connection opened successfully.");
+                Console.WriteLine($"Debug: Query parameters - data: {data}, datatypeInput: {datatypeInput}, datatypeSearch: {datatypeSearch}");
+
+                string query = $"SELECT {datatypeSearch} FROM usuarios WHERE {datatypeInput} = @data";
+                Console.WriteLine($"Debug: Query - {query}");
+
+                using var cmd = new MySqlCommand(query, conexion);
+                cmd.Parameters.AddWithValue("@data", data);
+
+                Console.WriteLine($"Debug: Parameters added to command.");
+
+                using var reader = cmd.ExecuteReader();
+                Console.WriteLine($"Debug: Query executed.");
+
+                if (reader.Read())
+                {
+                    value = reader[datatypeSearch];
+                    Console.WriteLine($"Debug: Value retrieved - {value}");
+                }
+                else
+                {
+                    Console.WriteLine($"Debug: No data found for the given parameters.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener datos del usuario: " + ex.Message);
+            }
+            Console.WriteLine($"Debug: Final value - {value}");
+            return value;
+        }
+
         public Usuarios ObtenerDatosUsuarioAnyData(object data, string datatype)
         {
             Usuarios usuario = null;
@@ -470,7 +515,7 @@ namespace OxxoPage.Model
                         cmd.Parameters.AddWithValue("@userId", userId);
                         using (var reader = cmd.ExecuteReader())
                         {
-                            if (reader.HasRows) return "Asesor de Tienda";
+                            if (reader.HasRows) return "asesor";
                         }
                     }
 
@@ -480,7 +525,51 @@ namespace OxxoPage.Model
                         cmd.Parameters.AddWithValue("@userId", userId);
                         using (var reader = cmd.ExecuteReader())
                         {
-                            if (reader.HasRows) return "Gerente de Plaza";
+                            if (reader.HasRows) return "gerente";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener el rol del usuario: " + ex.Message);
+                }
+
+                return "Usuario estándar";
+            }
+        }
+
+        public string ObtenerRolUsuarioNickname(string nickname)
+        {
+            using (var conexion = GetConnection())
+            {
+                try
+                {
+                    conexion.Open();
+
+                    string queryAsesor = @"SELECT a.id_usuario 
+                                            FROM asesores a
+                                            JOIN usuarios u on u.id_usuario = a.id_usuario
+                                            WHERE u.nickname = @nickname;";
+                    using (var cmd = new MySqlCommand(queryAsesor, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nickname", nickname);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+
+                            if (reader.HasRows) return "asesor";
+                        }
+                    }
+
+                    string queryGerente = @"SELECT a.id_usuario 
+                                            FROM gerentes a
+                                            JOIN usuarios u on u.id_usuario = a.id_usuario
+                                            WHERE u.nickname = @nickname;";
+                    using (var cmd = new MySqlCommand(queryGerente, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nickname", nickname);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows) return "gerente";
                         }
                     }
                 }

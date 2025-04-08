@@ -25,6 +25,18 @@
             </div>
         </div>
 
+        @{
+            var rol = HttpContext.Session.GetString("TipoUsuario");
+        }
+
+        <p>Rol actual: @rol</p>
+
+        @{
+            var id = HttpContext.Session.GetInt32("IdUsuario");
+        }
+
+        <p>Id actual: @id</p>
+
         <!-- Contenedor principal para las tarjetas -->
         <div class="container mt-4">
             <div class="row  justify-content-center mb-0">

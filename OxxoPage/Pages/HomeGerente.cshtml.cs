@@ -34,6 +34,7 @@ public class HomeGerente : PageModel
             Fotografia = nickname != "Invitado"
                 ? _dbContext.ObtenerFotoDePerfil(nickname) : "default.png"
         };
+
         AsesoresList = _dbContext.GetAsesoresDeGerente(1);
     }
 
