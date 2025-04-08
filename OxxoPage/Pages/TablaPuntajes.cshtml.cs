@@ -13,10 +13,10 @@ namespace OxxoPage.Pages
 
         // Lista completa de usuarios con sus logros
         public List<Usuarios> TodosUsuarios { get; set; }
-        
+
         // Usuarios que aparecen en la tabla (posiciones 4 en adelante)
         public List<Usuarios> UsuariosTabla { get; set; }
-        
+
         // Los tres primeros lugares para mostrar en el podio
         public List<Usuarios> Podio { get; set; }
 
