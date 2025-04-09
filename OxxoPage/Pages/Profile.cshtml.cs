@@ -38,6 +38,16 @@ namespace OxxoPage.Pages
                     Usuario.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
                     Role = _dbContext.ObtenerRolUsuario(usuario.IdUsuario);
 
+                    if (Role == "gerente")
+                    {
+                        Role = "Gerente de Plaza";
+                    }
+                    else if (Role == "asesor")
+                    {
+                        Role = "Asesor de Tienda";
+                    }
+
+                    Usuario.Fotografia = _dbContext.ObtenerFotoDePerfil(Usuario.Nickname);
                     // Obtener logros y experiencia total
                     Achievements = _dbContext.ObtenerLogrosUsuario(nickname, out int totalXP);
                     CalcularExperiencia(totalXP);
