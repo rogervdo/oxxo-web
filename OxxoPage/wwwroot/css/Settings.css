@@ -54,7 +54,7 @@ body {
 
 .Title {
     color: #333;
-    padding-top: 10px;
+    padding-top: 50px;
 }
 
 .account-settings {
@@ -113,4 +113,10 @@ a:hover {
 
 .gender{
     margin-top: 20px;
+}
+
+button.btn{
+    color:black;
+    background-color: #F62717;
+    border-color: #DE2924;
 }

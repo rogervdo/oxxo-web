@@ -664,5 +664,44 @@ namespace OxxoPage.Model
             }
             return foto;
         }
+
+
+        // Método para actualizar la contraseña de un usuario RODRIGO
+        public bool ActualizarUsuario(string nickname, string nuevaContrasena)
+        {
+            try
+            {
+                using (var conexion = new MySqlConnection(ConnectionString))
+                {
+                    conexion.Open();
+                    string query = "UPDATE usuarios SET contrasena = @NuevaContrasena WHERE nickname = @Nickname";
+                    using (var command = new MySqlCommand(query, conexion))
+                    {
+                        command.Parameters.AddWithValue("@Nickname", nickname);
+                        command.Parameters.AddWithValue("@NuevaContrasena", nuevaContrasena);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        // Si no se actualizó ninguna fila, significa que el nickname no existía o hubo algún error
+                        if (rowsAffected > 0)
+                        {
+                            return true; // Operación exitosa
+                        }
+                        else
+                        {
+                            // Aquí podrías registrar el error o notificar al usuario en la capa de presentación
+                            Console.WriteLine("No se pudo actualizar el usuario. Puede que el nickname no exista.");
+                            return false; // No se actualizó ninguna fila
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Aquí capturamos cualquier excepción que ocurra durante la ejecución
+                Console.WriteLine($"Error al actualizar el usuario: {ex.Message}");
+                return false; // Error en la operación
+            }
+        }
     }
 }
