@@ -1,17 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+
 using OxxoPage.Model;
 
 namespace OxxoPage.Pages
 {
-    public class SettingsModel : PageModel
+    public class Settings : PageModel
     {
         [BindProperty]
         public Settings Usuario { get; set; }
+        public string Nickname { get; private set; }
+        public string Contrasena { get; private set; }
 
         private readonly DataBaseContext _db;
 
-        public SettingsModel()
+        public Settings()
         {
             _db = new DataBaseContext();
         }
