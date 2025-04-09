@@ -1,5 +1,5 @@
 @page "/Settings"
-@model OxxoPage.Pages.Settings
+@model OxxoPage.Pages.SettingsModel
 @{
     ViewData["Title"] = "Configuración"; // Sets the title of the page
     ViewData["NavTitle"] = "Configuración"; // Sets the navigation title
@@ -31,19 +31,28 @@
         </div>
     </div>
 
-    <div class="account-settings">
-        <div class="col-7 container">
-            <h3>Tu cuenta</h3>
-            <p>Correo</p>
-            <input type="text" placeholder="tunombre@gmail.com" required class="form-control" />
-            <br>
-            <h3>Contraseña</h3>
-            <div class="password-container">
-                <input type="password" placeholder="Tu contraseña" required class="form-control" />
-                <button type="button" class="btn btn-primary">Cambiar</button>
+    <form method="post">
+        <div class="account-settings">
+            <div class="col-7 container">
+                <h3>Tu cuenta</h3>
+
+                <p>Usuario</p>
+                <input asp-for="Usuario.Nickname" placeholder="Tu usuario" required class="form-control" />
+                <span asp-validation-for="Usuario.Nickname" class="text-danger"></span>
+
+                <br />
+
+                <h3>Contraseña</h3>
+                <div class="password-container d-flex align-items-center gap-2">
+                    <input asp-for="Usuario.Contrasena" type="password" placeholder="Nueva contraseña" required
+                        class="form-control" />
+                    <button type="submit" class="btn">Guardar Cambios</button>
+                </div>
+                <span asp-validation-for="Usuario.Contrasena" class="text-danger"></span>
             </div>
         </div>
-    </div>
+    </form>
+
 
     <div class="Personal_info container">
         <div class="col-7 container">
@@ -57,15 +66,18 @@
         <div class="col-7 container">
             <h3>Género</h3>
             <p>Selecciona tu género</p>
-        <select id="genderSelect" class="form-select" aria-label="Selecciona tu género" required>
-            <option value="select" selected disabled>Selecciona tu género</option>
-            <option value="1">Masculino</option>
-            <option value="2">Femenino</option>
-            <option value="3">No binario</option>
-        </select>
+            <select id="genderSelect" class="form-select" aria-label="Selecciona tu género" required>
+                <option value="select" selected disabled>Selecciona tu género</option>
+                <option value="1">Masculino</option>
+                <option value="2">Femenino</option>
+                <option value="3">No binario</option>
+            </select>
         </div>
     </div>
 
+
+    <script src="~/js/settings.js" asp-append-version="true"></script>
 </body>
+
 
 </html>

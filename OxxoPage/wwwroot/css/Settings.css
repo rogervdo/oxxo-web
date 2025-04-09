@@ -114,3 +114,9 @@ a:hover {
 .gender{
     margin-top: 20px;
 }
+
+button.btn{
+    color:black;
+    background-color: #F62717;
+    border-color: #DE2924;
+}

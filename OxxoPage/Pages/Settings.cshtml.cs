@@ -1,16 +1,40 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MySql.Data.MySqlClient;
 using OxxoPage.Model;
 
 namespace OxxoPage.Pages
 {
-    public class Settings : PageModel
+    public class SettingsModel : PageModel
     {
-        public void OnGet()
+        [BindProperty]
+        public Settings Usuario { get; set; }
+
+        private readonly DataBaseContext _db;
+
+        public SettingsModel()
         {
-            // Add any initialization logic here
+            _db = new DataBaseContext();
+        }
+
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            // Solo pasamos el nickname y la nueva contraseña
+            bool actualizado = _db.ActualizarUsuario(Usuario.Nickname, Usuario.Contrasena);
+
+            if (actualizado)
+            {
+                return RedirectToPage("/Index");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Error al actualizar el usuario.");
+                return Page();
+            }
         }
     }
 }
