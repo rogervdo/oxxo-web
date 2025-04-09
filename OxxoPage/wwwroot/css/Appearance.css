@@ -1,0 +1,60 @@
+.sidebar {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: absolute;
+    left: 0;
+    z-index: 1;
+}
+
+.background-red {
+    background-color: #DE2924;
+    width: 300px;
+    padding: 20px;
+    color: white;
+}
+
+.background-yellow {
+    background-color: #FDC32F;
+    width: 20px;
+}
+
+.background-red ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.background-red li {
+    margin: 20px 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.background-red li.active {
+    background-color: #7D150F;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.background-red a {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 999px; /* forma de cápsula */
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    color: #fff;
+}
+
+.background-red a:hover {
+    background-color: #711010; /* color de fondo al hacer hover */
+    color: #fff; /* color de texto al hacer hover */
+}
+
+.Title {
+    color: #333;
+    padding-top: 10px;
+}

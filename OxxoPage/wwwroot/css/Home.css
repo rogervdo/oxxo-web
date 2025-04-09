@@ -47,3 +47,14 @@ html {
 a {
   text-decoration: none;
 }
+
+body:not(.dark-mode) .card {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark-mode .card {
+  background-color: #2c2626;
+  color: #ffffff;
+  border: 1px solid #444444;
+}
