@@ -166,14 +166,77 @@ h6 {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
   width: 500px;
   max-width: 90vw;
+}
+
+/* Estilo del segundo pop-up */
+#popUpGrid {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px; /* Puedes ajustar */
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+}
+
+/* GRID de imágenes 2x2 */
+.image-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+/* Imágenes dentro del grid */
+.grid-image {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.grid-image:hover {
+  transform: scale(1.05);
 }
 
 /* Mostrar el modal */
 .box.show {
   display: flex;
+}
+
+.save-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#saveGridSelection {
+  padding: 10px 20px;
+  background-color: #de2924;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#saveGridSelection:hover {
+  background-color: #b71c1c;
+}
+
+/* ------------------ */
+/* estilos relacionados a upload image*/
+#upload label {
+  font-weight: 500;
+}
+
+input {
+  display: none;
 }
 
 /* ------------------ */
@@ -306,18 +369,52 @@ h6 {
   margin-bottom: 10px;
 }
 
-/* Card con sombra y borde redondeado */
-.bio-card {
-  background: white;
-  padding: 20px;
-  margin-top: 16px;
-  border-radius: 12px; /* Bordes redondeados */
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-  max-width: 600px; /* Para que no se haga demasiado ancho */
-  justify-content: space-between; /*separa texto de icono a extremos opuestos*/
+/* ------------------ */
+
+.bio-input-container {
   display: flex;
-  align-items: center; /* alinea verticalmente */
+  align-items: center;
+  padding: 8px 12px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* sombra */
+  border: 1px solid #dee2e6;
+  gap: 10px;
+  max-width: 600px;
+  margin-top: 16px;
 }
+
+/* Contenedor del input */
+.bio-input-field {
+  flex-grow: 1; /* permite que tenga el ancho del container*/
+  border: none;
+  border-radius: 5px;
+  padding: 6px 10px;
+  margin-bottom: 0;
+  box-shadow: none;
+  height: auto;
+}
+
+/* Focus - input */
+.bio-input-field:focus {
+  outline: none; /* quita default */
+  border: 2px solid #0d6efd;
+  border-color: #86b7fe; /* efec */
+}
+
+.bio-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* espacio entre los iconos */
+}
+
+.bio-icon {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+/* ------------------ */
 
 /* Título de la sección */
 .logros-title {

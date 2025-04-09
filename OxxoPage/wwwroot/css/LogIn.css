@@ -1,137 +1,151 @@
-
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #fafafa;
 }
 
 /* Contenedor del login con imagen de fondo */
 .login-container {
-    background-image: url('/assets/FONDO.png'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    
-    padding: 65px 40px 50px; /* Más padding arriba */
-    border-radius: 10px;
-    text-align: center;
-    width: 400px; /* Aumentar ancho */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    border: 3px solid black; /* Borde negro */
-    position: relative;
+  background-image: url('/assets/FONDO.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding: 65px 40px 50px; /* Más padding arriba */
+  border-radius: 10px;
+  text-align: center;
+  width: 400px; /* Aumentar ancho */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 3px solid black; /* Borde negro */
+  position: relative;
 }
 
 /* Logo */
 .logo {
-    width: 200px;
-    margin-bottom: 20px;
+  width: 200px;
+  margin-bottom: 20px;
 }
 
 /* Contenedor de inputs */
 .input-container {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin-top: 40px; /* Espacio entre el logo y los inputs */
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 40px; /* Espacio entre el logo y los inputs */
 }
 
 /* Contenedor del input con icono */
 .input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  line-height: 16px;
+  box-sizing: border-box;
 }
 
 .input-wrapper i {
-    position: absolute;
-    left: 10px;
-    color: white; /* Ícono en blanco */
-    font-size: 20px;
-    top: 35%; /* Subir icono */
-    transform: translateY(-50%);
+  position: absolute;
+  left: 10px;
+  color: white; /* Ícono en blanco */
+  font-size: 20px;
+  top: 36%; /* Subir icono */
+  transform: translateY(-50%);
 }
 
 /* Estilo de los inputs transparentes */
 .input-wrapper input {
-    width: 100%;
-    padding: 12px;
-    padding-left: 40px; /* Espacio para el ícono */
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: 2px solid white; /* Mantiene visible el borde */
-    font-size: 16px;
-    background-color: transparent; /* Fondo transparente */
-    color: white; 
-    outline: none; 
+  width: 100%;
+  padding: 11px 12px 9px 40px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 2px solid white; /* Mantiene visible el borde */
+  font-size: 16px;
+  background-color: transparent; /* Fondo transparente */
+  color: white;
+  outline: none;
+  line-height: 16px;
+  box-sizing: border-box;
 }
 
 /* Placeholder en blanco con opacidad */
 ::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-    opacity: 1;
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 1;
 }
 
-
 .forgot-password {
-    color: #e8a042;
-    font-size: 14px;
-    cursor: pointer;
-    margin-bottom: 15px;
-    text-align: right; 
-    text-decoration: underline;
+  color: #e8a042;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  text-align: right;
+  text-decoration: underline;
 }
 
 /* Botón sin negrita */
 .btn {
-    background: white;
-    color: black;
-    padding: 12px;
-    border: none;
-    width: 100%;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: normal; /* Quitar negrita */
-    margin-bottom: 20px;
+  background: white;
+  color: black;
+  padding: 12px;
+  border: none;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: normal; /* Quitar negrita */
+  margin-bottom: 20px;
 }
 
 /* Línea divisora entre el botón y el texto */
 .divider {
-    width: 97%; /* No llega hasta el borde */
-    height: 1px;
-    background-color: white;
-    margin: 10px auto;
+  width: 97%; /* No llega hasta el borde */
+  height: 1px;
+  background-color: white;
+  margin: 10px auto;
 }
 
 .register-text {
-    color: white;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  color: white;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .register-link {
-    color: #e8a042;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: underline;
-    padding-left: 115px; /* Espacio entre ambos elementos */
+  color: #e8a042;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding-left: 115px; /* Espacio entre ambos elementos */
 }
 
 .btn:hover {
-    background: #e8a042;
+  background: #e8a042;
 }
 
 /* Estilos del mensaje de error */
 .error-message {
-    color: #e8a042;
-    font-size: 14px;
-    margin-top: -10px; 
-    margin-bottom: 10px; /* Espacio adicional debajo del mensaje */
-    text-align: center; 
+  color: #e8a042;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px; /* Espacio adicional debajo del mensaje */
+  text-align: center;
+}
+
+input:-webkit-autofill {
+  background-color: rgb(42, 25, 25) !important;
+  color: rgb(255, 255, 255) !important;
+  box-shadow: 0 0 0px 1000px rgb(51, 30, 30) inset !important;
+  -webkit-text-fill-color: white !important;
+  /* transition: background-color 5000s ease-in-out 0s; */
+}
+
+.fa {
+  margin-left: 5px;
+  padding: auto;
 }

@@ -26,7 +26,7 @@
                 <!-- contenedor imagen perfil-->
                 <div class="col-auto profile-img-wrapper" id="image">
                     <!-- imagenPerfilUsuario-->
-                    <img src="~/assets/img/@Model.Usuario.Fotografia" class="rounded-circle profile-img" alt="Foto de Perfil">
+                    <img id="profileImage" src="~/assets/img/@Model.Usuario.Fotografia" class="rounded-circle profile-img" alt="Foto de Perfil">
                     
                     <!-- Agregar overlay de Lapiz-->
                     <div class="hide-icon">
@@ -35,7 +35,8 @@
 
                 </div>
 
-                <div class="box" id="box-img">
+                <!--PopUp1: elegir imagen / upload-->
+                <div class="box" id="box-img-select">
                     <div class="pop-up-imgSelect" id="img-Select">
                         <div class="header">
                             <h4>Elige una imagen</h4>
@@ -45,7 +46,9 @@
                             <div id="upload">
                                 <!-- img+opcion subir img-->
                                 <img src="~/img/UploadImage.png" class="card-image" alt="Icono">
-                                <h6>Subir una Imagen</h6>
+                                <!-- poder permitir subir imagen-->
+                                <label for="input-file">Subir Imagen</label>
+                                <input type="file" accept="image/jpg, image/png" id="input-file">
                             </div>
                             <div id="choose-img">
                                 <!-- img+opcion elegir img-->
@@ -56,25 +59,39 @@
                     </div>
                 </div>
 
-                
-                <div class="col row profile-text">
-                    <div class="d-flex align-items-center gap-3">
-                        <!-- Nombre completo del usuario -->
-                        <h1>@Model.Usuario.Nombre @Model.Usuario.ApellidoPaterno @Model.Usuario.ApellidoMaterno</h1>
-                        <!-- icono editar nombre Usuario -->
-                        <img src="~/img/lapiz.png" class="card-image" alt="Icono">
+                <!--PopUp:2 segunda funcionalidad select de imagenes cargadas-->
+                <div class="box" id="box-img-grid">
+                    <div class="pop-up-imgSelect" id="popUpGrid">
+                        <div class="header">
+                            <h4>Elige una imagen predeterminada</h4>
+                            <a class="closebtn" id="closeGridBtn"> x </a>
+                        </div>
+
+                        <!-- container Grid Imagenes-->
+                        <div class="image-grid-container">
+                            <img src="~/img/FotoPerfil1.jpg" class="grid-image">
+                            <img src="~/img/FotoPerfil2.jpg" class="grid-image">
+                            <img src="~/img/FotoPerfil3.jpg" class="grid-image">
+                            <img src="~/img/FotoPerfil4.jpg" class="grid-image">
+                        </div>
+
+                        <!-- Botón Guardar -->
+                        <div class="save-btn-container">
+                            <button id="saveGridSelection">Guardar</button>
+                        </div>
                     </div>
+                </div>
+
+
+                <!-- Nombre y rol del usuario-->
+                <div class="col row profile-text">
+                    <div class="d-flex align-items-center gap-2">
+                        <!-- Nombre completo -->
+                        <h1 id="display-name" class="me-2">@Model.Usuario.Nombre @Model.Usuario.ApellidoPaterno @Model.Usuario.ApellidoMaterno</h1>
+                    </div>
+                        
                     <!-- Rol del usuario -->
                     <h4 class="text-muted">@Model.Role</h4>
-                </div>
-                
-                <!--boton de guardar cambios-->
-                <div class="row col-2 profile-edit">
-                    <a href="/Perfil" class="card text-center shadow align-items-center justify-content-center">
-                        <h4 class="m-0 me-3">Guardar Cambios</h4>
-                        <!-- Icono de lápiz para la edición -->
-                        <img src="~/img/saveIcon.png" class="card-image" alt="Icono">
-                    </a>
                 </div>
 
                 <!-- boton deshacer cambios -->
@@ -122,12 +139,31 @@
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <h3 class="section-title">Acerca de mí</h3>
-                    
-                        <!-- Muestra la biografía del usuario -->
-                        <div class="bio-card">
-                            <p>@Model.Usuario.AboutMe</p>
-                            <img src="~/img/lapiz.png" class="card-image" alt="Icono">
-                        </div>
+                        <!-- Muestra la biografía del usuario en un form para enviar-->
+                        <form method="post">
+                            <div class="bio-input-container"> 
+                                <!-- Input-->
+                                <input 
+                                    id="about-me-input" 
+                                    class="form-control bio-input-field" /* Added class for specific styling */
+                                    type="text" 
+                                    name="aboutMeInput" 
+                                    value="@Model.Usuario.AboutMe" 
+                                    placeholder="Escribe sobre ti..." 
+                                >
+                                
+                                <!-- iconos / acciones editar y guardar con submit-->
+                                <div class="bio-actions">
+                                    <!-- Edit Icon -->
+                                    <img src="~/img/lapiz.png" class="bio-icon bio-edit-icon" alt="Editar"> 
+                                    <!-- boton para submit cambios-->
+                                    <button type="submit" class="btn bio-save-button" title="Guardar Cambios">
+                                        <img src="~/img/saveIcon.png" class="bio-icon bio-save-icon" alt="Guardar">
+                                        <span class="visually-hidden">Guardar Cambios</span> 
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                     <!-- Logros-->
