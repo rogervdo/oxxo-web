@@ -39,7 +39,7 @@
             </div>
         </div>
 
-    @{
+    @* @{
         var rol = HttpContext.Session.GetString("TipoUsuario");
     }
 
@@ -49,7 +49,7 @@
         var id = HttpContext.Session.GetInt32("IdUsuario");
     }
 
-    <p>Id actual: @id</p>
+    <p>Id actual: @id</p> *@
 
     @* @{
             var idg = HttpContext.Session.GetInt32("IdGerente");
