@@ -11,22 +11,33 @@
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
 <html>
+    <head>
+        <!-- Enlazamos la hoja de estilos CSS -->
+        <link rel="stylesheet" type="text/css" href="~/css/Home.css" asp-append-version="true">
+        <style>
+          .page-item.active .page-link {
+              z-index: 2;
+              color: #fff;
+              background-color: #ff0000 !important;
+              border-color: #ff0000 !important;
+          }
 
-<head>
-    <!-- Enlazamos la hoja de estilos CSS -->
-    <link rel="stylesheet" type="text/css" href="~/css/Home.css" asp-append-version="true">
-</head>
-
-<body class="gradient"> <!-- Establece el fondo con una clase CSS para el gradiente -->
-    <div class="d-flex mt-4 text-center justify-content-center align-items-center">
-        <!-- Contenedor para la imagen de perfil y texto de bienvenida -->
-        <!-- Muestra la imagen de perfil del usuario -->
-        <img src="~/assets/img/@Model.Usuario.Fotografia" alt="imagen" class="usuario">
-        <div class="texto">
-            <!-- Muestra el nombre del usuario dinámicamente -->
-            <h1>¡Bienvenido de vuelta @Model.Usuario.Nickname!</h1>
+          .page-link:focus {
+              box-shadow: 0 0 0 5px #ff000065 !important;
+              background-color: #ff0000 !important;
+              color: #fff !important;
+          }
+        </style>  
+    </head>
+    <body class="gradient">  <!-- Establece el fondo con una clase CSS para el gradiente -->
+        <div class="d-flex mt-4 text-center justify-content-center align-items-center">  <!-- Contenedor para la imagen de perfil y texto de bienvenida -->
+            <!-- Muestra la imagen de perfil del usuario -->
+            <img src="~/assets/img/@Model.Usuario.Fotografia" alt="imagen" class="usuario">
+            <div class="texto">
+                <!-- Muestra el nombre del usuario dinámicamente -->
+                <h1>¡Bienvenido de vuelta @Model.Usuario.Nickname!</h1>
+            </div>
         </div>
-    </div>
 
     @{
         var rol = HttpContext.Session.GetString("TipoUsuario");
