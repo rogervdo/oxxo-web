@@ -1,8 +1,8 @@
 @page "/InicioGerente" 
 @model OxxoPage.Pages.HomeGerente
 @{
-    ViewData["Title"] = "InicioGerente";  // Establece el título de la página
-    ViewData["NavTitle"] = "InicioGerente";  // Establece el título del navegador
+    ViewData["Title"] = "Inicio";  // Establece el título de la página
+    ViewData["NavTitle"] = "Inicio";  // Establece el título del navegador
 }
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
@@ -14,6 +14,20 @@
     <head>
         <!-- Enlazamos la hoja de estilos CSS -->
         <link rel="stylesheet" type="text/css" href="~/css/Home.css" asp-append-version="true">
+        <style>
+          .page-item.active .page-link {
+              z-index: 2;
+              color: #fff;
+              background-color: #ff0000 !important;
+              border-color: #ff0000 !important;
+          }
+
+          .page-link:focus {
+              box-shadow: 0 0 0 5px #ff000065 !important;
+              background-color: #ff0000 !important;
+              color: #fff !important;
+          }
+        </style>  
     </head>
     <body class="gradient">  <!-- Establece el fondo con una clase CSS para el gradiente -->
         <div class="d-flex mt-4 text-center justify-content-center align-items-center">  <!-- Contenedor para la imagen de perfil y texto de bienvenida -->
@@ -127,7 +141,10 @@
             new DataTable('#sortableTable', {
                 columnDefs: [
                     { targets: 0, width: '80px' }  // targets the 1st column and sets its width to 80px
-                ]
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json'  // Spanish language support
+                }
             });
             </script>
 
