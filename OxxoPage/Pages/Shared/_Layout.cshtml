@@ -12,7 +12,7 @@
         }
         else if (tipoUsuario == "asesor")
         {
-            return "/InicioAsesor"; // Redirect for Asesor
+            return "/Inicio"; // Redirect for Asesor
         }
         else
         {
@@ -49,7 +49,7 @@
         <nav class="navbar navbar-expand-sm navbar-light border-bottom texto">
             <div class="container-fluid d-flex justify-content-between align-items-center side">
                 <div class="d-flex align-items-left col-3">
-                    <a class="navbar-brand" href="/Inicio">
+                    <a class="navbar-brand" href="@GetRegresarUrl()">
                         <img src="~/img/Logo.png" alt="OXXO">
                         <span id="page-title" style="font-size: 20px;">@ViewData["NavTitle"]</span>
                     </a>
@@ -60,8 +60,8 @@
                 <div class="d-flex align-items-right user-info col-3">
                     <div class="nav-icons d-flex">
                         <a href="@GetRegresarUrl()" class="text-center">
-                            <img src="~/img/undo.png" alt="Regresar">
-                            <span style="color:#212529; font-size: 14px;">Regresar</span>
+                            <img src="~/img/undo.png" alt="Home">
+                            <span style="color:#212529; font-size: 14px;">Home</span>
                         </a>
                         <a href="/Index" class="text-center ms-2">
                             <img src="~/img/log-out.png" alt="Cerrar sesión">

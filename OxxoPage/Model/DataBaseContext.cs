@@ -641,7 +641,19 @@ namespace OxxoPage.Model
                         object result = cmd.ExecuteScalar();
                         if (result != null && !string.IsNullOrEmpty(result.ToString()))
                         {
-                            foto = result.ToString();
+                            string rutaFoto = Path.Combine("wwwroot", "assets", "img", result.ToString());
+                            if (File.Exists(rutaFoto))
+                            {
+                                foto = result.ToString();
+                            }
+                            else
+                            {
+                                foto = "default.png";
+                            }
+                        }
+                        else
+                        {
+                            foto = "default.png";
                         }
                     }
                 }

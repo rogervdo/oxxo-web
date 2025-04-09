@@ -1,52 +1,49 @@
-html{
-    font-family: "Roboto", sans-serif;
+html {
+  font-family: 'Roboto', sans-serif;
 }
 
-.gradient{
-    background: linear-gradient(0deg, #FAFAFA 65%, rgba(253,196,3,1) 85%);
+.gradient {
+  background: linear-gradient(0deg, #fafafa 65%, rgba(253, 196, 3, 1) 85%);
 }
 
-.usuario{
-    width: 160px; 
-    height: 160px;
-    border-radius: 50%;
-    margin: 20px;
+.usuario {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin: 20px;
 }
 
 .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin: 20px;
-    border-radius: 10px;
-    margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 20px;
+  border-radius: 10px;
+  margin-bottom: auto;
 }
 
 .card img {
-    width: 110px;
-    height: auto;
-    opacity: 1;
+  width: 110px;
+  height: auto;
+  opacity: 1;
 }
-
 
 .card:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
-.texto h1{
-    font-size: 70px;
+.texto h1 {
+  font-size: 60px;
 }
 
-.card h4{
-    margin-bottom: 10px;
-    font-size: 26px;
-    color: black;
+.card h4 {
+  margin-bottom: 10px;
+  font-size: 26px;
+  color: black;
 }
 
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
-
-
