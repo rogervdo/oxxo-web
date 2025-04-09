@@ -32,11 +32,11 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Navbar.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/OxxoPage.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-
     <style>
         * {
             font-family: 'Roboto', sans-serif;
@@ -58,15 +58,43 @@
                     <span id="datetime"></span>
                 </div>
                 <div class="d-flex align-items-right user-info col-3">
-                    <div class="nav-icons d-flex">
-                        <a href="@GetRegresarUrl()" class="text-center">
-                            <img src="~/img/undo.png" alt="Home">
-                            <span style="color:#212529; font-size: 14px;">Home</span>
-                        </a>
-                        <a href="/Index" class="text-center ms-2">
-                            <img src="~/img/log-out.png" alt="Cerrar sesión">
-                            <span style="color:#212529; font-size: 14px;">Cerrar Sesión</span>
-                        </a>
+                    <div class="d-flex align-items-right user-info col-3">
+                        <div class="nav-icons d-flex">
+
+                            <!-- Configuración -->
+                            <a href="/Settings" class="text-center me-2 d-flex flex-column align-items-center"
+                                style="color: var(--icon-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                    width="24px" fill="currentColor">
+                                    <path
+                                        d="m403-96-22-114q-23-9-44.5-21T296-259l-110 37-77-133 87-76q-2-12-3-24t-1-25q0-13 1-25t3-24l-87-76 77-133 110 37q19-16 40.5-28t44.5-21l22-114h154l22 114q23 9 44.5 21t40.5 28l110-37 77 133-87 76q2 12 3 24t1 25q0 13-1 25t-3 24l87 76-77 133-110-37q-19 16-40.5 28T579-210L557-96H403Zm77-240q60 0 102-42t42-102q0-60-42-102t-102-42q-60 0-102 42t-42 102q0 60 42 102t102 42Z" />
+                                </svg>
+                                <span style="font-size: 14px;">Ajustes</span>
+                            </a>
+
+                            <!-- Deshacer -->
+                            <a href="@GetRegresarUrl()" class="text-center me-2 d-flex flex-column align-items-center"
+                                style="color: var(--icon-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                    width="24px" fill="currentColor">
+                                    <path
+                                        d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z" />
+                                </svg>
+                                <span style="font-size: 14px;">Regresar</span>
+                            </a>
+
+                            <!-- Cerrar sesión -->
+                            <a href="/Index" class="text-center d-flex flex-column align-items-center"
+                                style="color: var(--icon-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                    width="24px" fill="currentColor">
+                                    <path
+                                        d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+                                </svg>
+                                <span style="font-size: 14px;">Cerrar sesión</span>
+                            </a>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,6 +110,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/theme.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

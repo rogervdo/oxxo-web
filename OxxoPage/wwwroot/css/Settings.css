@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Esto evita que el body tenga scroll */
+}
+.sidebar {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    height: 100vh;
+    position: absolute;  /* Mantenido como absolute */
+    top: absolute;  /* Asegura que la barra lateral esté alineada en la parte superior */
+    left: 0;
+    z-index: 1;
+    overflow: hidden;  /* Previene el scroll */
+}
+
+.background-red {
+    background-color: #DE2924;
+    width: 300px;
+    padding: 20px;
+    color: white;
+    height: 100vh;  /* Asegura que la barra lateral tenga una altura fija */
+    overflow: hidden;  /* Previene el scroll dentro de este contenedor */
+}
+
+.background-yellow {
+    background-color: #FDC32F;
+    width: 20px;
+}
+
+.background-red ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.background-red li {
+    margin: 20px 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.background-red li.active {
+    background-color: #7D150F;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 40px;
+}
+
+.Title {
+    color: #333;
+    padding-top: 10px;
+}
+
+.account-settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    color: #333;
+}
+
+.password-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-container .form-control {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.btn.btn-primary {
+    background-color: #DE2924;
+    border-color: #DE2924;
+    border-radius: 8%;
+}
+
+.Personal_info h3 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:hover {
+    color: #fff;
+}
+
+.background-red a {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 999px; /* forma de cápsula */
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    color: #fff;
+}
+
+.background-red a:hover {
+    background-color: #711010; /* color de fondo al hacer hover */
+    color: #fff; /* color de texto al hacer hover */
+}
+
+.gender{
+    margin-top: 20px;
+}
