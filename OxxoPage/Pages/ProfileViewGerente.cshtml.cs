@@ -6,18 +6,21 @@ using OxxoPage.Model;
 
 namespace OxxoPage.Pages
 {
-    public class Profile : PageModel
+    public class ProfileViewGerente : PageModel
     {
+        [BindProperty(SupportsGet = true)]
+        public string id { get; set; }
+
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly DataBaseContext _dbContext;
 
         // Modelos utilizados
-        public Usuarios Usuario { get; set; } = new();
+        public Usuarios UsuarioAsesor { get; set; } = new();
         public Experiencia Experiencia { get; set; } = new();
         public List<Achievement> Achievements { get; set; } = new();
-        public string Role { get; set; } = "Usuario estándar";
+        public string Role { get; set; } = "UsuarioAsesor estándar";
 
-        public Profile(IHttpContextAccessor httpContextAccessor)
+        public ProfileViewGerente(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _dbContext = new DataBaseContext();
@@ -26,27 +29,30 @@ namespace OxxoPage.Pages
         public void OnGet()
         {
 
-            string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario");
+            HttpContext.Session.SetString("UsuarioAsesor", "carlito");
+            string nickname = _httpContextAccessor.HttpContext?.Session.GetString("UsuarioAsesor") ?? string.Empty;
+            Console.WriteLine(nickname);
+            Console.WriteLine(id);
 
-            if (!string.IsNullOrEmpty(nickname))
+            if (!string.IsNullOrEmpty(id))
             {
-                var usuario = _dbContext.ObtenerDatosUsuario(nickname);
+                var usuario = _dbContext.ObtenerDatosUsuario(id);
 
                 if (usuario != null)
                 {
-                    Usuario = usuario;
-                    Usuario.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
+                    UsuarioAsesor = usuario;
+                    UsuarioAsesor.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
                     Role = _dbContext.ObtenerRolUsuario(usuario.IdUsuario);
 
                     // Obtener logros y experiencia total
-                    Achievements = _dbContext.ObtenerLogrosUsuario(nickname, out int totalXP);
+                    Achievements = _dbContext.ObtenerLogrosUsuario(id, out int totalXP);
                     CalcularExperiencia(totalXP);
                 }
                 else
                 {
-                    Usuario.Nickname = "Invitado";
-                    Usuario.Fotografia = "default.png";
-                    Usuario.AboutMe = "Perfil no disponible";
+                    UsuarioAsesor.Nickname = "Invitado";
+                    UsuarioAsesor.Fotografia = "default.png";
+                    UsuarioAsesor.AboutMe = "Perfil no disponible";
                 }
             }
         }

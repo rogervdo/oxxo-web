@@ -5,9 +5,9 @@ namespace OxxoPage.Model
     {
         public int IdUsuario { get; set; }
         public string Nombre { get; set; }
-         public string ApellidoPaterno { get; set; }
-        public string ApellidoMaterno { get; set; }       
-         public string Telefono { get; set; }
+        public string ApellidoPaterno { get; set; }
+        public string ApellidoMaterno { get; set; }
+        public string Telefono { get; set; }
         public string Fotografia { get; set; }
         public string CodigoPostal { get; set; }
         public string NumNomina { get; set; }
@@ -32,7 +32,7 @@ namespace OxxoPage.Model
         }
 
         // Constructor para Sign In 
-        public Usuarios (string nombre, string apellidomaterno, string apellidopaterno, string contrasena, string nickname)
+        public Usuarios(string nombre, string apellidomaterno, string apellidopaterno, string contrasena, string nickname)
         {
             Nombre = nombre;
             ApellidoMaterno = apellidomaterno;
