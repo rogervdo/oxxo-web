@@ -1,8 +1,8 @@
-@page "/InicioGerente" 
+@page "/InicioGerente"
 @model OxxoPage.Pages.HomeGerente
 @{
-    ViewData["Title"] = "InicioGerente";  // Establece el título de la página
-    ViewData["NavTitle"] = "InicioGerente";  // Establece el título del navegador
+    ViewData["Title"] = "InicioGerente"; // Establece el título de la página
+    ViewData["NavTitle"] = "InicioGerente"; // Establece el título del navegador
 }
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
@@ -11,126 +11,137 @@
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
 <html>
-    <head>
-        <!-- Enlazamos la hoja de estilos CSS -->
-        <link rel="stylesheet" type="text/css" href="~/css/Home.css" asp-append-version="true">
-    </head>
-    <body class="gradient">  <!-- Establece el fondo con una clase CSS para el gradiente -->
-        <div class="d-flex mt-4 text-center justify-content-center align-items-center">  <!-- Contenedor para la imagen de perfil y texto de bienvenida -->
-            <!-- Muestra la imagen de perfil del usuario -->
-            <img src="~/assets/img/@Model.Usuario.Fotografia" alt="imagen" class="usuario">
-            <div class="texto">
-                <!-- Muestra el nombre del usuario dinámicamente -->
-                <h1>¡Bienvenido de vuelta @Model.Usuario.Nickname!</h1>
-            </div>
+
+<head>
+    <!-- Enlazamos la hoja de estilos CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/Home.css" asp-append-version="true">
+</head>
+
+<body class="gradient"> <!-- Establece el fondo con una clase CSS para el gradiente -->
+    <div class="d-flex mt-4 text-center justify-content-center align-items-center">
+        <!-- Contenedor para la imagen de perfil y texto de bienvenida -->
+        <!-- Muestra la imagen de perfil del usuario -->
+        <img src="~/assets/img/@Model.Usuario.Fotografia" alt="imagen" class="usuario">
+        <div class="texto">
+            <!-- Muestra el nombre del usuario dinámicamente -->
+            <h1>¡Bienvenido de vuelta @Model.Usuario.Nickname!</h1>
         </div>
+    </div>
 
-        @{
-            var rol = HttpContext.Session.GetString("TipoUsuario");
-        }
+    @{
+        var rol = HttpContext.Session.GetString("TipoUsuario");
+    }
 
-        <p>Rol actual: @rol</p>
+    <p>Rol actual: @rol</p>
 
-        @{
-            var id = HttpContext.Session.GetInt32("IdUsuario");
-        }
+    @{
+        var id = HttpContext.Session.GetInt32("IdUsuario");
+    }
 
-        <p>Id actual: @id</p>
+    <p>Id actual: @id</p>
 
-        @* @{
+    @* @{
             var idg = HttpContext.Session.GetInt32("IdGerente");
         }
 
         <p>Id actual: @idg</p> *@
 
-        <!-- Contenedor principal para las tarjetas -->
-        <div class="container mt-4">
-            <div class="row  justify-content-center mb-0">
+    <!-- Contenedor principal para las tarjetas -->
+    <div class="container mt-4">
+        <div class="row  justify-content-center mb-0">
 
-                <!-- Tarjeta para el Tablero de datos -->
-                <div class="col-md-4 mb-2">
-                    <a href="/TabladeDatos">
-                        <div class="card text-center p-3 shadow">
-                            <!-- Ícono de gráfico para el tablero -->
-                            <i class="bi bi-bar-chart fs-1 text-secondary"></i>
-                            <!-- Título de la tarjeta -->
-                            <h4 class="mt-2">Tablero de datos</h4>
-                            <!-- Imagen representativa del tablero -->
-                            <img src="~/img/graph.png" class="card-image" alt="">
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Tarjeta para el perfil del usuario -->
-                <div class="col-md-4">
-                    <a href="/Perfil">
-                        <div class="card text-center p-3 shadow">
-                            <!-- Ícono de perfil para la sección del perfil -->
-                            <i class="bi bi-person fs-1 text-secondary"></i>
-                            <!-- Título de la tarjeta -->
-                            <h4 class="mt-2">Mi perfil</h4>
-                            <!-- Imagen representativa del perfil -->
-                            <img src="~/img/profilep.png" class="card-image" alt="">
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Tarjeta para la tabla de puntajes -->
-                <div class="col-md-4">
-                    <a href="/TablaPuntajes">
-                        <div class="card text-center p-3 shadow">
-                            <!-- Ícono de trofeo para la sección de puntajes -->
-                            <i class="bi bi-trophy fs-1 text-secondary"></i>
-                            <!-- Título de la tarjeta -->
-                            <h4 class="mt-2">Tabla de puntajes</h4>
-                            <!-- Imagen representativa de la tabla de puntajes -->
-                            <img src="~/img/leader.png" class="card-image puntaje" alt="">
-                        </div>
-                    </a>
-                </div>
-
+            <!-- Tarjeta para el Tablero de datos -->
+            <div class="col-md-4 mb-2">
+                <a href="/TabladeDatos">
+                    <div class="card text-center p-3 shadow">
+                        <!-- Ícono de gráfico para el tablero -->
+                        <i class="bi bi-bar-chart fs-1 text-secondary"></i>
+                        <!-- Título de la tarjeta -->
+                        <h4 class="mt-2">Tablero de datos</h4>
+                        <!-- Imagen representativa del tablero -->
+                        <img src="~/img/graph.png" class="card-image" alt="">
+                    </div>
+                </a>
             </div>
-        </div>
 
-        <div class="container mt-4" style="max-width: 800px; margin: auto;">
-            <table id="sortableTable" class="table table-striped table-bordered compact">
+            <!-- Tarjeta para el perfil del usuario -->
+            <div class="col-md-4">
+                <a href="/Perfil">
+                    <div class="card text-center p-3 shadow">
+                        <!-- Ícono de perfil para la sección del perfil -->
+                        <i class="bi bi-person fs-1 text-secondary"></i>
+                        <!-- Título de la tarjeta -->
+                        <h4 class="mt-2">Mi perfil</h4>
+                        <!-- Imagen representativa del perfil -->
+                        <img src="~/img/profilep.png" class="card-image" alt="">
+                    </div>
+                </a>
+            </div>
+
+            <!-- Tarjeta para la tabla de puntajes -->
+            <div class="col-md-4">
+                <a href="/TablaPuntajes">
+                    <div class="card text-center p-3 shadow">
+                        <!-- Ícono de trofeo para la sección de puntajes -->
+                        <i class="bi bi-trophy fs-1 text-secondary"></i>
+                        <!-- Título de la tarjeta -->
+                        <h4 class="mt-2">Tabla de puntajes</h4>
+                        <!-- Imagen representativa de la tabla de puntajes -->
+                        <img src="~/img/leader.png" class="card-image puntaje" alt="">
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container mt-4" style="max-width: 800px; margin: auto;">
+        <table id="sortableTable" class="table table-striped table-bordered compact">
             <thead>
                 <tr>
-                <th>ID Asesor</th>
-                <th>Nombre</th>
-                <th>Telefono</th>
-                <th>Num Oxxos</th>
-                <th>Medallas</th>
-                <th>Perfil</th>
+                    <th>ID Asesor</th>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Num Oxxos</th>
+                    <th>Medallas</th>
+                    <th>Perfil</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var asesor in Model.AsesoresList)
                 {
-                <tr>
-                    <td>@asesor.IdAsesor</td>
-                    <td>@asesor.Nombre @asesor.ApellidoPaterno @asesor.ApellidoMaterno</td>
-                    <td>@asesor.Telefono</td>
-                    <td>@asesor.NumOxxos</td>
-                    <td>@asesor.Medallas</td>
-                    <td class="text-center">
-                        <a href="/ProfileViewGerente?id=@asesor.Nickname">
-                            <img src="~/img/usuarios.png" alt="Ver Detalles" style="width: 32px; height: 32px;">
-                        </a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>@asesor.IdAsesor</td>
+                        <td>@asesor.Nombre @asesor.ApellidoPaterno @asesor.ApellidoMaterno</td>
+                        <td>@asesor.Telefono</td>
+                        <td>@asesor.NumOxxos</td>
+                        <td>@asesor.Medallas</td>
+                        <td class="text-center">
+                            <a href="/ProfileViewGerente?id=@asesor.Nickname" class="d-flex flex-column align-items-center"
+                                style="color: var(--icon-color); text-decoration: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px"
+                                    fill="currentColor">
+                                    <path
+                                        d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Z" />
+                                </svg>
+                                <!-- Si quieres texto debajo, descomenta la siguiente línea -->
+                                <!-- <span style="font-size: 12px;">Ver</span> -->
+                            </a>
+                        </td>
+                    </tr>
                 }
             </tbody>
-            </table>
+        </table>
 
-            <script>
+        <script>
             new DataTable('#sortableTable', {
                 columnDefs: [
                     { targets: 0, width: '80px' }  // targets the 1st column and sets its width to 80px
                 ]
             });
-            </script>
+        </script>
 
-        </div>
-    </body>
+    </div>
+</body>
+
 </html>
