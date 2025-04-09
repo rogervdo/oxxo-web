@@ -423,7 +423,7 @@ namespace OxxoPage.Model
         }
 
         //bookmark
-        public object? ObtenerUnicoDatoUsuario(object data, string datatypeInput, string datatypeSearch)
+        public object? ObtenerUnicoDatoTabla(object data, string tableName, string datatypeInput, string datatypeSearch)
         {
             object? value = null;
             using var conexion = GetConnection();
@@ -431,9 +431,9 @@ namespace OxxoPage.Model
             {
                 conexion.Open();
                 Console.WriteLine($"Debug: Connection opened successfully.");
-                Console.WriteLine($"Debug: Query parameters - data: {data}, datatypeInput: {datatypeInput}, datatypeSearch: {datatypeSearch}");
+                Console.WriteLine($"Debug: Query parameters - data: {data}, tableName: {tableName}, datatypeInput: {datatypeInput}, datatypeSearch: {datatypeSearch}");
 
-                string query = $"SELECT {datatypeSearch} FROM usuarios WHERE {datatypeInput} = @data";
+                string query = $"SELECT {datatypeSearch} FROM {tableName} WHERE {datatypeInput} = @data";
                 Console.WriteLine($"Debug: Query - {query}");
 
                 using var cmd = new MySqlCommand(query, conexion);
@@ -641,7 +641,19 @@ namespace OxxoPage.Model
                         object result = cmd.ExecuteScalar();
                         if (result != null && !string.IsNullOrEmpty(result.ToString()))
                         {
-                            foto = result.ToString();
+                            string rutaFoto = Path.Combine("wwwroot", "assets", "img", result.ToString());
+                            if (File.Exists(rutaFoto))
+                            {
+                                foto = result.ToString();
+                            }
+                            else
+                            {
+                                foto = "default.png";
+                            }
+                        }
+                        else
+                        {
+                            foto = "default.png";
                         }
                     }
                 }
