@@ -275,4 +275,17 @@ input.form-control.form-control-sm {
     border: 1px solid #ccc;
 }
 
+#sortableTable th,
+#sortableTable td {
+    background-color: white;
+    color: black;
+}
+
+body.dark-mode #sortableTable th,
+body.dark-mode #sortableTable td {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+
 
