@@ -34,8 +34,11 @@ public class HomeGerente : PageModel
             Fotografia = nickname != "Invitado"
                 ? _dbContext.ObtenerFotoDePerfil(nickname) : "default.png"
         };
+        int idGerente = _httpContextAccessor.HttpContext?.Session.GetInt32("IdGerente") ?? 1;
+        Console.WriteLine($"IdGerente: {idGerente}");
+        AsesoresList = _dbContext.GetAsesoresDeGerente(idGerente);
 
-        AsesoresList = _dbContext.GetAsesoresDeGerente(1);
+        // AsesoresList = _dbContext.GetAsesoresDeGerente(1);
     }
 
     public void SetUsuarioAsesorSession(string nickname)
