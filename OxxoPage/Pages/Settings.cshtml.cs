@@ -5,16 +5,14 @@ using OxxoPage.Model;
 
 namespace OxxoPage.Pages
 {
-    public class Settings : PageModel
+    public class SettingsModel : PageModel
     {
         [BindProperty]
         public Settings Usuario { get; set; }
-        public string Nickname { get; private set; }
-        public string Contrasena { get; private set; }
 
         private readonly DataBaseContext _db;
 
-        public Settings()
+        public SettingsModel()
         {
             _db = new DataBaseContext();
         }

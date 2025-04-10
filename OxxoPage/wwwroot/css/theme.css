@@ -293,5 +293,14 @@ body.dark-mode #sortableTable td {
     color: #ffffff;
 }
 
+button.btn{
+    color:white;
+    background-color: #F62717 !important;
+    border-color: #DE2924 !important;
+}
 
-
+button.btn:hover{
+    color:white !important; 
+    background-color: #F62717 !important;
+    border-color: #DE2924 !important;
+}   

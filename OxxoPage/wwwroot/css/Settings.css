@@ -1,8 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Esto evita que el body tenga scroll */
-}
 .sidebar {
     display: flex;
     flex-direction: row;

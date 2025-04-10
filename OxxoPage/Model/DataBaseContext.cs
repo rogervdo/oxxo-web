@@ -667,6 +667,7 @@ namespace OxxoPage.Model
 
 
         // Método para actualizar la contraseña de un usuario RODRIGO
+                // Método para actualizar la contraseña de un usuario RODRIGO
         public bool ActualizarUsuario(string nickname, string nuevaContrasena)
         {
             try
