@@ -116,7 +116,7 @@ body.dark-mode .navbar a:hover {
 }
 
 body.dark-mode {
-    background: linear-gradient(0deg, #1e1e1e 65%, #9b101a 110%) !important;
+    background: linear-gradient(0deg, #1e1e1e 65%, #9b101a 110%);
 }
 
 body .gradient {
@@ -293,5 +293,14 @@ body.dark-mode #sortableTable td {
     color: #ffffff;
 }
 
+button.btn{
+    color:white;
+    background-color: #F62717 !important;
+    border-color: #DE2924 !important;
+}
 
-
+button.btn:hover{
+    color:white !important; 
+    background-color: #F62717 !important;
+    border-color: #DE2924 !important;
+}   

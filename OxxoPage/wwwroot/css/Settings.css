@@ -1,8 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Esto evita que el body tenga scroll */
-}
 .sidebar {
     display: flex;
     flex-direction: row;
@@ -12,7 +7,6 @@ body {
     top: absolute;  /* Asegura que la barra lateral esté alineada en la parte superior */
     left: 0;
     z-index: 1;
-    overflow: hidden;  /* Previene el scroll */
 }
 
 .background-red {
@@ -21,12 +15,13 @@ body {
     padding: 20px;
     color: white;
     height: 100vh;  /* Asegura que la barra lateral tenga una altura fija */
-    overflow: hidden;  /* Previene el scroll dentro de este contenedor */
+
 }
 
 .background-yellow {
     background-color: #FDC32F;
     width: 20px;
+    height: 100vh;
 }
 
 .background-red ul {

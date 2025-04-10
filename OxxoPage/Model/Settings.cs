@@ -2,19 +2,19 @@ namespace OxxoPage.Model
 {
     public class Settings
     {
+        public string Nickname { get; set; }           // Actual
+        public string Contrasena { get; set; }         // Nueva
+        public DateTime FechaNacimiento { get; set; }  // Fecha de nacimiento
+        public int Genero { get; set; }                // Género (1: Masculino, 2: Femenino, 3: No binario)
 
-        public string Nickname { get; set; }
-        public string Contrasena { get; set; }
-        public  DateTime Fecha_Nacimiento{get; set;}
-
-        public Settings(string nickname, string contrasena, DateTime fecha_nacimiento)
+        public Settings(string nickname, string contrasena, DateTime fechaNacimiento, int genero)
         {
             Nickname = nickname;
             Contrasena = contrasena;
-            Fecha_Nacimiento = fecha_nacimiento;
+            FechaNacimiento = fechaNacimiento;
+            Genero = genero;
         }
 
         public Settings() { }
     }
 }
-
