@@ -473,6 +473,31 @@ namespace OxxoPage.Model
             return foto;
         }
 
+        public bool ActualizarFotografia(string nickname, string fotografia)
+        {
+            try
+            {
+                using (var conexion = GetConnection())
+                {
+                    conexion.Open();
+                    string query = "UPDATE usuarios SET fotografia = @fotografia WHERE nickname = @nickname";
+                    using (var cmd = new MySqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@fotografia", fotografia);
+                        cmd.Parameters.AddWithValue("@nickname", nickname);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0; // Retorna true si se actualizó correctamente
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al actualizar la fotografía: " + ex.Message);
+                return false; // Retorna false en caso de error
+            }
+        }
+
         // Método para actualizar la contraseña de un usuario RODRIGO
         public bool ActualizarUsuario(string nickname, string nuevaContrasena)
         {
@@ -509,6 +534,33 @@ namespace OxxoPage.Model
                 Console.WriteLine($"Error al actualizar el usuario: {ex.Message}");
                 return false; // Error en la operación
             }
+        }
+
+        public void ActualizarAboutMe(int idUsuario, string aboutMe)
+        {
+            try
+            {
+                using var connection = new MySqlConnection(ConnectionString);
+                connection.Open();
+
+                string query = "UPDATE usuarios SET about_me = @about_me WHERE id_usuario = @id";
+                using var cmd = new MySqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@about_me", aboutMe);
+                cmd.Parameters.AddWithValue("@id", idUsuario);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                //manejo de error
+                Console.WriteLine($"Error al actualizar AboutMe: {ex.Message}");
+                throw;
+            }
+        }
+
+        internal void ActualizarAboutMe(object id_usuario, string aboutMeInput)
+        {
+            throw new NotImplementedException();
         }
     }
 }
