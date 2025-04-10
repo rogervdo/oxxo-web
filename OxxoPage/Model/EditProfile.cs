@@ -1,7 +1,7 @@
 using System;
 namespace OxxoPage.Model
 {
-    public class Usuarios
+    public class EditProfile
     {
         public int IdUsuario { get; set; }
         public string Nombre { get; set; }
@@ -24,25 +24,13 @@ namespace OxxoPage.Model
         public int Posicion { get; set; }
         public int Medallas { get; set; }
 
-        // Constructor para Login
-        public Usuarios(string nickname, string contrasena)
+
+        public EditProfile(string aboutMe, int idUsuario)
         {
-            Nickname = nickname;
-            Contrasena = contrasena;
+            AboutMe = aboutMe;
+            IdUsuario = idUsuario;
         }
 
-        // Constructor para Sign In 
-        public Usuarios(string nombre, string apellidomaterno, string apellidopaterno, string contrasena, string nickname)
-        {
-            Nombre = nombre;
-            ApellidoMaterno = apellidomaterno;
-            ApellidoPaterno = apellidopaterno;
-            Contrasena = contrasena;
-            Nickname = nickname;
-        }
-
-        // Constructor vacío para inicializar el objeto sin parámetros
-        public Usuarios() { }
+        public EditProfile() { }
     }
-
 }

@@ -20,22 +20,22 @@ namespace OxxoPage.Pages
         public string StatusMessage { get; set; }
 
 
-        
         public EditProfile(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _dbContext = new DataBaseContext();
         }
 
-        public void OnGet(){
+        public void OnPost()
+        {
             string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario");
-            
             if (!string.IsNullOrEmpty(nickname))
             {
                 var usuario = _dbContext.ObtenerDatosUsuario(nickname);
 
                 if (usuario != null)
-                {  
+                {
+                    // Cargar los datos del usuario
                     Usuario = usuario;
                     Usuario.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
                     Role = _dbContext.ObtenerRolUsuario(usuario.IdUsuario);
@@ -43,17 +43,38 @@ namespace OxxoPage.Pages
                     // Obtener logros y experiencia total
                     Achievements = _dbContext.ObtenerLogrosUsuario(nickname, out int totalXP);
                     CalcularExperiencia(totalXP);
-                }
-                else
-                {
-                    Usuario.Nickname = "Invitado";
-                    Usuario.Fotografia = "default.png";
-                    Usuario.AboutMe = "Perfil no disponible";
+
+                    // Verificar si se ha enviado el campo de AboutMe desde el formulario
+                    string aboutMeInput = Request.Form["aboutMeInput"];
+                    if (!string.IsNullOrEmpty(aboutMeInput) && aboutMeInput != Usuario.AboutMe)
+                    {
+                        // Actualizar en la base de datos
+                        _dbContext.ActualizarAboutMe(Usuario.IdUsuario, aboutMeInput);
+                        // Actualizar el valor en el modelo
+                        Usuario.AboutMe = aboutMeInput;
+                    }
                 }
             }
         }
 
-        
+        [HttpPost]
+        public IActionResult UpdateUserPhoto(int userId, string newImageName)
+        {
+            try
+            {
+                // Call the method to update the photo in the database
+                ActualizarFotografia(userId, newImageName);
+
+                // Return a success response
+                return Ok(new { message = "Profile picture updated successfully!" });
+            }
+            catch (Exception ex)
+            {
+                // If an error occurs, return a bad request with the error message
+                return BadRequest(new { message = "Error updating profile picture", error = ex.Message });
+            }
+        }
+
         private void CalcularExperiencia(int totalXP)
         {
             Experiencia.Level = (totalXP / 100) + 1;
@@ -62,55 +83,10 @@ namespace OxxoPage.Pages
             Experiencia.RequiredXPBar = 100;
         }
 
-        // public IActionResult OnPost(string aboutMeInput)
-        // {
-        //     string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario");
-        //     if (string.IsNullOrEmpty(nickname))
-        //     {
-        //         StatusMessage = "Error: Sesión no válida para guardar cambios.";
-        //         return RedirectToPage();
-        //     }
-
-        //     //encontrar en db datos usuario
-        //     var userToUpdate = _dbContext.ObtenerDatosUsuario(nickname);
-
-        //     //check
-        //     if (userToUpdate == null)
-        //     {
-        //         StatusMessage = "Error: No se pudo encontrar el usuario para actualizar.";
-        //         return RedirectToPage(); 
-        //     }
-        //     // Now you can safely update the fetched user object
-        //     userToUpdate.AboutMe = aboutMeInput?.Trim(); // Trim whitespace
-
-        //     try
-        //     {
-        //         // --- FIX 2: This method needs to EXIST in DataBaseContext.cs ---
-        //         bool success = _dbContext.ActualizarUsuario(userToUpdate);
-
-        //         if (success)
-        //         {
-        //             StatusMessage = "Tu información 'Acerca de mí' ha sido actualizada.";
-        //         }
-        //         else
-        //         {
-        //             StatusMessage = "Error: No se pudo guardar la información en la base de datos.";
-        //         }
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         // Log the exception (replace Console.WriteLine with a real logger in production)
-        //         Console.WriteLine($"Error updating AboutMe for user {nickname}: {ex.ToString()}"); // Log full exception
-        //         StatusMessage = "Error: Ocurrió un problema técnico al guardar los cambios.";
-        //     }
-
-        //     // Redirect back to the OnGet handler (PRG Pattern)
-        //     return RedirectToPage();
-        // }
-
     }
-
 }
+
+
 
 
 

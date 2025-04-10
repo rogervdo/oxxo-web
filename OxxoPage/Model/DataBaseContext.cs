@@ -463,5 +463,73 @@ namespace OxxoPage.Model
             }
             return foto;
         }
+
+        //actualizar la bio del usuario con id esp
+        public void ActualizarAboutMe(int idUsuario, string aboutMe)
+        {
+            try
+            {
+                using var connection = new MySqlConnection(ConnectionString);
+                connection.Open();
+
+                string query = "UPDATE usuarios SET about_me = @about_me WHERE id_usuario = @id";
+                using var cmd = new MySqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@about_me", aboutMe);
+                cmd.Parameters.AddWithValue("@id", idUsuario);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                //manejo de error
+                Console.WriteLine($"Error al actualizar AboutMe: {ex.Message}");
+                throw;
+            }
+        }
+
+        //actualizar imagen en eleccion de grid
+        public void ActualizarFotografia(int userId, string newImageName)
+        {
+            // Get the list of users
+            var users = GetAllUsers();
+
+            // Find the user by their ID (or any unique identifier like Nickname)
+            var user = users.FirstOrDefault(u => u.IdUsuario == userId);
+
+            if (user != null)
+            {
+                // Update the Fotografia field with the new image name
+                user.Fotografia = newImageName;
+
+                // Save changes to the database
+                using (var conexion = GetConnection())
+                {
+                    try
+                    {
+                        conexion.Open();
+                        string query = "UPDATE usuarios SET fotografia = @fotografia WHERE id_usuario = @id";
+                        using (var cmd = new MySqlCommand(query, conexion))
+                        {
+                            cmd.Parameters.AddWithValue("@fotografia", newImageName);
+                            cmd.Parameters.AddWithValue("@id", userId);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch (MySqlException ex)
+                    {
+                        // Handle error
+                        Console.WriteLine($"Error al actualizar fotografía: {ex.Message}");
+                        throw;
+                    }
+                }
+            }
+        }
+
+
+        internal void ActualizarAboutMe(object id_usuario, string aboutMeInput)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
