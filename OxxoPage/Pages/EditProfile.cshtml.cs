@@ -57,24 +57,6 @@ namespace OxxoPage.Pages
             }
         }
 
-        [HttpPost]
-        public IActionResult UpdateUserPhoto(int userId, string newImageName)
-        {
-            try
-            {
-                // Call the method to update the photo in the database
-                ActualizarFotografia(userId, newImageName);
-
-                // Return a success response
-                return Ok(new { message = "Profile picture updated successfully!" });
-            }
-            catch (Exception ex)
-            {
-                // If an error occurs, return a bad request with the error message
-                return BadRequest(new { message = "Error updating profile picture", error = ex.Message });
-            }
-        }
-
         private void CalcularExperiencia(int totalXP)
         {
             Experiencia.Level = (totalXP / 100) + 1;
