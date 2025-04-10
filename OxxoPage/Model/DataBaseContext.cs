@@ -473,18 +473,19 @@ namespace OxxoPage.Model
             return foto;
         }
 
-        public bool ActualizarFotografia(string nickname, string fotografia)
+        //Metodo para actualizar la imagen en base a la seleccionada
+        public bool ActualizarFotografia(int idUsuario, string fotografia)
         {
             try
             {
                 using (var conexion = GetConnection())
                 {
                     conexion.Open();
-                    string query = "UPDATE usuarios SET fotografia = @fotografia WHERE nickname = @nickname";
+                    string query = "UPDATE usuarios SET fotografia = @fotografia WHERE id_usuario = @id";
                     using (var cmd = new MySqlCommand(query, conexion))
                     {
                         cmd.Parameters.AddWithValue("@fotografia", fotografia);
-                        cmd.Parameters.AddWithValue("@nickname", nickname);
+                        cmd.Parameters.AddWithValue("@id", idUsuario); // Usar int directamente
 
                         int rowsAffected = cmd.ExecuteNonQuery();
                         return rowsAffected > 0; // Retorna true si se actualizó correctamente
@@ -536,6 +537,7 @@ namespace OxxoPage.Model
             }
         }
 
+        //Metodo para actualizar el about me de un usuario 
         public void ActualizarAboutMe(int idUsuario, string aboutMe)
         {
             try

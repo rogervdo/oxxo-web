@@ -92,7 +92,7 @@
 }
 
 .pop-up-imgSelect.show {
-  width: 500px;
+  width: 400px;
   opacity: 1;
   visibility: visible;
 }
@@ -103,7 +103,6 @@
   align-items: center;
 }
 
-#upload,
 #choose-img {
   background-color: #d7d7d7;
   padding: 10px;
@@ -119,7 +118,6 @@
   flex-direction: column;
 }
 
-#upload:hover,
 #choose-img:hover {
   cursor: pointer;
   background-color: #c7c7c7;
@@ -230,16 +228,6 @@ h6 {
 #saveGridSelection:hover,
 #cancelGridSelection:hover {
   background-color: #b71c1c;
-}
-
-/* ------------------ */
-/* estilos relacionados a upload image*/
-#upload label {
-  font-weight: 500;
-}
-
-input {
-  display: none;
 }
 
 /* ------------------ */
@@ -486,4 +474,10 @@ input {
 .logro-points {
   font-weight: bold;
   color: #28a745; /* Verde para destacar */
+}
+
+form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }

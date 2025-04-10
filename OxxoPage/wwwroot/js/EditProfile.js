@@ -1,114 +1,90 @@
-// Elementos generales del popup 1 (seleccionar imagen)
-const openSelect = document.getElementById('image');
-const closeBtn = document.getElementById('closeImgSelect-btn');
-const imgSelect = document.getElementById('img-Select');
-const boxImg = document.getElementById('box-img-select');
+// Elementos generales del popup 1 (elegir selec img predeterminada)
+const openSelect = document.getElementById("image"); // La imagen de perfil
+const closeBtn = document.getElementById("closeImgSelect-btn"); // Botón de cierre
+const imgSelect = document.getElementById("img-Select");
+const boxImg = document.getElementById("box-img-select");
 
-// Elementos del popup 2 (grid)
-const chooseImg = document.getElementById('choose-img');
-const gridBox = document.getElementById('box-img-grid');
-const gridPopup = document.getElementById('popUpGrid');
-const closeGridBtn = document.getElementById('closeGridBtn');
-
-// Botones
-const saveBtn = document.getElementById('saveGridSelection');
-const cancelBtn = document.getElementById('cancelGridSelection');
-
-// Elementos de imagen
-let profilePic = document.getElementById('profileImage');
-let inputFile = document.getElementById('input-file');
-const gridImages = document.querySelectorAll('.grid-image');
-
+// Elementos de la imagen
+let profilePic = document.getElementById("profileImage");
 // Variable para guardar el estado original antes de hacer cambios
 let originalImageSrc = profilePic.src;
+const gridImages = document.querySelectorAll(".grid-image"); // Imágenes del grid
 
-//funcionalidad abrir y cerrar primer pop up -----------------
-// Abrir popup 1: guardar imagen original antes de cambios
-openSelect.addEventListener('click', () => {
-  originalImageSrc = profilePic.src;
-  boxImg.classList.add('show');
-  imgSelect.classList.add('show');
+// Funcionalidad abrir y cerrar primer pop-up
+openSelect.addEventListener("click", () => {
+  originalImageSrc = profilePic.src; // Guardar imagen original
+  boxImg.classList.add("show");
+  imgSelect.classList.add("show");
 });
 
-// Cerrar popup 1
-closeBtn.addEventListener('click', () => {
-  boxImg.classList.remove('show');
-  imgSelect.classList.remove('show');
+closeBtn.addEventListener("click", () => {
+  boxImg.classList.remove("show");
+  imgSelect.classList.remove("show");
 });
 
-// Abrir pop-up 2 desde botón "Elegir imagen" ------------
-chooseImg.addEventListener('click', () => {
-  gridBox.classList.add('show');
-  gridPopup.classList.add('show');
+// Elementos del popup 2 (grid de fotos a escoger) ---------
+const chooseImg = document.getElementById("choose-img"); // Cuadro en popup 1
+const gridBox = document.getElementById("box-img-grid");
+const gridPopup = document.getElementById("popUpGrid");
+const closeGridBtn = document.getElementById("closeGridBtn"); // x
+
+// Funcionalidad abrir pop-up 2 desde "Elegir imagen"
+chooseImg.addEventListener("click", () => {
+  gridBox.classList.add("show");
+  gridPopup.classList.add("show");
 });
 
 // Cerrar popup 2
-closeGridBtn.addEventListener('click', () => {
-  gridBox.classList.remove('show');
-  gridPopup.classList.remove('show');
+closeGridBtn.addEventListener("click", () => {
+  gridBox.classList.remove("show");
+  gridPopup.classList.remove("show");
 });
 
-// Al subir imagen: actualizar ft perfil
-inputFile.onchange = function () {
-  if (inputFile.files[0]) {
-    profilePic.src = URL.createObjectURL(inputFile.files[0]);
-  }
-};
-
-// Al seleccionar imagen del grid: actualizar inmediatamente y volver a popup 1
+// Al seleccionar imagen del grid: actualizar imagen y volver a popup 1
 gridImages.forEach((img) => {
-  img.addEventListener('click', () => {
+  img.addEventListener("click", () => {
+    //actualiza profile img
     profilePic.src = img.src;
-    gridBox.classList.remove('show');
-    gridPopup.classList.remove('show');
-    boxImg.classList.add('show');
-    imgSelect.classList.add('show');
+    //se quita pop 2
+    gridBox.classList.remove("show");
+    gridPopup.classList.remove("show");
+    //se muestra pop1
+    boxImg.classList.add("show");
+    imgSelect.classList.add("show");
   });
 });
 
+// Botones guardar y cancelar
+const saveBtn = document.getElementById("saveGridSelection");
+const cancelBtn = document.getElementById("cancelGridSelection");
+
+// Función cerrar popups al presionar botones guardar o cancelar
+function closePopups() {
+  boxImg.classList.remove("show");
+  imgSelect.classList.remove("show");
+}
+
 // Guardar cambios: simplemente cerrar los popups
-saveBtn.addEventListener('click', () => {
-  boxGrid.classList.remove('show');
-  popUpGrid.classList.remove('show');
-  boxImg.classList.remove('show');
-  imgSelect.classList.remove('show');
-});
+saveBtn.addEventListener("click", closePopups);
 
-// Cancelar cambios: restaurar la imagen original y cerrar todo
-cancelBtn.addEventListener('click', () => {
+// Cancelar cambios: regresa imagen original (anterior en src) y cerrar todo
+cancelBtn.addEventListener("click", () => {
   profilePic.src = originalImageSrc; // Volver a imagen original
-  inputFile.value = ''; // Limpiar input file si se usó
-  boxGrid.classList.remove('show');
-  popUpGrid.classList.remove('show');
-  boxImg.classList.remove('show');
-  imgSelect.classList.remove('show');
+  closePopups();
 });
 
-// funcionalidad de cerrar pop up 1 y 2  ------------------------
-const boxGrid = document.getElementById('box-img-grid');
-const popUpGrid = document.getElementById('popUpGrid');
+//---------
+// Seleccionar la imagen y actualizar el campo oculto
+function selectImage(imageName) {
+  // Asignar el nombre de la imagen seleccionada al campo oculto
+  document.getElementById("selectedImage").value = imageName;
 
-const boxSelect = document.getElementById('box-img-select');
-const popUpSelect = document.getElementById('img-Select');
+  // Opcional: Cambiar la imagen mostrada en el perfil
+  document.getElementById("profileImage").src = `~/assets/img/${imageName}`;
 
-//cierra al guardar
-saveBtn.addEventListener('click', () => {
-  // Cierra el segundo pop-up
-  boxGrid.classList.remove('show');
-  popUpGrid.classList.remove('show');
-
-  // También cierra el primero
-  boxSelect.classList.remove('show');
-  popUpSelect.classList.remove('show');
-});
-
-//cierra al cancelar
-cancelBtn.addEventListener('click', () => {
-  // Cierra el segundo pop-up
-  boxGrid.classList.remove('show');
-  popUpGrid.classList.remove('show');
-
-  // También cierra el primero
-  boxSelect.classList.remove('show');
-  popUpSelect.classList.remove('show');
-});
+  // Cerrar el popup 2 y volver al popup 1
+  document.getElementById("box-img-grid").classList.remove("show");
+  document.getElementById("popUpGrid").classList.remove("show");
+  document.getElementById("box-img-select").classList.add("show");
+  document.getElementById("img-Select").classList.add("show");
+}
