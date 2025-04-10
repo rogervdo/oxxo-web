@@ -16,6 +16,7 @@ namespace OxxoPage.Pages
         public Experiencia Experiencia { get; set; } = new();
         public List<Achievement> Achievements { get; set; } = new();
         public string Role { get; set; } = "Usuario estándar";
+
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -31,12 +32,12 @@ namespace OxxoPage.Pages
             string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario") ?? "Invitado";
             if (!string.IsNullOrEmpty(nickname))
             {
-                Usuario = _dbContext.ObtenerDatosUsuario(nickname);
+                var usuario = _dbContext.ObtenerDatosUsuario(nickname);
 
                 if (Usuario != null)
                 {
                     // Cargar los datos del usuario
-
+                    Usuario = usuario;
                     Usuario.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
 
 
@@ -48,6 +49,7 @@ namespace OxxoPage.Pages
                     Achievements = _dbContext.ObtenerLogrosUsuario(nickname, out int totalXP);
                     CalcularExperiencia(totalXP);
 
+
                     // PARA VANIA!!! METODO DE ACTUALIZAR FOTOGRAFIA EN BD
                     // bool ActualidazoCheck = _dbContext.ActualizarFotografia(nickname, "victor.jpg");
                     // Console.WriteLine($"ActualidazoCheck: {ActualidazoCheck}");
@@ -58,17 +60,85 @@ namespace OxxoPage.Pages
             }
         }
 
-        public void OnPost()
+        //post para update de AboutMe
+        // public IActionResult OnPost()
+        // {
+        //     string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario");
+
+        //     if (!string.IsNullOrEmpty(nickname))
+        //     {
+        //         var usuario = _dbContext.ObtenerDatosUsuario(nickname);
+
+        //         if (usuario != null)
+        //         {
+        //             // Cargar los datos del usuario
+        //             Usuario = usuario;
+        //             Usuario.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
+
+        //             // Verificar si se ha enviado el campo de AboutMe desde el formulario
+        //             string aboutMeInput = Request.Form["aboutMeInput"];
+        //             if (!string.IsNullOrEmpty(aboutMeInput) && aboutMeInput != Usuario.AboutMe)
+        //             {
+        //                 // Actualizar en la base de datos
+        //                 _dbContext.ActualizarAboutMe(Usuario.IdUsuario, aboutMeInput);
+        //                 Usuario.AboutMe = aboutMeInput;
+        //             }
+        //             //como se sobreescribian los datos se guarda about me y vuelve a pag
+        //             //carga todo los datos correctos 
+        //             return RedirectToPage();
+        //         }
+        //     }
+        //     return Page();
+        // }
+
+        public IActionResult OnPost()
         {
-            string aboutMeInput = Request.Form["aboutMeInput"];
-            if (!string.IsNullOrEmpty(aboutMeInput) && aboutMeInput != Usuario.AboutMe)
+            string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario");
+
+            if (!string.IsNullOrEmpty(nickname))
             {
-                // Actualizar en la base de datos
-                _dbContext.ActualizarAboutMe(Usuario.IdUsuario, aboutMeInput);
-                // Actualizar el valor en el modelo
-                Usuario.AboutMe = aboutMeInput;
+                var usuario = _dbContext.ObtenerDatosUsuario(nickname);
+
+                if (usuario != null)
+                {
+                    // Cargar los datos del usuario
+                    Usuario = usuario;
+                    Usuario.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
+
+                    // Recuperar la imagen seleccionada desde el formulario
+                    string selectedImage = Request.Form["selectedImage"];
+
+                    // Si se ha seleccionado una imagen, actualizar la fotografía en la base de datos
+                    if (!string.IsNullOrEmpty(selectedImage) && selectedImage != Usuario.Fotografia)
+                    {
+                        // Actualizar en la base de datos
+                        bool updated = _dbContext.ActualizarFotografia(Usuario.IdUsuario, selectedImage);
+                        if (updated)
+                        {
+                            Usuario.Fotografia = selectedImage; // Actualizar el modelo en memoria
+                            StatusMessage = "¡Tu foto de perfil ha sido actualizada!";
+                        }
+                        else
+                        {
+                            StatusMessage = "Hubo un error al actualizar la foto de perfil.";
+                        }
+                    }
+
+                    // Verificar si se ha enviado el campo de AboutMe desde el formulario
+                    string aboutMeInput = Request.Form["aboutMeInput"];
+                    if (!string.IsNullOrEmpty(aboutMeInput) && aboutMeInput != Usuario.AboutMe)
+                    {
+                        _dbContext.ActualizarAboutMe(Usuario.IdUsuario, aboutMeInput);
+                        Usuario.AboutMe = aboutMeInput;
+                        StatusMessage = "¡Tu biografía ha sido actualizada!";
+                    }
+                    return RedirectToPage();
+                }
             }
+            return Page();
         }
+
+
 
         private void CalcularExperiencia(int totalXP)
         {

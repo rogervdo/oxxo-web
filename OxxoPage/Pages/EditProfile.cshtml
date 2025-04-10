@@ -17,71 +17,60 @@
             <!-- Fondo amarillo -->
             <div class="background-yellow"></div>
         </div>
-
         <!-- div general contenido -->
         <div class="container mt-4 content">
             <div class="row align-items-center profile-header">
 
-                
-                <!-- contenedor imagen perfil-->
-                <div class="col-auto profile-img-wrapper" id="image">
-                    <!-- imagenPerfilUsuario-->
-                    <img id="profileImage" src="~/assets/img/@Model.Usuario.Fotografia" class="rounded-circle profile-img" alt="Foto de Perfil">
                     
-                    <!-- Agregar overlay de Lapiz-->
-                    <div class="hide-icon">
-                        <img src="~/img/lapiz.png" class="card-image" alt="Icono">
+                <form method="post" enctype="multipart/form-data">
+                    <!-- Campo oculto para almacenar la imagen seleccionada -->
+                    <input type="hidden" id="selectedImage" name="selectedImage" value="">
+
+                    <!-- Contenedor de la imagen de perfil -->
+                    <div class="col-auto profile-img-wrapper" id="image">
+                        <img id="profileImage" src="~/assets/img/@Model.Usuario.Fotografia" class="rounded-circle profile-img" alt="Foto de Perfil">
+                        <div class="hide-icon">
+                            <img src="~/img/lapiz.png" class="card-image" alt="Icono">
+                        </div>
                     </div>
 
-                </div>
-
-                <!--PopUp1: elegir imagen / upload-->
-                <div class="box" id="box-img-select">
-                    <div class="pop-up-imgSelect" id="img-Select">
-                        <div class="header">
-                            <h4>Elige una imagen</h4>
-                            <a class="closebtn" id="closeImgSelect-btn"> x </a>
-                        </div>
-                        <div class="box-select">
-                            <div id="upload">
-                                <!-- img+opcion subir img-->
-                                <img src="~/img/UploadImage.png" class="card-image" alt="Icono">
-                                <!-- poder permitir subir imagen-->
-                                <label for="input-file">Subir Imagen</label>
-                                <input type="file" accept="image/jpg, image/png" id="input-file">
+                    <!-- Pop-up 1: Elegir Imagen -->
+                    <div class="box" id="box-img-select">
+                        <div class="pop-up-imgSelect" id="img-Select">
+                            <div class="header">
+                                <h4>Elige una imagen</h4>
+                                <a class="closebtn" id="closeImgSelect-btn">x</a>
                             </div>
-                            <div id="choose-img">
-                                <!-- img+opcion elegir img-->
-                                <img src="~/img/ChooseImg.png" class="card-image" alt="Icono">
-                                <h6>Elegir Imagen</h6>
+                            <div class="box-select">
+                                <div id="choose-img">
+                                    <img src="~/img/ChooseImg.png" class="card-image" alt="Icono">
+                                    <h6>Elegir Imagen</h6>
+                                </div>
+                            </div>
+                            <div class="btn-container">
+                                <button type="submit" id="saveGridSelection">Guardar</button>
+                                <button type="button" id="cancelGridSelection">Cancelar</button>
                             </div>
                         </div>
-                        <!-- Botón Guardar y cancelar -->
-                        <div class="btn-container">
-                            <button id="saveGridSelection">Guardar</button>
-                            <button id="cancelGridSelection">Cancelar</button>
+                    </div>
+
+                    <!-- Pop-up 2: Seleccionar imagen del grid -->
+                    <div class="box" id="box-img-grid">
+                        <div class="pop-up-imgSelect" id="popUpGrid">
+                            <div class="header">
+                                <h4>Elige una imagen predeterminada</h4>
+                                <a class="closebtn" id="closeGridBtn">x</a>
+                            </div>
+                            <div class="image-grid-container">
+                                <img src="~/img/FotoPerfil1.jpg" class="grid-image" onclick="selectImage('FotoPerfil1.jpg')">
+                                <img src="~/img/FotoPerfil2.jpg" class="grid-image" onclick="selectImage('FotoPerfil2.jpg')">
+                                <img src="~/img/FotoPerfil3.jpg" class="grid-image" onclick="selectImage('FotoPerfil3.jpg')">
+                                <img src="~/img/FotoPerfil4.jpg" class="grid-image" onclick="selectImage('FotoPerfil4.jpg')">
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!--PopUp:2 segunda funcionalidad select de imagenes cargadas-->
-                <div class="box" id="box-img-grid">
-                    <div class="pop-up-imgSelect" id="popUpGrid">
-                        <div class="header">
-                            <h4>Elige una imagen predeterminada</h4>
-                            <a class="closebtn" id="closeGridBtn"> x </a>
-                        </div>
-
-                        <!-- container Grid Imagenes-->
-                        <div class="image-grid-container">
-                            <img src="~/img/FotoPerfil1.jpg" class="grid-image">
-                            <img src="~/img/FotoPerfil2.jpg" class="grid-image">
-                            <img src="~/img/FotoPerfil3.jpg" class="grid-image">
-                            <img src="~/img/FotoPerfil4.jpg" class="grid-image">
-                        </div>
-                    </div>
-                </div>
-
+                </form>
+                
 
                 <!-- Nombre y rol del usuario-->
                 <div class="col row profile-text">
@@ -97,7 +86,7 @@
                 <!-- boton deshacer cambios -->
                 <div class="row col-2 profile-edit">
                     <a href="/Perfil" class="card text-center shadow align-items-center justify-content-center">
-                        <h4 class="m-0 me-3">Deshacer</h4>
+                        <h4 class="m-0 me-3">Regresar</h4>
                         <!-- Icono de lápiz para la edición -->
                         <img src="~/img/undo.png" class="card-image" alt="Icono">
                     </a>
@@ -151,7 +140,7 @@
                                     value="@Model.Usuario.AboutMe" 
                                     placeholder="Escribe sobre ti..." 
                                 >
-                                
+
                                 <!-- iconos / acciones editar y guardar con submit-->
                                 <div class="bio-actions">
                                     <!-- Edit Icon -->
@@ -159,7 +148,6 @@
                                     <!-- boton para submit cambios-->
                                     <button type="submit" class="btn bio-save-button" title="Guardar Cambios">
                                         <img src="~/img/saveIcon.png" class="bio-icon bio-save-icon" alt="Guardar">
-                                        <span class="visually-hidden">Guardar Cambios</span> 
                                     </button>
                                 </div>
                             </div>
@@ -205,6 +193,6 @@
                 </div>
             </div>
         </div>
-    <script src="~/js/EditProfile.js"></script>
+        <script src="~/js/EditProfile.js"></script>
     </body>
-</html>
+<html>   
