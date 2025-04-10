@@ -58,29 +58,26 @@ gridImages.forEach((img) => {
 const saveBtn = document.getElementById("saveGridSelection");
 const cancelBtn = document.getElementById("cancelGridSelection");
 
-// Función cerrar popups al presionar botones guardar o cancelar
+// Función cerrar con botones guardar o cancelar
 function closePopups() {
   boxImg.classList.remove("show");
   imgSelect.classList.remove("show");
 }
 
-// Guardar cambios: simplemente cerrar los popups
+// Guardar : cerrar los popups
 saveBtn.addEventListener("click", closePopups);
 
-// Cancelar cambios: regresa imagen original (anterior en src) y cerrar todo
+// Cancelar: regresa imagen original (anterior en src) y cerrar todo
 cancelBtn.addEventListener("click", () => {
   profilePic.src = originalImageSrc; // Volver a imagen original
   closePopups();
 });
 
-//---------
-// Seleccionar la imagen y actualizar el campo oculto
+//Funcionalidad de guardar valor seleccionado en var y enviar a post
+// Seleccionar la imagen y actualizar el hidden form
 function selectImage(imageName) {
   // Asignar el nombre de la imagen seleccionada al campo oculto
   document.getElementById("selectedImage").value = imageName;
-
-  // Opcional: Cambiar la imagen mostrada en el perfil
-  document.getElementById("profileImage").src = `~/assets/img/${imageName}`;
 
   // Cerrar el popup 2 y volver al popup 1
   document.getElementById("box-img-grid").classList.remove("show");

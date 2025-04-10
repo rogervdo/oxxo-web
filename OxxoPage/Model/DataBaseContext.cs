@@ -457,6 +457,7 @@ namespace OxxoPage.Model
             return logros;
         }
 
+        //---
         public string ObtenerFotografiaPath(string fotografia)
         {
             string foto;

@@ -49,47 +49,10 @@ namespace OxxoPage.Pages
                     Achievements = _dbContext.ObtenerLogrosUsuario(nickname, out int totalXP);
                     CalcularExperiencia(totalXP);
 
-
-                    // PARA VANIA!!! METODO DE ACTUALIZAR FOTOGRAFIA EN BD
-                    // bool ActualidazoCheck = _dbContext.ActualizarFotografia(nickname, "victor.jpg");
-                    // Console.WriteLine($"ActualidazoCheck: {ActualidazoCheck}");
-
-                    // Verificar si se ha enviado el campo de AboutMe desde el formulario
-
                 }
             }
         }
 
-        //post para update de AboutMe
-        // public IActionResult OnPost()
-        // {
-        //     string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario");
-
-        //     if (!string.IsNullOrEmpty(nickname))
-        //     {
-        //         var usuario = _dbContext.ObtenerDatosUsuario(nickname);
-
-        //         if (usuario != null)
-        //         {
-        //             // Cargar los datos del usuario
-        //             Usuario = usuario;
-        //             Usuario.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
-
-        //             // Verificar si se ha enviado el campo de AboutMe desde el formulario
-        //             string aboutMeInput = Request.Form["aboutMeInput"];
-        //             if (!string.IsNullOrEmpty(aboutMeInput) && aboutMeInput != Usuario.AboutMe)
-        //             {
-        //                 // Actualizar en la base de datos
-        //                 _dbContext.ActualizarAboutMe(Usuario.IdUsuario, aboutMeInput);
-        //                 Usuario.AboutMe = aboutMeInput;
-        //             }
-        //             //como se sobreescribian los datos se guarda about me y vuelve a pag
-        //             //carga todo los datos correctos 
-        //             return RedirectToPage();
-        //         }
-        //     }
-        //     return Page();
-        // }
 
         public IActionResult OnPost()
         {
