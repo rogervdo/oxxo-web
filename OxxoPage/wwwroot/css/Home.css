@@ -58,3 +58,18 @@ body.dark-mode .card {
   color: #ffffff;
   border: 1px solid #444444;
 }
+
+/* HOMEGERENTE */
+
+.page-item.active .page-link {
+  z-index: 2;
+  color: #fff;
+  background-color: #ff0000 !important;
+  border-color: #ff0000 !important;
+}
+
+.page-link:focus {
+  box-shadow: 0 0 0 5px #ff000065 !important;
+  background-color: #ff0000 !important;
+  color: #fff !important;
+}
