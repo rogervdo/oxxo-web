@@ -320,7 +320,7 @@ namespace OxxoPage.Model
                             {
                                 usuario = new Usuarios
                                 { // Leer los datos del usuario, con defaults por si no lee
-                                    IdUsuario = Convert.ToInt32(reader["id_usuario"]),
+                                    IdUsuario = reader["id_usuario"] != DBNull.Value ? Convert.ToInt32(reader["id_usuario"]) : 0,
                                     Nombre = reader["nombre"].ToString() ?? "NombreDefault",
                                     ApellidoPaterno = reader["apellido_paterno"]?.ToString() ?? "PaternoDefault",
                                     ApellidoMaterno = reader["apellido_materno"]?.ToString() ?? "MaternoDefault",
@@ -337,7 +337,15 @@ namespace OxxoPage.Model
                     Console.WriteLine("Error al obtener datos del usuario: " + ex.Message);
                 }
             }
-            return usuario;
+            return usuario ?? new Usuarios
+            {
+                IdUsuario = 0,
+                Nombre = "NombreDefault",
+                ApellidoPaterno = "PaternoDefault",
+                ApellidoMaterno = "MaternoDefault",
+                Fotografia = "default.png",
+                AboutMe = "Este usuario aún no ha escrito su biografía."
+            };
         }
 
         //bookmark

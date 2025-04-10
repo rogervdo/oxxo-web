@@ -43,7 +43,7 @@ namespace OxxoPage.Pages
             // TipoUsuario = _db.ObtenerRolUsuarioNickname(Usuario);
             UsuarioInfo = _db.ObtenerDatosUsuario(Usuario);
             // IdUsuario = _db.ObtenerUnicoDatoTabla(Usuario, "usuarios", "nickname", "id_usuario") as int?;
-            TipoUsuario = _db.ObtenerRolUsuario(UsuarioInfo.IdUsuario);
+            TipoUsuario = _db.ObtenerRolUsuario(UsuarioInfo.IdUsuario) ?? "Invalido";
 
             // Verifica si el usuario existe en la base de datos
             if (_db.LoginUser(Usuario, Contrasena))
