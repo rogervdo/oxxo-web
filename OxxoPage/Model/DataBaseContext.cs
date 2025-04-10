@@ -408,7 +408,7 @@ namespace OxxoPage.Model
                                     ApellidoPaterno = reader["apellido_paterno"]?.ToString() ?? "",
                                     ApellidoMaterno = reader["apellido_materno"]?.ToString() ?? "",
                                     Fotografia = !string.IsNullOrEmpty(reader["fotografia"].ToString()) ? reader["fotografia"].ToString() : "default.png",
-                                    AboutMe = reader["about_me"]?.ToString() ?? "Este usuario aún no ha escrito su biografía."
+                                    AboutMe = reader["about_me"]?.ToString() ?? "Este usuario aún no ha escrito su biografía.",
                                 };
                             }
                         }
@@ -644,10 +644,12 @@ namespace OxxoPage.Model
                             string rutaFoto = Path.Combine("wwwroot", "assets", "img", result.ToString());
                             if (File.Exists(rutaFoto))
                             {
+                                Console.WriteLine($"rutafoto = {rutaFoto}");
                                 foto = result.ToString();
                             }
                             else
                             {
+                                Console.WriteLine("Default Pic");
                                 foto = "default.png";
                             }
                         }

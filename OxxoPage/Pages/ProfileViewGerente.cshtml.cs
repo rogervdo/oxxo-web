@@ -53,7 +53,7 @@ namespace OxxoPage.Pages
                         Role = "Asesor de Tienda";
                     }
 
-                    UsuarioAsesor.Fotografia = _dbContext.ObtenerFotoDePerfil(UsuarioAsesor.Nickname);
+                    UsuarioAsesor.Fotografia = _dbContext.ObtenerFotoDePerfil(id);
                     // Obtener logros y experiencia total
                     Achievements = _dbContext.ObtenerLogrosUsuario(id, out int totalXP);
                     CalcularExperiencia(totalXP);
