@@ -7,6 +7,7 @@ namespace OxxoPage.Pages
 {
     public class SettingsModel : PageModel
     {
+
         [BindProperty]
         public Settings Usuario { get; set; }
 
@@ -17,6 +18,7 @@ namespace OxxoPage.Pages
             _db = new DataBaseContext();
         }
 
+        // Manejador para actualizar la contraseña
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
@@ -24,12 +26,12 @@ namespace OxxoPage.Pages
                 return Page();
             }
 
-            // Solo pasamos el nickname y la nueva contraseña
-            bool actualizado = _db.ActualizarUsuario(Usuario.Nickname, Usuario.Contrasena);
+            // Solo pasamos el nickname, la nueva contraseña, la fecha de nacimiento y el género
+            bool actualizado = _db.ActualizarUsuario(Usuario.Nickname, Usuario.Contrasena, Usuario.FechaNacimiento, Usuario.Genero);
 
             if (actualizado)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Settings");
             }
             else
             {
@@ -37,5 +39,6 @@ namespace OxxoPage.Pages
                 return Page();
             }
         }
+
     }
 }

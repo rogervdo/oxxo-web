@@ -51,30 +51,28 @@
                 <span asp-validation-for="Usuario.Contrasena" class="text-danger"></span>
             </div>
         </div>
+
+        <div class="Personal_info container">
+            <div class="col-7 container">
+                <h3>Información Personal</h3>
+                <p>Fecha de Nacimiento</p>
+                <input asp-for="Usuario.FechaNacimiento" type="date" class="form-control" />
+            </div>
+        </div>
+
+        <div class="gender container">
+            <div class="col-7 container">
+                <h3>Género</h3>
+                <p>Selecciona tu género</p>
+                <select asp-for="Usuario.Genero" class="form-select" aria-label="Selecciona tu género" required>
+                    <option value="0" selected disabled>Selecciona tu género</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
+                    <option value="3">No binario</option>
+                </select>
+            </div>
+        </div>
     </form>
-
-
-    <div class="Personal_info container">
-        <div class="col-7 container">
-            <h3>Información Personal</h3>
-            <p>Fecha de Nacimiento</p>
-            <input type="date" id="birthday" name="birthday" required class="form-control" />
-        </div>
-    </div>
-
-    <div class="gender container">
-        <div class="col-7 container">
-            <h3>Género</h3>
-            <p>Selecciona tu género</p>
-            <select id="genderSelect" class="form-select" aria-label="Selecciona tu género" required>
-                <option value="select" selected disabled>Selecciona tu género</option>
-                <option value="1">Masculino</option>
-                <option value="2">Femenino</option>
-                <option value="3">No binario</option>
-            </select>
-        </div>
-    </div>
-
 
     <script src="~/js/settings.js" asp-append-version="true"></script>
 </body>
