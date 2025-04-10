@@ -47,8 +47,11 @@ namespace OxxoPage.Pages
                     // Obtener logros y experiencia total
                     Achievements = _dbContext.ObtenerLogrosUsuario(nickname, out int totalXP);
                     CalcularExperiencia(totalXP);
-                    bool ActualidazoCheck = _dbContext.ActualizarFotografia(nickname, "victor.jpg");
-                    Console.WriteLine($"ActualidazoCheck: {ActualidazoCheck}");
+
+                    // PARA VANIA!!! METODO DE ACTUALIZAR FOTOGRAFIA EN BD
+                    // bool ActualidazoCheck = _dbContext.ActualizarFotografia(nickname, "victor.jpg");
+                    // Console.WriteLine($"ActualidazoCheck: {ActualidazoCheck}");
+
                     // Verificar si se ha enviado el campo de AboutMe desde el formulario
 
                 }
