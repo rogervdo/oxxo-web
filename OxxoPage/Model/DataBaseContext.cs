@@ -669,45 +669,51 @@ namespace OxxoPage.Model
 
 
         // Método para actualizar la contraseña de un usuario RODRIGO
-        public bool ActualizarUsuario(string nickname, string nuevaContrasena, DateTime fechaNacimiento, int genero)
+        public bool ActualizarUsuario(string nickname, string? nuevaContrasena, DateTime? fechaNacimiento, int? genero)
         {
             try
             {
                 using (var conexion = new MySqlConnection(ConnectionString))
                 {
                     conexion.Open();
-                    string query = @"
-                UPDATE usuarios 
-                SET contrasena = @NuevaContrasena, fecha_nacimiento = @FechaNacimiento, genero = @Genero 
-                WHERE nickname = @Nickname";
 
-                    using (var command = new MySqlCommand(query, conexion))
+                    var actualizaciones = new List<string>();
+                    var command = new MySqlCommand();
+                    command.Connection = conexion;
+
+                    if (!string.IsNullOrWhiteSpace(nuevaContrasena))
                     {
-                        command.Parameters.AddWithValue("@Nickname", nickname);
+                        actualizaciones.Add("contrasena = @NuevaContrasena");
                         command.Parameters.AddWithValue("@NuevaContrasena", nuevaContrasena);
-                        command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
-                        command.Parameters.AddWithValue("@Genero", genero);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        // Si no se actualizó ninguna fila, significa que el nickname no existía o hubo algún error
-                        if (rowsAffected > 0)
-                        {
-                            return true; // Operación exitosa
-                        }
-                        else
-                        {
-                            Console.WriteLine("No se pudo actualizar el usuario. Puede que el nickname no exista.");
-                            return false; // No se actualizó ninguna fila
-                        }
                     }
+
+                    if (fechaNacimiento.HasValue)
+                    {
+                        actualizaciones.Add("fecha_nacimiento = @FechaNacimiento");
+                        command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento.Value);
+                    }
+
+                    if (genero.HasValue && genero.Value > 0)
+                    {
+                        actualizaciones.Add("genero = @Genero");
+                        command.Parameters.AddWithValue("@Genero", genero.Value);
+                    }
+
+                    if (actualizaciones.Count == 0)
+                        return false; // No hay nada que actualizar
+
+                    string setClause = string.Join(", ", actualizaciones);
+                    command.CommandText = $"UPDATE usuarios SET {setClause} WHERE nickname = @Nickname";
+                    command.Parameters.AddWithValue("@Nickname", nickname);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0;
                 }
             }
             catch (Exception ex)
             {
-                // Aquí capturamos cualquier excepción que ocurra durante la ejecución
                 Console.WriteLine($"Error al actualizar el usuario: {ex.Message}");
-                return false; // Error en la operación
+                return false;
             }
         }
     }

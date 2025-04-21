@@ -39,6 +39,5 @@ namespace OxxoPage.Pages
                 return Page();
             }
         }
-
     }
 }
