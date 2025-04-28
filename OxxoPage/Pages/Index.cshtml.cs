@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
-using OxxoPage.Model; // Asegúrate de importar el contexto de la BD
+using OxxoPage.Model;
+using System;
 
 namespace OxxoPage.Pages
 {
@@ -59,6 +60,15 @@ namespace OxxoPage.Pages
                     Console.Write($"IdGerente LOGIN: {IdGerente}");
                     HttpContext.Session.SetInt32("IdGerente", IdGerente ?? 0);
                     return RedirectToPage("/HomeGerente"); // Redirige a la página principal
+                }
+                else if (TipoUsuario == "asesor")
+                {
+                    int? idAsesor = _db.ObtenerUnicoDatoTabla(UsuarioInfo.IdUsuario, "asesores", "id_usuario", "id_asesor") as int?;
+                    if (idAsesor.HasValue)
+                    {
+                        HttpContext.Session.SetInt32("IdAsesor", idAsesor.Value);
+                    }
+                    return RedirectToPage("/Home");
                 }
                 return RedirectToPage("/Home"); // Redirige a la página principal
             }
