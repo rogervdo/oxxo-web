@@ -1,0 +1,17 @@
+@page "/TabladeDatos"
+@model Dashboard
+@{
+    ViewData["Title"] = "Tablero de Datos";
+    ViewData["NavTitle"] = "Datos";
+}
+
+<body class="tablerodedatos">
+    <div class="looker-contenedor">
+        <iframe class="looker-embebido"
+            src="https://lookerstudio.google.com/embed/reporting/5de498e5-43dc-4bd6-8437-01cbd94ec0cd/page/p_8jvxmorodd"
+            frameborder="0" allowfullscreen
+            style="border:0"
+            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+        </iframe>
+    </div>
+</body>
