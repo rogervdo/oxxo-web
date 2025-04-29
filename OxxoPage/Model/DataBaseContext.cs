@@ -414,50 +414,50 @@ namespace OxxoPage.Model
         }
 
         // Obtener los logros de un usuario en función de su nickname
-public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP)
-{
-    List<Achievement> logros = new List<Achievement>();
-    currentXP = 0;
-
-    using (var conexion = GetConnection())
-    {
-        try
+        public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP)
         {
-            conexion.Open();
-            string query = @"SELECT l.id_logro, l.nombre, l.descripcion, l.minijuego, l.experiencia, lu.fecha_obtenido
+            List<Achievement> logros = new List<Achievement>();
+            currentXP = 0;
+
+            using (var conexion = GetConnection())
+            {
+                try
+                {
+                    conexion.Open();
+                    string query = @"SELECT l.id_logro, l.nombre, l.descripcion, l.minijuego, l.experiencia, lu.fecha_obtenido
                              FROM logros_usuario lu
                              JOIN logros l ON lu.id_logro = l.id_logro
                              JOIN usuarios u ON lu.id_usuario = u.id_usuario
                              WHERE u.nickname = @nickname;";
 
-            using (var cmd = new MySqlCommand(query, conexion))
-            {
-                cmd.Parameters.AddWithValue("@nickname", nickname);
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
+                    using (var cmd = new MySqlCommand(query, conexion))
                     {
-                        int xp = Convert.ToInt32(reader["experiencia"]);
-                        logros.Add(new Achievement(
-                            reader["nombre"].ToString(),
-                            Convert.ToDateTime(reader["fecha_obtenido"]), // nombre correcto del campo
-                            xp,
-                            reader["minijuego"].ToString() // usando 'minijuego' como reemplazo de 'icono'
-                        ));
-                        currentXP += xp;
+                        cmd.Parameters.AddWithValue("@nickname", nickname);
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int xp = Convert.ToInt32(reader["experiencia"]);
+                                logros.Add(new Achievement(
+                                    reader["nombre"].ToString(),
+                                    Convert.ToDateTime(reader["fecha_obtenido"]), // nombre correcto del campo
+                                    xp,
+                                    reader["minijuego"].ToString() // usando 'minijuego' como reemplazo de 'icono'
+                                ));
+                                currentXP += xp;
+                            }
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener logros del usuario: " + ex.Message);
+                }
             }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error al obtener logros del usuario: " + ex.Message);
-        }
-    }
 
-    return logros;
-}
+            return logros;
+        }
 
 
         //---
@@ -553,49 +553,6 @@ public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP
         }
 
 
-        // Método para actualizar la contraseña de un usuario RODRIGO
-        public bool ActualizarUsuario(string nickname, string nuevaContrasena, DateTime fechaNacimiento, int genero)
-        {
-            try
-            {
-                using (var conexion = new MySqlConnection(ConnectionString))
-                {
-                    conexion.Open();
-                    string query = @"
-                UPDATE usuarios 
-                SET contrasena = @NuevaContrasena, fecha_nacimiento = @FechaNacimiento, genero = @Genero 
-                WHERE nickname = @Nickname";
-
-                    using (var command = new MySqlCommand(query, conexion))
-                    {
-                        command.Parameters.AddWithValue("@Nickname", nickname);
-                        command.Parameters.AddWithValue("@NuevaContrasena", nuevaContrasena);
-                        command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
-                        command.Parameters.AddWithValue("@Genero", genero);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        // Si no se actualizó ninguna fila, significa que el nickname no existía o hubo algún error
-                        if (rowsAffected > 0)
-                        {
-                            return true; // Operación exitosa
-                        }
-                        else
-                        {
-                            Console.WriteLine("No se pudo actualizar el usuario. Puede que el nickname no exista.");
-                            return false; // No se actualizó ninguna fila
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Aquí capturamos cualquier excepción que ocurra durante la ejecución
-                Console.WriteLine($"Error al actualizar el usuario: {ex.Message}");
-                return false; // Error en la operación
-            }
-        }
-
         //Metodo para actualizar el about me de un usuario 
         public void ActualizarAboutMe(int idUsuario, string aboutMe)
         {
@@ -623,5 +580,73 @@ public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP
         {
             throw new NotImplementedException();
         }
+
+        public Settings ObtenerUsuario(string nickname)
+        {
+            Settings usuario = null;
+
+            using (var conexion = GetConnection())
+            {
+                conexion.Open();
+
+                string query = @"SELECT nickname, contrasena, Fecha_Nacimiento, Genero FROM usuarios WHERE nickname = @Nickname";
+                using var command = new MySqlCommand(query, conexion);
+                command.Parameters.AddWithValue("@Nickname", nickname);
+
+                using var reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    usuario = new Settings
+                    {
+                        Nickname = reader.GetString("nickname"),
+                        Contrasena = reader.IsDBNull(reader.GetOrdinal("contrasena")) ? null : reader.GetString("contrasena"),
+                        FechaNacimiento = reader.IsDBNull(reader.GetOrdinal("Fecha_Nacimiento")) ? (DateTime?)null : reader.GetDateTime("Fecha_Nacimiento"),
+                        Genero = reader.IsDBNull(reader.GetOrdinal("Genero")) ? (int?)null : reader.GetInt32("Genero")
+                    };
+                }
+            }
+            return usuario;
+        }
+
+        public bool ActualizarUsuario(string nickname, string? nuevaContrasena, DateTime? fechaNacimiento, int? genero)
+        {
+            using (var conexion = GetConnection())
+            {
+                conexion.Open();
+
+                var actualizaciones = new List<string>();
+                var command = new MySqlCommand();
+                command.Connection = conexion;
+
+                if (!string.IsNullOrWhiteSpace(nuevaContrasena))
+                {
+                    actualizaciones.Add("contrasena = @NuevaContrasena");
+                    command.Parameters.AddWithValue("@NuevaContrasena", nuevaContrasena);
+                }
+
+                if (fechaNacimiento.HasValue)
+                {
+                    actualizaciones.Add("fecha_nacimiento = @FechaNacimiento");
+                    command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento.Value);
+                }
+
+                if (genero.HasValue && genero.Value > 0)
+                {
+                    actualizaciones.Add("genero = @Genero");
+                    command.Parameters.AddWithValue("@Genero", genero.Value);
+                }
+
+                if (actualizaciones.Count == 0)
+                    return false; // No hay nada que actualizar
+
+                string setClause = string.Join(", ", actualizaciones);
+                command.CommandText = $"UPDATE usuarios SET {setClause} WHERE nickname = @Nickname";
+                command.Parameters.AddWithValue("@Nickname", nickname);
+
+                int filasAfectadas = command.ExecuteNonQuery();
+                return filasAfectadas > 0;
+
+            }
+        }
     }
-}
+}    
