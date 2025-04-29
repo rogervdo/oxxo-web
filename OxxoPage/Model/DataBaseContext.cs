@@ -414,48 +414,51 @@ namespace OxxoPage.Model
         }
 
         // Obtener los logros de un usuario en función de su nickname
-        public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP)
+public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP)
+{
+    List<Achievement> logros = new List<Achievement>();
+    currentXP = 0;
+
+    using (var conexion = GetConnection())
+    {
+        try
         {
-            List<Achievement> logros = new List<Achievement>();
-            currentXP = 0;
+            conexion.Open();
+            string query = @"SELECT l.id_logro, l.nombre, l.descripcion, l.minijuego, l.experiencia, lu.fecha_obtenido
+                             FROM logros_usuario lu
+                             JOIN logros l ON lu.id_logro = l.id_logro
+                             JOIN usuarios u ON lu.id_usuario = u.id_usuario
+                             WHERE u.nickname = @nickname;";
 
-            using (var conexion = GetConnection())
+            using (var cmd = new MySqlCommand(query, conexion))
             {
-                try
-                {
-                    conexion.Open();
-                    string query = @"SELECT l.nombre, l.icono, l.experiencia, i.fecha FROM logrosasesores la
-                        JOIN instancialogro i ON la.id_instancialogro = i.id_instancialogro
-                        JOIN logros l ON i.id_logro = l.id_logro
-                        JOIN usuarios u ON la.id_asesor = u.id_usuario
-                        WHERE u.nickname = @nickname";
+                cmd.Parameters.AddWithValue("@nickname", nickname);
 
-                    using (var cmd = new MySqlCommand(query, conexion))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        cmd.Parameters.AddWithValue("@nickname", nickname);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                int xp = Convert.ToInt32(reader["experiencia"]);
-                                logros.Add(new Achievement(
-                                    reader["nombre"].ToString(),
-                                    Convert.ToDateTime(reader["fecha"]), // Fecha real de la BD
-                                    xp,
-                                    reader["icono"].ToString()
-                                ));
-                                currentXP += xp; // Sumar la experiencia total del usuario
-                            }
-                        }
+                        int xp = Convert.ToInt32(reader["experiencia"]);
+                        logros.Add(new Achievement(
+                            reader["nombre"].ToString(),
+                            Convert.ToDateTime(reader["fecha_obtenido"]), // nombre correcto del campo
+                            xp,
+                            reader["minijuego"].ToString() // usando 'minijuego' como reemplazo de 'icono'
+                        ));
+                        currentXP += xp;
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al obtener logros del usuario: " + ex.Message);
-                }
             }
-            return logros;
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al obtener logros del usuario: " + ex.Message);
+        }
+    }
+
+    return logros;
+}
+
 
         //---
         public string ObtenerFotografiaPath(string fotografia)
