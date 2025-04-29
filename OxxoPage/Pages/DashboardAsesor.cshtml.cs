@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Http;
-using System;
 using System.Net;
 
 namespace OxxoPage.Pages;
