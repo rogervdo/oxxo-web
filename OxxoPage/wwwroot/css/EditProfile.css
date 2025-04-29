@@ -35,6 +35,11 @@
 }
 
 /* ------------------ */
+/* ecitar que form modifique layout */
+form {
+  display: contents;
+}
+
 /* imagen */
 .profile-img {
   width: 220px;
@@ -92,7 +97,7 @@
 }
 
 .pop-up-imgSelect.show {
-  width: 400px;
+  width: 500px;
   opacity: 1;
   visibility: visible;
 }
@@ -103,7 +108,8 @@
   align-items: center;
 }
 
-#choose-img {
+#choose-img,
+#upload-img {
   background-color: #d7d7d7;
   padding: 10px;
   margin: 5px;
@@ -118,7 +124,8 @@
   flex-direction: column;
 }
 
-#choose-img:hover {
+#choose-img:hover,
+#upload-img:hover {
   cursor: pointer;
   background-color: #c7c7c7;
 }
@@ -173,16 +180,16 @@ h6 {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  width: 500px; /* Puedes ajustar */
+  width: 750px;
   max-width: 90%;
   max-height: 90%;
   overflow-y: auto;
 }
 
-/* GRID de imágenes 2x2 */
+/* GRID de imágenes 3x3 */
 .image-grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
 }
 
@@ -390,7 +397,7 @@ h6 {
 .bio-input-field:focus {
   outline: none; /* quita default */
   border: 2px solid #0d6efd;
-  border-color: #86b7fe; /* efec */
+  border-color: #86b7fe;
 }
 
 .bio-actions {
@@ -403,6 +410,14 @@ h6 {
   height: 22px;
   width: auto;
   display: block;
+}
+
+.bio-save-button {
+  background-color: #d7d7d7;
+}
+
+.bio-save-button:hover {
+  background-color: #cacaca;
 }
 
 /* ------------------ */

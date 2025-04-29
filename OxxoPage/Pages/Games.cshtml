@@ -1,9 +1,101 @@
 @page "/Juegos"
-@model Games
+@model OxxoPage.Pages.Games
 @{
     ViewData["Title"] = "Videojuegos";
     ViewData["NavTitle"] = "Videojuegos";
 }
-<h1>@ViewData["Title"]</h1>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/css/webGL.css" asp-append-version="true">
+    </head>
+    <!-- se establece clase para fondo gradiente-->
+    <body class="gradient">
+        <!-- seccion de header-->
+        <div class="game-title">
+            <img src="~/img/Título.png" class="title-img">
+        </div>
 
-<p>Use this page to detail your site's privacy policy.</p>
+        <!-- seccion de webGL-->
+        <div id="unity-container" class="unity-desktop">
+            <!-- --------------->
+            <canvas id="unity-canvas" width="860" height="400"></canvas>
+        </div>
+
+        <div>
+            <p>
+                ¡El OXXO conquista el espacio! Lleva la primera tienda intergaláctica a nuevos mundos. Pilotea tu nave,
+                resuelve emergencias de sucursales expansión otros planetas y detecta errores en tiendas fuera de este mundo.
+                ¡La expansión galáctica está en tus manos!
+            </p>
+            <img src="~/img/TierraPlaneta.png" id="planet-img">
+        </div>
+
+        <!-- seccion de botones display por cada juego cada uno con un form que hace POST con valor especifico de ID-->
+        <div class="game-select" id="minigame-section">
+            <h2>Acerca de los Juegos</h2>
+            <h5>Selecciona un mini-juego para ver detalles</h5>
+            <div class="minigame-btn">
+                <form method="post">
+                    <button type="submit" name="gameId" value="1" class="game-info-button btn-oxxo-espacio">Oxxpedition</button>
+                </form>
+                <form method="post">
+                    <button type="submit" name="gameId" value="2" class="game-info-button btn-asesoria-express">Asesoría Express</button>
+                </form>
+                <form method="post">
+                    <button type="submit" name="gameId" value="3" class="game-info-button btn-turno-final">El Turno Final</button>
+                </form>
+                <form method="post">
+                    <button type="submit" name="gameId" value="4" class="game-info-button  btn-oxxodisea">Oxxodisea</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- seccion para mostrar la informacion de cada juego usando un post, inicialmente hidden -->
+        @if (Model.SelectedGameInfo != null)
+        {   //seccion donde se muestra informacion
+            //se reemplazan \n con <br> y agregan cards para mejorar apariencia
+            <div id="game-details-section">
+                <div class="card text-center p-3 shadow">
+                    <h5>Descripción</h5>
+                    <p>@Model.SelectedGameInfo.Descripcion</p>
+                </div>
+                
+                <div class="card p-3 shadow">
+                    <h5>Personajes</h5>
+                    <p>@Html.Raw(Model.SelectedGameInfo.Personajes?.Replace("\r\n", "<br />").Replace("\n", "<br />"))</p>
+                </div>
+                
+                <div class="card p-3 shadow">
+                    <h5>Controles</h5>
+                    <p>@Model.SelectedGameInfo.Controles</p>
+                </div>
+                
+                
+                <div class="text-center my-3">
+                    <img src="~/img/juegos/@Model.SelectedGameId-1.png" alt="Imagen 1" class="img-fluid rounded shadow mx-2" style="max-height: 250px;" />
+                    <img src="~/img/juegos/@Model.SelectedGameId-2.png" alt="Imagen 2" class="img-fluid rounded shadow mx-2" style="max-height: 250px;" />
+                </div>
+                
+                <div class="card p-3 shadow">
+                    <h5>Cómo Ganar</h5>
+                    <p>@Model.SelectedGameInfo.ComoGanar</p>
+                </div>
+                
+                <div class="card p-3 shadow">
+                    <h5>Cómo Perder</h5>
+                    <p>@Model.SelectedGameInfo.ComoPerder</p>
+                </div>
+                
+                <div class="card p-3 shadow">
+                    <h5>Créditos</h5>
+                    <p>@Html.Raw(Model.SelectedGameInfo.Creditos?.Replace("\r\n", "<br />").Replace("\n", "<br />"))</p>    
+                </div>
+
+                <div class="card p-3 shadow">
+                    <h5>Licencias</h5>
+                    <p>@Html.Raw(Model.SelectedGameInfo.Licencia?.Replace("\r\n", "<br />").Replace("\n", "<br />"))</p>
+                </div>
+            </div>
+        }
+    </body>
+</html>

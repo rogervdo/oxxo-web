@@ -16,6 +16,7 @@ namespace OxxoPage.Pages
         public Experiencia Experiencia { get; set; } = new();
         public List<Achievement> Achievements { get; set; } = new();
         public string Role { get; set; } = "Usuario estándar";
+        public string? ImagePath { get; set; } //path de imagen guardada
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -53,8 +54,8 @@ namespace OxxoPage.Pages
             }
         }
 
-
-        public IActionResult OnPost()
+        //modifico onPost para ambas opciones (seleccionar / upload imagenes)
+        public async Task<IActionResult> OnPostAsync()
         {
             string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario");
 
@@ -68,17 +69,24 @@ namespace OxxoPage.Pages
                     Usuario = usuario;
                     Usuario.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
 
-                    // Recuperar la imagen seleccionada desde el formulario
-                    string selectedImage = Request.Form["selectedImage"];
-
-                    // Si se ha seleccionado una imagen, actualizar la fotografía en la base de datos
-                    if (!string.IsNullOrEmpty(selectedImage) && selectedImage != Usuario.Fotografia)
+                    //funcionalidad upload 
+                    var uploadedFile = Request.Form.Files["uploadedImage"];
+                    if (uploadedFile != null && uploadedFile.Length > 0)
+                    //se crea nombre unico al archivo y en que carpeta
                     {
-                        // Actualizar en la base de datos
-                        bool updated = _dbContext.ActualizarFotografia(Usuario.IdUsuario, selectedImage);
+                        string uniqueFileName = $"{Guid.NewGuid()}_{uploadedFile.FileName}";
+                        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "assets", "img");
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await uploadedFile.CopyToAsync(fileStream);
+                        }
+                        //se actuliza nombre de img
+                        bool updated = _dbContext.ActualizarFotografia(Usuario.IdUsuario, uniqueFileName);
                         if (updated)
                         {
-                            Usuario.Fotografia = selectedImage; // Actualizar el modelo en memoria
+                            Usuario.Fotografia = uniqueFileName;
                             StatusMessage = "¡Tu foto de perfil ha sido actualizada!";
                         }
                         else
@@ -86,8 +94,26 @@ namespace OxxoPage.Pages
                             StatusMessage = "Hubo un error al actualizar la foto de perfil.";
                         }
                     }
+                    else //en caso de no subir nada se verfica si se selecciono
+                    {
 
-                    // Verificar si se ha enviado el campo de AboutMe desde el formulario
+                        string selectedImage = Request.Form["selectedImage"];
+                        //si hay una select y es diferente a la actual, se actualiza
+                        if (!string.IsNullOrEmpty(selectedImage) && selectedImage != Usuario.Fotografia)
+                        {
+                            bool updated = _dbContext.ActualizarFotografia(Usuario.IdUsuario, selectedImage);
+                            if (updated)
+                            {
+                                Usuario.Fotografia = selectedImage;
+                                StatusMessage = "¡Tu foto de perfil ha sido actualizada!";
+                            }
+                            else
+                            {
+                                StatusMessage = "Hubo un error al actualizar la foto de perfil.";
+                            }
+                        }
+                    }
+
                     string aboutMeInput = Request.Form["aboutMeInput"];
                     if (!string.IsNullOrEmpty(aboutMeInput) && aboutMeInput != Usuario.AboutMe)
                     {
@@ -95,6 +121,7 @@ namespace OxxoPage.Pages
                         Usuario.AboutMe = aboutMeInput;
                         StatusMessage = "¡Tu biografía ha sido actualizada!";
                     }
+
                     return RedirectToPage();
                 }
             }

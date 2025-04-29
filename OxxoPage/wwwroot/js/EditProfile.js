@@ -6,7 +6,7 @@ const boxImg = document.getElementById("box-img-select");
 
 // Elementos de la imagen
 let profilePic = document.getElementById("profileImage");
-// Variable para guardar el estado original antes de hacer cambios
+// Variable para guardar el estado original de la img antes de hacer cambios
 let originalImageSrc = profilePic.src;
 const gridImages = document.querySelectorAll(".grid-image"); // Imágenes del grid
 
@@ -40,7 +40,7 @@ closeGridBtn.addEventListener("click", () => {
   gridPopup.classList.remove("show");
 });
 
-// Al seleccionar imagen del grid: actualizar imagen y volver a popup 1
+// Al seleccionar imagen del grid: actualizar imagen perfil y volver a popup 1
 gridImages.forEach((img) => {
   img.addEventListener("click", () => {
     //actualiza profile img
@@ -53,6 +53,36 @@ gridImages.forEach((img) => {
     imgSelect.classList.add("show");
   });
 });
+
+//funcionalidad cambiar imagen upload ---------
+//vista previa
+const uploadInput = document.getElementById("fileUploadInput");
+//img original
+const profileImage = document.getElementById("profileImage");
+uploadInput.addEventListener("change", () => {
+  const file = uploadInput.files[0];
+  if (file) {
+    //se guarda la imagen seleccionada y se crea un url para cambiar img
+    //cuando se detecta cambio
+    const temprURL = URL.createObjectURL(file);
+    profileImage.src = temprURL;
+    //se limpia selected img
+    document.getElementById("selectedImage").value = "";
+  }
+});
+
+//Funcionalidad de guardar valor seleccionado en var y enviar a post
+// Seleccionar la imagen y actualizar el hidden form
+function selectImage(imageName) {
+  // Asignar el nombre de la imagen seleccionada al campo oculto
+  document.getElementById("selectedImage").value = imageName;
+
+  // Cerrar el popup 2 y volver al popup 1
+  document.getElementById("box-img-grid").classList.remove("show");
+  document.getElementById("popUpGrid").classList.remove("show");
+  document.getElementById("box-img-select").classList.add("show");
+  document.getElementById("img-Select").classList.add("show");
+}
 
 // Botones guardar y cancelar
 const saveBtn = document.getElementById("saveGridSelection");
@@ -72,16 +102,3 @@ cancelBtn.addEventListener("click", () => {
   profilePic.src = originalImageSrc; // Volver a imagen original
   closePopups();
 });
-
-//Funcionalidad de guardar valor seleccionado en var y enviar a post
-// Seleccionar la imagen y actualizar el hidden form
-function selectImage(imageName) {
-  // Asignar el nombre de la imagen seleccionada al campo oculto
-  document.getElementById("selectedImage").value = imageName;
-
-  // Cerrar el popup 2 y volver al popup 1
-  document.getElementById("box-img-grid").classList.remove("show");
-  document.getElementById("popUpGrid").classList.remove("show");
-  document.getElementById("box-img-select").classList.add("show");
-  document.getElementById("img-Select").classList.add("show");
-}

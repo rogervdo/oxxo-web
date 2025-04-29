@@ -22,7 +22,7 @@
             <div class="row align-items-center profile-header">
 
                     
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     <!-- Campo oculto para almacenar la imagen seleccionada -->
                     <input type="hidden" id="selectedImage" name="selectedImage" value="">
 
@@ -41,11 +41,21 @@
                                 <h4>Elige una imagen</h4>
                                 <a class="closebtn" id="closeImgSelect-btn">x</a>
                             </div>
+                            
+                            <!-- opcion upload -->
                             <div class="box-select">
                                 <div id="choose-img">
                                     <img src="~/img/ChooseImg.png" class="card-image" alt="Icono">
                                     <h6>Elegir Imagen</h6>
                                 </div>
+
+                                <!-- se selecciona la img desde archivos-->
+                                <label id="upload-img" for="fileUploadInput">
+                                    <input type="file" id="fileUploadInput" accept="image/*" style="display: none;" name="uploadedImage">
+                                    <img src="~/img/uploadIcon.png" class="card-image" alt="Icono">
+                                    <h6>Subir Imagen</h6>
+                                </label>
+
                             </div>
                             <div class="btn-container">
                                 <button type="submit" id="saveGridSelection">Guardar</button>
@@ -66,13 +76,15 @@
                                 <img src="~/assets/img/FotoPerfil2.jpg" class="grid-image" onclick="selectImage('FotoPerfil2.jpg')">
                                 <img src="~/assets/img/FotoPerfil3.jpg" class="grid-image" onclick="selectImage('FotoPerfil3.jpg')">
                                 <img src="~/assets/img/FotoPerfil4.jpg" class="grid-image" onclick="selectImage('FotoPerfil4.jpg')">
+                                <img src="~/assets/img/FotoPerfil5.jpg" class="grid-image" onclick="selectImage('FotoPerfil5.jpg')">
+                                <img src="~/assets/img/FotoPerfil6.jpg" class="grid-image" onclick="selectImage('FotoPerfil6.jpg')">
                             </div>
                         </div>
                     </div>
                 </form>
                 
 
-                <!-- Nombre y rol del usuario-->
+                <!-- Nombre, nickname y rol del usuario -->
                 <div class="col row profile-text">
                     <div class="d-flex align-items-center gap-2">
                         <!-- Nombre completo -->
@@ -146,7 +158,7 @@
                                     <!-- Edit Icon -->
                                     <img src="~/img/lapiz.png" class="bio-icon bio-edit-icon" alt="Editar"> 
                                     <!-- boton para submit cambios-->
-                                    <button type="submit" class="btn bio-save-button" title="Guardar Cambios">
+                                    <button type="submit" class="bio-save-button" title="Guardar Cambios">
                                         <img src="~/img/saveIcon.png" class="bio-icon bio-save-icon" alt="Guardar">
                                     </button>
                                 </div>
