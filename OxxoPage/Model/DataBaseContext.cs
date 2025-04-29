@@ -667,7 +667,7 @@ namespace OxxoPage.Model
             return foto;
         }
 
-        //Rodrigo
+        //Rodrigo este el que jala
         public Settings ObtenerUsuario(string nickname)
         {
             Settings usuario = null;
