@@ -79,6 +79,7 @@
                             <!-- Si el usuario tiene logros -->
                             @if (Model.Achievements.Any()) 
                             {
+                                <div style="max-height: 400px; overflow-y: auto;">
                                 <ul class="logros-list">
                                     @foreach (var logro in Model.Achievements)
                                     {
@@ -98,6 +99,7 @@
                                         </li>
                                     }
                                 </ul>
+                                </div>
                             }
                             else
                             {
@@ -110,8 +112,13 @@
                 </div>
             </div>
             <div style="margin-top: 20px;"></div>
-            <div>
-                <img src="~/assets/DashboardEjemplo.png" style="width: 100%;"> 
+                <div class="looker-contenedor">
+                <iframe class="looker-embebido"
+                    src="@Model.URL_EmbebidoG"
+                    frameborder="0" allowfullscreen
+                    style="border:0"
+                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+                </iframe>
             </div>
         </div>
 
