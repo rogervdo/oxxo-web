@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 using OxxoPage.Model;
 
 namespace OxxoPage.Pages;
-
+//done PAGINA COMENTADA
 public class HomeGerente : PageModel
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -23,27 +23,14 @@ public class HomeGerente : PageModel
         _dbContext = new DataBaseContext();
     }
 
-    // Método que se ejecuta al cargar la página
     public void OnGet()
     {
+        // Obtener el nickname del usuario de la sesión o asignar "Invitado" si no existe
         string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario") ?? "Invitado";
+        Usuario = _dbContext.ObtenerDatosUsuario(nickname);
 
-        Usuario = new Usuarios
-        {
-            Nickname = nickname,
-            Fotografia = nickname != "Invitado"
-                ? _dbContext.ObtenerFotoDePerfil(nickname) : "default.png"
-        };
         int idGerente = _httpContextAccessor.HttpContext?.Session.GetInt32("IdGerente") ?? 1;
-        Console.WriteLine($"IdGerente: {idGerente}");
+        // Console.WriteLine($"IdGerente: {idGerente}");
         AsesoresList = _dbContext.GetAsesoresDeGerente(idGerente);
-
-        // AsesoresList = _dbContext.GetAsesoresDeGerente(1);
-    }
-
-    public void SetUsuarioAsesorSession(string nickname)
-    {
-        HttpContext.Session.SetString("UsuarioAsesor", nickname);
-        Console.WriteLine(nickname);
     }
 }

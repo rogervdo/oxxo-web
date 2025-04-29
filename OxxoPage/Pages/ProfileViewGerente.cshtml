@@ -4,37 +4,33 @@
     ViewData["Title"] = "Vista de perfil asesor";
     ViewData["NavTitle"] = "Vista de perfil asesor";
 }
+
+//done PAGINA COMENTADA?
 <html>
     <head>
-        <!-- Se incluye el archivo CSS para el perfil -->
         <link rel="stylesheet" type="text/css" href="~/css/Profile.css" asp-append-version="true">
     </head>
     <body>
         <div class="background-container">
-            <!-- Fondo rojo -->
-            <div class="background-red"></div>
-            <!-- Fondo amarillo -->
-            <div class="background-yellow"></div>
+            <div class="background-red"></div> <!-- Fondo rojo -->
+            <div class="background-yellow"></div> <!-- Fondo amarillo -->
         </div>
         <div class="container mt-4 content">
             <div class="row align-items-center profile-header">
-                <!-- Contenedor para la imagen del perfil -->
-                <div class="col-auto profile-img-container">
-                    <!-- Imagen de perfil del usuario -->
-                    <img src="~/assets/img/@Model.UsuarioAsesor.Fotografia" class="rounded-circle profile-img" alt="Foto de Perfil">
+                
+                <div class="col-auto profile-img-container"> <!-- Contenedor para la imagen del perfil -->
+                    <img src="~/assets/img/@Model.UsuarioAsesor.Fotografia" class="rounded-circle profile-img" alt="Foto de Perfil"> <!-- Imagen de perfil del usuario -->
                 </div>
+
                 <div class="col row profile-text">
-                    <!-- Nombre completo del usuario -->
-                    <h1>@Model.UsuarioAsesor.Nombre @Model.UsuarioAsesor.ApellidoPaterno @Model.UsuarioAsesor.ApellidoMaterno</h1>
-                    <!-- Rol del usuario -->
-                    <h4 class="text-muted">@Model.Role</h4>
+                    <h1>@Model.UsuarioAsesor.Nombre @Model.UsuarioAsesor.ApellidoPaterno @Model.UsuarioAsesor.ApellidoMaterno</h1> <!-- Nombre completo del usuario -->
+                    <h4 class="text-muted">@Model.Role</h4> <!-- Rol del usuario -->
                 </div>
+
                 <div class="row col-2 profile-edit">
-                    <!-- Enlace para editar el perfil -->
-                    <a href="/EditarPerfil" class="card text-center shadow align-items-center justify-content-center">
+                    <a href="/EditarPerfil" class="card text-center shadow align-items-center justify-content-center"> <!-- Enlace para editar el perfil -->
                         <h4 class="m-0 me-3">Editar Perfil</h4>
-                        <!-- Icono de lápiz para la edición -->
-                        <img src="~/img/lapiz.png" class="card-image" alt="Icono">
+                        <img src="~/img/lapiz.png" class="card-image" alt="Icono"> <!-- Icono de lápiz para la edición -->
                     </a>
                 </div>
             </div>
@@ -43,16 +39,13 @@
                 <div class="level-info">
                     <!-- Contenedor de información del nivel -->
                     <div>
-                        <!-- Muestra el nivel del usuario -->
-                        <p class="level-text">Nivel @Model.Experiencia.Level</p>
-                        <!-- Muestra los puntos restantes al siguiente nivel -->
-                        <p class="xp-text">@(@Model.Experiencia.RequiredXP) puntos al siguiente nivel</p>
+                        <p class="level-text">Nivel @Model.Experiencia.Level</p> <!-- Muestra el nivel del usuario -->
+                        <p class="xp-text">@(@Model.Experiencia.RequiredXP) puntos al siguiente nivel</p> <!-- Muestra los puntos restantes al siguiente nivel -->
                     </div>
                 </div>
 
                 <div class="progress-container">
-                    <!-- Muestra el nivel anterior -->
-                    <div class="level-circle previous-level">@Model.Experiencia.Level</div>
+                    <div class="level-circle previous-level">@Model.Experiencia.Level</div> <!-- Muestra el nivel anterior -->
 
                     <div class="progress-wrapper">
                         <div class="progress">

@@ -26,29 +26,20 @@ namespace OxxoPage.Pages
         public void OnGet()
         {
             string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario") ?? "Invitado";
-            string auxUserNickname = nickname;
 
             if (!string.IsNullOrEmpty(nickname))
             {
-                var usuario = _dbContext.ObtenerDatosUsuario(nickname);
+                Usuario = _dbContext.ObtenerDatosUsuario(nickname);
 
-                if (usuario != null)
+                if (Usuario != null)
                 {
-                    Usuario = usuario;
                     Usuario.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
 
-                    Role = _dbContext.ObtenerRolUsuario(usuario.IdUsuario);
+                    Role = _dbContext.ObtenerRolUsuario(Usuario.IdUsuario);
+                    if (Role == "gerente") Role = "Gerente de Plaza";
+                    else if (Role == "asesor") Role = "Asesor de Tienda";
 
-                    if (Role == "gerente")
-                    {
-                        Role = "Gerente de Plaza";
-                    }
-                    else if (Role == "asesor")
-                    {
-                        Role = "Asesor de Tienda";
-                    }
-
-                    Usuario.Fotografia = _dbContext.ObtenerFotoDePerfil(nickname);
+                    // Usuario.Fotografia = _dbContext.ObtenerFotoDePerfil(nickname);
 
                     // Obtener logros y experiencia total
                     Achievements = _dbContext.ObtenerLogrosUsuario(nickname, out int totalXP);

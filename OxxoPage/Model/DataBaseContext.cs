@@ -11,58 +11,13 @@ namespace OxxoPage.Model
 
         public DataBaseContext()
         {
-
-            // Pablo
             ConnectionString = "Server=mysql-93cf659-tamtok2-09a8.b.aivencloud.com;Port=23481;Database=BDOxxo;Uid=avnadmin;Password=AVNS_-9SXvTjsy8x6dg2kaJR";
-            //ConnectionString = "Server=mysql-93cf659-tamtok2-09a8.b.aivencloud.com;Port=23481;Database=BDOxxo;Uid=avnadmin;Password=AVNS_-9SXvTjsy8x6dg2kaJR;SslMode=Required;CertificateFile=ssl/client-cert.pem;CertificateKeyFile=ssl/client-key.pem;CACertificateFile=ssl/ca.pem;";
-            //ConnectionString = "Server=mysql-93cf659-tamtok2-09a8.b.aivencloud.com;Port=23481;Database=BDOxxo;Uid=avnadmin;Password=AVNS_-9SXvTjsy8x6dg2kaJR;SslMode=Required;SslCa=ssl/ca.pem;SslCert=ssl/client-cert.pem;SslKey=ssl/client-key.pem;";
         }
 
         // Método privado para obtener la conexión a la base de datos
         private MySqlConnection GetConnection()
         {
             return new MySqlConnection(ConnectionString);
-        }
-
-        // Obtener todos los usuarios
-        public List<Usuarios> GetAllUsers()
-        {
-            List<Usuarios> ListaUsuarios = new List<Usuarios>();
-            using (var conexion = GetConnection())
-            {
-                try
-                {
-                    conexion.Open();
-                    string query = "SELECT * FROM usuarios";
-                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            // Creación de un usuario a partir de los datos obtenidos de la base de datos
-                            Usuarios usuario = new Usuarios
-                            {
-                                IdUsuario = Convert.ToInt32(reader["id_usuario"]),
-                                Nombre = reader["nombre"]?.ToString() ?? "",
-                                ApellidoMaterno = reader["apellido_materno"]?.ToString() ?? "",
-                                ApellidoPaterno = reader["apellido_paterno"]?.ToString() ?? "",
-                                Telefono = reader["telefono"]?.ToString() ?? "",
-                                Fotografia = reader["fotografia"]?.ToString() ?? "",
-                                Nickname = reader["nickname"]?.ToString() ?? "",
-                                CorreoElectronico = reader["correo_electronico"]?.ToString() ?? "",
-                            };
-                            ListaUsuarios.Add(usuario);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Captura de errores en caso de problemas con la conexión o consulta
-                    Console.WriteLine("Error al obtener usuarios: " + ex.Message);
-                    // En producción, es mejor registrar este error en un log
-                }
-            }
-            return ListaUsuarios;
         }
 
         public List<Asesores> GetAsesoresDeGerente(int id_gerente)
@@ -78,11 +33,11 @@ namespace OxxoPage.Model
                             a.*, 
                             u.*, 
                             COUNT(DISTINCT o.id_oxxo) AS total_oxxos, 
-                            COUNT(DISTINCT il.id_instancialogro) AS total_medallas
+                            COUNT(DISTINCT il.id_logro_usuario) AS total_medallas
                         FROM asesores a
                         JOIN usuarios u ON a.id_usuario = u.id_usuario
                         LEFT JOIN oxxos o ON a.id_asesor = o.id_asesor
-                        LEFT JOIN logrosasesores il ON a.id_asesor = il.id_asesor
+                        LEFT JOIN logros_usuario il ON u.id_usuario = il.id_usuario
                         WHERE a.id_gerente = @id_gerente
                         GROUP BY a.id_asesor, u.id_usuario;
                     ";
@@ -115,52 +70,10 @@ namespace OxxoPage.Model
                 }
                 catch (Exception ex)
                 {
-                    // Captura de errores en caso de problemas con la conexión o consulta
                     Console.WriteLine("Error al obtener usuarios: " + ex.Message);
-                    // En producción, es mejor registrar este error en un log
                 }
             }
-
-            // Console.WriteLine("Lista de Asesores:");
-            // foreach (var asesor in ListaAsesores)
-            // {
-            //     Console.WriteLine($"Asesor - IdUsuario: {asesor.IdUsuario}, IdAsesor: {asesor.IdAsesor}, Nombre Completo: {asesor.Nombre}, Fotografía: {asesor.Fotografia}, Número de Oxxos: {asesor.NumOxxos}");
-            // }
-
             return ListaAsesores;
-        }
-
-        // public int GetIdFromNickname(string nickname)
-        // {
-
-        // };
-
-        // Método para verificar el login del usuario
-        public bool Login(string nickname, string contrasena)
-        {
-            using (var conexion = GetConnection())
-            {
-                try
-                {
-                    conexion.Open();
-                    string query = "SELECT COUNT(*) FROM usuarios WHERE nickname = @nickname AND contrasena = @contrasena";
-                    using (MySqlCommand cmd = new MySqlCommand(query, conexion))
-                    {
-                        // Parámetros de la consulta para evitar inyecciones SQL
-                        cmd.Parameters.AddWithValue("@nickname", nickname);
-                        cmd.Parameters.AddWithValue("@contrasena", contrasena);
-
-                        int count = Convert.ToInt32(cmd.ExecuteScalar());
-                        return count > 0;  // Si es mayor a 0, el usuario existe con esa contraseña
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Manejo de errores en el login
-                    Console.WriteLine("Error en el login: " + ex.Message);
-                    return false;
-                }
-            }
         }
 
         // Método login
@@ -384,7 +297,7 @@ namespace OxxoPage.Model
             return metricas;
         }
 
-        // Obtener los datos del usuario basados en su nickname
+        //done Obtener los datos del usuario basados en su nickname
         public Usuarios ObtenerDatosUsuario(string nickname)
         {
             Usuarios usuario = null;
@@ -393,7 +306,11 @@ namespace OxxoPage.Model
                 try
                 {
                     conexion.Open();
-                    string query = "SELECT id_usuario, nombre, apellido_paterno, apellido_materno, fotografia, about_me FROM usuarios WHERE nickname = @nickname";
+                    // Obtener datos de usuario en base a nickname
+                    string query = @"SELECT id_usuario, nombre, apellido_paterno, apellido_materno, fotografia, about_me 
+                                    FROM usuarios 
+                                    WHERE nickname = @nickname";
+
                     using (var cmd = new MySqlCommand(query, conexion))
                     {
                         cmd.Parameters.AddWithValue("@nickname", nickname);
@@ -402,12 +319,13 @@ namespace OxxoPage.Model
                             if (reader.Read())
                             {
                                 usuario = new Usuarios
-                                {
-                                    IdUsuario = Convert.ToInt32(reader["id_usuario"]),
-                                    Nombre = reader["nombre"].ToString(),
-                                    ApellidoPaterno = reader["apellido_paterno"]?.ToString() ?? "",
-                                    ApellidoMaterno = reader["apellido_materno"]?.ToString() ?? "",
-                                    Fotografia = !string.IsNullOrEmpty(reader["fotografia"].ToString()) ? reader["fotografia"].ToString() : "default.png",
+                                { // Leer los datos del usuario, con defaults por si no lee
+                                    IdUsuario = reader["id_usuario"] != DBNull.Value ? Convert.ToInt32(reader["id_usuario"]) : 0,
+                                    Nombre = reader["nombre"].ToString() ?? "NombreDefault",
+                                    ApellidoPaterno = reader["apellido_paterno"]?.ToString() ?? "PaternoDefault",
+                                    ApellidoMaterno = reader["apellido_materno"]?.ToString() ?? "MaternoDefault",
+                                    // Fotografia = ObtenerFotoDePerfil(nickname),
+                                    Fotografia = ObtenerFotografiaPath(reader["fotografia"]?.ToString() ?? "default.png"),
                                     AboutMe = reader["about_me"]?.ToString() ?? "Este usuario aún no ha escrito su biografía.",
                                 };
                             }
@@ -419,7 +337,15 @@ namespace OxxoPage.Model
                     Console.WriteLine("Error al obtener datos del usuario: " + ex.Message);
                 }
             }
-            return usuario;
+            return usuario ?? new Usuarios
+            {
+                IdUsuario = 0,
+                Nombre = "NombreDefault",
+                ApellidoPaterno = "PaternoDefault",
+                ApellidoMaterno = "MaternoDefault",
+                Fotografia = "default.png",
+                AboutMe = "Este usuario aún no ha escrito su biografía."
+            };
         }
 
         //bookmark
@@ -430,74 +356,21 @@ namespace OxxoPage.Model
             try
             {
                 conexion.Open();
-                Console.WriteLine($"Debug: Connection opened successfully.");
-                Console.WriteLine($"Debug: Query parameters - data: {data}, tableName: {tableName}, datatypeInput: {datatypeInput}, datatypeSearch: {datatypeSearch}");
-
                 string query = $"SELECT {datatypeSearch} FROM {tableName} WHERE {datatypeInput} = @data";
-                Console.WriteLine($"Debug: Query - {query}");
 
                 using var cmd = new MySqlCommand(query, conexion);
                 cmd.Parameters.AddWithValue("@data", data);
 
-                Console.WriteLine($"Debug: Parameters added to command.");
-
                 using var reader = cmd.ExecuteReader();
-                Console.WriteLine($"Debug: Query executed.");
+                if (reader.Read()) value = reader[datatypeSearch];
 
-                if (reader.Read())
-                {
-                    value = reader[datatypeSearch];
-                    Console.WriteLine($"Debug: Value retrieved - {value}");
-                }
-                else
-                {
-                    Console.WriteLine($"Debug: No data found for the given parameters.");
-                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error al obtener datos del usuario: " + ex.Message);
             }
-            Console.WriteLine($"Debug: Final value - {value}");
-            return value;
-        }
 
-        public Usuarios ObtenerDatosUsuarioAnyData(object data, string datatype)
-        {
-            Usuarios usuario = null;
-            using (var conexion = GetConnection())
-            {
-                try
-                {
-                    conexion.Open();
-                    string query = "SELECT id_usuario, nombre, apellido_paterno, apellido_materno, fotografia, about_me FROM usuarios WHERE @datatype = @data";
-                    using (var cmd = new MySqlCommand(query, conexion))
-                    {
-                        cmd.Parameters.AddWithValue("@data", data);
-                        cmd.Parameters.AddWithValue("@datatype", datatype);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                usuario = new Usuarios
-                                {
-                                    IdUsuario = Convert.ToInt32(reader["id_usuario"]),
-                                    Nombre = reader["nombre"].ToString() ?? "defaultname",
-                                    ApellidoPaterno = reader["apellido_paterno"]?.ToString() ?? "defaultpaterno",
-                                    ApellidoMaterno = reader["apellido_materno"]?.ToString() ?? "defaultmaterno",
-                                    Fotografia = reader["nombre"].ToString() ?? "default.png",
-                                    AboutMe = reader["about_me"]?.ToString() ?? "Este usuario aún no ha escrito su biografía."
-                                };
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al obtener datos del usuario: " + ex.Message);
-                }
-            }
-            return usuario;
+            return value;
         }
 
         // Obtener el rol del usuario (asesor o gerente)
@@ -509,6 +382,7 @@ namespace OxxoPage.Model
                 {
                     conexion.Open();
 
+                    // Checar si el usuario es un asesor
                     string queryAsesor = "SELECT id_usuario FROM asesores WHERE id_usuario = @userId";
                     using (var cmd = new MySqlCommand(queryAsesor, conexion))
                     {
@@ -519,6 +393,7 @@ namespace OxxoPage.Model
                         }
                     }
 
+                    // Checar si el usuario es un gerente
                     string queryGerente = "SELECT id_usuario FROM gerentes WHERE id_usuario = @userId";
                     using (var cmd = new MySqlCommand(queryGerente, conexion))
                     {
@@ -538,133 +413,215 @@ namespace OxxoPage.Model
             }
         }
 
-        public string ObtenerRolUsuarioNickname(string nickname)
-        {
-            using (var conexion = GetConnection())
-            {
-                try
-                {
-                    conexion.Open();
-
-                    string queryAsesor = @"SELECT a.id_usuario 
-                                            FROM asesores a
-                                            JOIN usuarios u on u.id_usuario = a.id_usuario
-                                            WHERE u.nickname = @nickname;";
-                    using (var cmd = new MySqlCommand(queryAsesor, conexion))
-                    {
-                        cmd.Parameters.AddWithValue("@nickname", nickname);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-
-                            if (reader.HasRows) return "asesor";
-                        }
-                    }
-
-                    string queryGerente = @"SELECT a.id_usuario 
-                                            FROM gerentes a
-                                            JOIN usuarios u on u.id_usuario = a.id_usuario
-                                            WHERE u.nickname = @nickname;";
-                    using (var cmd = new MySqlCommand(queryGerente, conexion))
-                    {
-                        cmd.Parameters.AddWithValue("@nickname", nickname);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows) return "gerente";
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al obtener el rol del usuario: " + ex.Message);
-                }
-
-                return "Usuario estándar";
-            }
-        }
-
         // Obtener los logros de un usuario en función de su nickname
-        public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP)
-        {
-            List<Achievement> logros = new List<Achievement>();
-            currentXP = 0;
+public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP)
+{
+    List<Achievement> logros = new List<Achievement>();
+    currentXP = 0;
 
-            using (var conexion = GetConnection())
+    using (var conexion = GetConnection())
+    {
+        try
+        {
+            conexion.Open();
+            string query = @"SELECT l.id_logro, l.nombre, l.descripcion, l.minijuego, l.experiencia, lu.fecha_obtenido
+                             FROM logros_usuario lu
+                             JOIN logros l ON lu.id_logro = l.id_logro
+                             JOIN usuarios u ON lu.id_usuario = u.id_usuario
+                             WHERE u.nickname = @nickname;";
+
+            using (var cmd = new MySqlCommand(query, conexion))
             {
-                try
+                cmd.Parameters.AddWithValue("@nickname", nickname);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int xp = Convert.ToInt32(reader["experiencia"]);
+                        logros.Add(new Achievement(
+                            reader["nombre"].ToString(),
+                            Convert.ToDateTime(reader["fecha_obtenido"]), // nombre correcto del campo
+                            xp,
+                            reader["minijuego"].ToString() // usando 'minijuego' como reemplazo de 'icono'
+                        ));
+                        currentXP += xp;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al obtener logros del usuario: " + ex.Message);
+        }
+    }
+
+    return logros;
+}
+
+
+        //---
+        public string ObtenerFotografiaPath(string fotografia)
+        {
+            string foto;
+            if (fotografia != null && !string.IsNullOrEmpty(fotografia.ToString()))
+            {
+                string rutaFoto = Path.Combine("wwwroot", "assets", "img", fotografia.ToString());
+                if (File.Exists(rutaFoto))
+                {
+                    Console.WriteLine($"rutafoto = {rutaFoto}");
+                    foto = fotografia.ToString();
+                }
+                else
+                {
+                    Console.WriteLine("Default Pic");
+                    foto = "default.png";
+                }
+            }
+            else
+            {
+                foto = "default.png";
+            }
+            return foto;
+        }
+
+        //Metodo para actualizar la imagen en base a la seleccionada u update en base al nombre
+        public bool ActualizarFotografia(int idUsuario, string fotografia)
+        {
+            try
+            {
+                using (var conexion = GetConnection())
                 {
                     conexion.Open();
-                    string query = @"SELECT l.nombre, l.icono, l.experiencia, i.fecha FROM logrosasesores la
-                        JOIN instancialogro i ON la.id_instancialogro = i.id_instancialogro
-                        JOIN logros l ON i.id_logro = l.id_logro
-                        JOIN usuarios u ON la.id_asesor = u.id_usuario
-                        WHERE u.nickname = @nickname";
-
+                    string query = "UPDATE usuarios SET fotografia = @fotografia WHERE id_usuario = @id";
                     using (var cmd = new MySqlCommand(query, conexion))
                     {
-                        cmd.Parameters.AddWithValue("@nickname", nickname);
-                        using (var reader = cmd.ExecuteReader())
+                        cmd.Parameters.AddWithValue("@fotografia", fotografia);
+                        cmd.Parameters.AddWithValue("@id", idUsuario); // Usar int directamente
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0; // Retorna true si se actualizó correctamente
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al actualizar la fotografía: " + ex.Message);
+                return false; // Retorna false en caso de error
+            }
+        }
+
+        //metodo para obtener la informacion del juego seleccionado basado en Id onPost
+        public GameInfo GetGameInfo(int idJuego)
+        {
+            GameInfo gameInfo = null;
+
+            using (var conexion = new MySqlConnection(ConnectionString))
+            {   //select 
+                conexion.Open();
+                string query = @"
+                SELECT descripcion, personajes, controles, como_ganar, como_perder, creditos, licencias
+                FROM juegos
+                WHERE id_juego = @IdJuego
+                LIMIT 1;
+            ";
+
+                using (var command = new MySqlCommand(query, conexion))
+                {
+                    command.Parameters.AddWithValue("@IdJuego", idJuego);
+                    //se cosntruye objeto GameInfo
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
                         {
-                            while (reader.Read())
+                            gameInfo = new GameInfo
                             {
-                                int xp = Convert.ToInt32(reader["experiencia"]);
-                                logros.Add(new Achievement(
-                                    reader["nombre"].ToString(),
-                                    Convert.ToDateTime(reader["fecha"]), // Fecha real de la BD
-                                    xp,
-                                    reader["icono"].ToString()
-                                ));
-                                currentXP += xp; // Sumar la experiencia total del usuario
-                            }
+                                Descripcion = reader["descripcion"].ToString(),
+                                Personajes = reader["personajes"].ToString(),
+                                Controles = reader["controles"].ToString(),
+                                ComoGanar = reader["como_ganar"].ToString(),
+                                ComoPerder = reader["como_perder"].ToString(),
+                                Creditos = reader["creditos"].ToString(),
+                                Licencia = reader["licencias"].ToString()
+                            };
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al obtener logros del usuario: " + ex.Message);
-                }
             }
-            return logros;
+
+            return gameInfo;
         }
 
-        public string ObtenerFotoDePerfil(string nickname)
+
+        // Método para actualizar la contraseña de un usuario RODRIGO
+        public bool ActualizarUsuario(string nickname, string nuevaContrasena, DateTime fechaNacimiento, int genero)
         {
-            string foto = "default.png"; // Valor por defecto en caso de error
-            using (var conexion = new MySqlConnection(ConnectionString))
+            try
             {
-                try
+                using (var conexion = new MySqlConnection(ConnectionString))
                 {
                     conexion.Open();
-                    string query = "SELECT fotografia FROM usuarios WHERE nickname = @nickname";
-                    using (var cmd = new MySqlCommand(query, conexion))
+                    string query = @"
+                UPDATE usuarios 
+                SET contrasena = @NuevaContrasena, fecha_nacimiento = @FechaNacimiento, genero = @Genero 
+                WHERE nickname = @Nickname";
+
+                    using (var command = new MySqlCommand(query, conexion))
                     {
-                        cmd.Parameters.AddWithValue("@nickname", nickname);
-                        object result = cmd.ExecuteScalar();
-                        if (result != null && !string.IsNullOrEmpty(result.ToString()))
+                        command.Parameters.AddWithValue("@Nickname", nickname);
+                        command.Parameters.AddWithValue("@NuevaContrasena", nuevaContrasena);
+                        command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
+                        command.Parameters.AddWithValue("@Genero", genero);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        // Si no se actualizó ninguna fila, significa que el nickname no existía o hubo algún error
+                        if (rowsAffected > 0)
                         {
-                            string rutaFoto = Path.Combine("wwwroot", "assets", "img", result.ToString());
-                            if (File.Exists(rutaFoto))
-                            {
-                                Console.WriteLine($"rutafoto = {rutaFoto}");
-                                foto = result.ToString();
-                            }
-                            else
-                            {
-                                Console.WriteLine("Default Pic");
-                                foto = "default.png";
-                            }
+                            return true; // Operación exitosa
                         }
                         else
                         {
-                            foto = "default.png";
+                            Console.WriteLine("No se pudo actualizar el usuario. Puede que el nickname no exista.");
+                            return false; // No se actualizó ninguna fila
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al obtener la foto de perfil: " + ex.Message);
-                }
             }
-            return foto;
+            catch (Exception ex)
+            {
+                // Aquí capturamos cualquier excepción que ocurra durante la ejecución
+                Console.WriteLine($"Error al actualizar el usuario: {ex.Message}");
+                return false; // Error en la operación
+            }
+        }
+
+        //Metodo para actualizar el about me de un usuario 
+        public void ActualizarAboutMe(int idUsuario, string aboutMe)
+        {
+            try
+            {
+                using var connection = new MySqlConnection(ConnectionString);
+                connection.Open();
+
+                string query = "UPDATE usuarios SET about_me = @about_me WHERE id_usuario = @id";
+                using var cmd = new MySqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@about_me", aboutMe);
+                cmd.Parameters.AddWithValue("@id", idUsuario);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                //manejo de error
+                Console.WriteLine($"Error al actualizar AboutMe: {ex.Message}");
+                throw;
+            }
+        }
+
+        internal void ActualizarAboutMe(object id_usuario, string aboutMeInput)
+        {
+            throw new NotImplementedException();
         }
     }
 }

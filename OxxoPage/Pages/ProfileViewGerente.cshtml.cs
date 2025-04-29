@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using OxxoPage.Model;
 
+
 namespace OxxoPage.Pages
 {
     public class ProfileViewGerente : PageModel
     {
         [BindProperty(SupportsGet = true)]
-        public string id { get; set; }
-
+        public string id { get; set; } // id que realmente es nickname (SE OBTIENE DEL URL)
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly DataBaseContext _dbContext;
 
@@ -28,32 +28,18 @@ namespace OxxoPage.Pages
 
         public void OnGet()
         {
-
-            HttpContext.Session.SetString("UsuarioAsesor", "carlito");
-            string nickname = _httpContextAccessor.HttpContext?.Session.GetString("UsuarioAsesor") ?? string.Empty;
-            Console.WriteLine(nickname);
-            Console.WriteLine(id);
-
+            // Console.WriteLine(id);
             if (!string.IsNullOrEmpty(id))
             {
-                var usuario = _dbContext.ObtenerDatosUsuario(id);
+                UsuarioAsesor = _dbContext.ObtenerDatosUsuario(id); // Obtener datos del usuario por id (nickname)
 
-                if (usuario != null)
+                if (UsuarioAsesor != null)
                 {
-                    UsuarioAsesor = usuario;
-                    UsuarioAsesor.AboutMe ??= "Este usuario aún no ha escrito su biografía.";
-                    Role = _dbContext.ObtenerRolUsuario(usuario.IdUsuario);
+                    Role = _dbContext.ObtenerRolUsuario(UsuarioAsesor.IdUsuario); // Obtener rol del usuario para descripcion de titulo
+                    if (Role == "gerente") Role = "Gerente de Plaza";
+                    else if (Role == "asesor") Role = "Asesor de Tienda";
 
-                    if (Role == "gerente")
-                    {
-                        Role = "Gerente de Plaza";
-                    }
-                    else if (Role == "asesor")
-                    {
-                        Role = "Asesor de Tienda";
-                    }
-
-                    UsuarioAsesor.Fotografia = _dbContext.ObtenerFotoDePerfil(id);
+                    //// UsuarioAsesor.Fotografia = _dbContext.ObtenerFotoDePerfil(id);
                     // Obtener logros y experiencia total
                     Achievements = _dbContext.ObtenerLogrosUsuario(id, out int totalXP);
                     CalcularExperiencia(totalXP);
@@ -61,8 +47,8 @@ namespace OxxoPage.Pages
                 else
                 {
                     UsuarioAsesor.Nickname = "Invitado";
-                    UsuarioAsesor.Fotografia = "default.png";
-                    UsuarioAsesor.AboutMe = "Perfil no disponible";
+                    // UsuarioAsesor.Fotografia = "default.png";
+                    // UsuarioAsesor.AboutMe = "Perfil no disponible";
                 }
             }
         }

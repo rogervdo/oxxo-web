@@ -12,7 +12,7 @@ public class Home : PageModel
     private readonly DataBaseContext _dbContext;
 
     // Propiedades para almacenar el nickname y la foto de perfil del usuario
-    public Usuarios Usuario {get; set;}
+    public Usuarios Usuario { get; set; }
 
     // Constructor que inyecta dependencias para acceso a la sesión y la base de datos
     public Home(IHttpContextAccessor httpContextAccessor)
@@ -24,13 +24,8 @@ public class Home : PageModel
     // Método que se ejecuta al cargar la página
     public void OnGet()
     {
+        // Obtener el nickname del usuario de la sesión o asignar "Invitado" si no existe
         string nickname = _httpContextAccessor.HttpContext?.Session.GetString("Usuario") ?? "Invitado";
-
-        Usuario = new Usuarios
-        {
-            Nickname = nickname,
-            Fotografia = nickname != "Invitado"
-                ? _dbContext.ObtenerFotoDePerfil(nickname): "default.png" 
-        };
+        Usuario = _dbContext.ObtenerDatosUsuario(nickname);
     }
 }
