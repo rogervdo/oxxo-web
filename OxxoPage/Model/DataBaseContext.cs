@@ -33,11 +33,11 @@ namespace OxxoPage.Model
                             a.*, 
                             u.*, 
                             COUNT(DISTINCT o.id_oxxo) AS total_oxxos, 
-                            COUNT(DISTINCT il.id_instancialogro) AS total_medallas
+                            COUNT(DISTINCT il.id_logro_usuario) AS total_medallas
                         FROM asesores a
                         JOIN usuarios u ON a.id_usuario = u.id_usuario
                         LEFT JOIN oxxos o ON a.id_asesor = o.id_asesor
-                        LEFT JOIN logrosasesores il ON a.id_asesor = il.id_asesor
+                        LEFT JOIN logros_usuario il ON u.id_usuario = il.id_usuario
                         WHERE a.id_gerente = @id_gerente
                         GROUP BY a.id_asesor, u.id_usuario;
                     ";

@@ -2,15 +2,15 @@
 @model DashboardGerente
 @{
     ViewData["Title"] = "Tablero de Datos Gerente";
-    ViewData["NavTitle"] = "Datos Gerente";
+    ViewData["NavTitle"] = "Panel de control";
 }
 
 <body class="tablerodedatos">
     <br>
     <div class="looker-contenedor">
         <iframe class="looker-embebido"
-            src="@Model.URL_Embebido"
-            frameborder="0" allowfullscreen
+            src="@Model.URL_Embed"
+            frameborder="0"
             style="border:0"
             sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
         </iframe>
