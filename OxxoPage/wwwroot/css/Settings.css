@@ -1,10 +1,16 @@
+body, html {
+    overflow: hidden;
+    height: 100%;
+}
+
+
 .sidebar {
     display: flex;
     flex-direction: row;
     width: 250px;
     height: 100vh;
-    position: absolute;  /* Mantenido como absolute */
-    top: absolute;  /* Asegura que la barra lateral esté alineada en la parte superior */
+    position: absolute;
+    top: absolute;
     left: 0;
     z-index: 1;
 }
@@ -111,7 +117,7 @@ a:hover {
 }
 
 button.btn{
-    color:black;
+    color:white;
     background-color: #F62717;
     border-color: #DE2924;
 }

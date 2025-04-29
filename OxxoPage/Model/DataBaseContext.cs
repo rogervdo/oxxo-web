@@ -485,114 +485,71 @@ public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP
             return foto;
         }
 
-        //Metodo para actualizar la imagen en base a la seleccionada u update en base al nombre
-        public bool ActualizarFotografia(int idUsuario, string fotografia)
+        //Rodrigo este el que jala
+        public Settings ObtenerUsuario(string nickname)
         {
-            try
+            Settings usuario = null;
+
+            using (var conexion = GetConnection())
             {
-                using (var conexion = GetConnection())
-                {
-                    conexion.Open();
-                    string query = "UPDATE usuarios SET fotografia = @fotografia WHERE id_usuario = @id";
-                    using (var cmd = new MySqlCommand(query, conexion))
-                    {
-                        cmd.Parameters.AddWithValue("@fotografia", fotografia);
-                        cmd.Parameters.AddWithValue("@id", idUsuario); // Usar int directamente
-
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        return rowsAffected > 0; // Retorna true si se actualizó correctamente
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al actualizar la fotografía: " + ex.Message);
-                return false; // Retorna false en caso de error
-            }
-        }
-
-        //metodo para obtener la informacion del juego seleccionado basado en Id onPost
-        public GameInfo GetGameInfo(int idJuego)
-        {
-            GameInfo gameInfo = null;
-
-            using (var conexion = new MySqlConnection(ConnectionString))
-            {   //select 
                 conexion.Open();
-                string query = @"
-                SELECT descripcion, personajes, controles, como_ganar, como_perder, creditos, licencias
-                FROM juegos
-                WHERE id_juego = @IdJuego
-                LIMIT 1;
-            ";
 
-                using (var command = new MySqlCommand(query, conexion))
+                string query = @"SELECT nickname, contrasena, Fecha_Nacimiento, Genero FROM usuarios WHERE nickname = @Nickname";
+                using var command = new MySqlCommand(query, conexion);
+                command.Parameters.AddWithValue("@Nickname", nickname);
+
+                using var reader = command.ExecuteReader();
+                if (reader.Read())
                 {
-                    command.Parameters.AddWithValue("@IdJuego", idJuego);
-                    //se cosntruye objeto GameInfo
-                    using (var reader = command.ExecuteReader())
+                    usuario = new Settings
                     {
-                        if (reader.Read())
-                        {
-                            gameInfo = new GameInfo
-                            {
-                                Descripcion = reader["descripcion"].ToString(),
-                                Personajes = reader["personajes"].ToString(),
-                                Controles = reader["controles"].ToString(),
-                                ComoGanar = reader["como_ganar"].ToString(),
-                                ComoPerder = reader["como_perder"].ToString(),
-                                Creditos = reader["creditos"].ToString(),
-                                Licencia = reader["licencias"].ToString()
-                            };
-                        }
-                    }
+                        Nickname = reader.GetString("nickname"),
+                        Contrasena = reader.IsDBNull(reader.GetOrdinal("contrasena")) ? null : reader.GetString("contrasena"),
+                        FechaNacimiento = reader.IsDBNull(reader.GetOrdinal("Fecha_Nacimiento")) ? (DateTime?)null : reader.GetDateTime("Fecha_Nacimiento"),
+                        Genero = reader.IsDBNull(reader.GetOrdinal("Genero")) ? (int?)null : reader.GetInt32("Genero")
+                    };
                 }
             }
-
-            return gameInfo;
+            return usuario;
         }
 
-
-        // Método para actualizar la contraseña de un usuario RODRIGO
-        public bool ActualizarUsuario(string nickname, string nuevaContrasena, DateTime fechaNacimiento, int genero)
+        public bool ActualizarUsuario(string nickname, string? nuevaContrasena, DateTime? fechaNacimiento, int? genero)
         {
-            try
+            using (var conexion = GetConnection())
             {
-                using (var conexion = new MySqlConnection(ConnectionString))
+                conexion.Open();
+
+                var actualizaciones = new List<string>();
+                var command = new MySqlCommand();
+                command.Connection = conexion;
+
+                if (!string.IsNullOrWhiteSpace(nuevaContrasena))
                 {
-                    conexion.Open();
-                    string query = @"
-                UPDATE usuarios 
-                SET contrasena = @NuevaContrasena, fecha_nacimiento = @FechaNacimiento, genero = @Genero 
-                WHERE nickname = @Nickname";
-
-                    using (var command = new MySqlCommand(query, conexion))
-                    {
-                        command.Parameters.AddWithValue("@Nickname", nickname);
-                        command.Parameters.AddWithValue("@NuevaContrasena", nuevaContrasena);
-                        command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
-                        command.Parameters.AddWithValue("@Genero", genero);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        // Si no se actualizó ninguna fila, significa que el nickname no existía o hubo algún error
-                        if (rowsAffected > 0)
-                        {
-                            return true; // Operación exitosa
-                        }
-                        else
-                        {
-                            Console.WriteLine("No se pudo actualizar el usuario. Puede que el nickname no exista.");
-                            return false; // No se actualizó ninguna fila
-                        }
-                    }
+                    actualizaciones.Add("contrasena = @NuevaContrasena");
+                    command.Parameters.AddWithValue("@NuevaContrasena", nuevaContrasena);
                 }
-            }
-            catch (Exception ex)
-            {
-                // Aquí capturamos cualquier excepción que ocurra durante la ejecución
-                Console.WriteLine($"Error al actualizar el usuario: {ex.Message}");
-                return false; // Error en la operación
+
+                if (fechaNacimiento.HasValue)
+                {
+                    actualizaciones.Add("fecha_nacimiento = @FechaNacimiento");
+                    command.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento.Value);
+                }
+
+                if (genero.HasValue && genero.Value > 0)
+                {
+                    actualizaciones.Add("genero = @Genero");
+                    command.Parameters.AddWithValue("@Genero", genero.Value);
+                }
+
+                if (actualizaciones.Count == 0)
+                    return false; // No hay nada que actualizar
+
+                string setClause = string.Join(", ", actualizaciones);
+                command.CommandText = $"UPDATE usuarios SET {setClause} WHERE nickname = @Nickname";
+                command.Parameters.AddWithValue("@Nickname", nickname);
+
+                int filasAfectadas = command.ExecuteNonQuery();
+                return filasAfectadas > 0;
             }
         }
 

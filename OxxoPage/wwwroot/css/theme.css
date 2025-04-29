@@ -84,23 +84,6 @@ body.dark-mode .navbar a {
 body.dark-mode .navbar a:hover {
     color: #FDC32F;
 }
-
-/* Sidebar */
-.sidebar {
-    display: flex;
-    flex-direction: row;
-    width: 300px;
-    height: 100vh;
-    position: fixed;
-    top: absolute;
-    left: 0;
-    z-index: 1;
-}
-
-.sidebar.dark-mode {
-    background-color: inherit;
-}
-
 /* Specific Backgrounds */
 .background-red.dark-mode {
     background-color: #7D150F;
@@ -240,16 +223,6 @@ body.dark-mode select option[value="select"] {
     color: #bbbbbb;
 }
 
-body.dark-mode button {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-body.dark-mode button:hover {
-    background-color: #ffffff;
-    color: #000000;
-}
-
 .password-container button:hover {
     background-color: #F62717 !important;
     border-color: #F62717 !important;
@@ -303,4 +276,18 @@ button.btn:hover{
     color:white !important; 
     background-color: #F62717 !important;
     border-color: #DE2924 !important;
-}   
+}
+
+body.dark-mode input {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+body.dark-mode input::placeholder {
+    color: #cccccc; /* Opcional: cambia el color del texto del placeholder en dark mode */
+}
+
+body.dark-mode input:focus {
+    border-color: #ffffff; /* Cambia el borde al hacer focus en el input */
+    background-color: #333333 !important; /* Opcional: puedes ajustar el fondo al hacer focus */
+}
