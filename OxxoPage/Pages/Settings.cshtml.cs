@@ -16,30 +16,28 @@ namespace OxxoPage.Pages
             _db = new DataBaseContext();
         }
 
-        // Manejador GET para cargar los datos actuales
+        //GET para cargar los datos actuales
         public IActionResult OnGet()
-{
-    // ✅ Aquí obtienes el nickname de la sesión (guardado al iniciar sesión)
-    string nickname = HttpContext.Session.GetString("Usuario");
+        {
+            string nickname = HttpContext.Session.GetString("Usuario");
 
-    if (string.IsNullOrWhiteSpace(nickname))
-    {
-        // Si no hay sesión, manda al login o muestra un mensaje
-        return RedirectToPage("/Index"); 
-    }
+            if (string.IsNullOrWhiteSpace(nickname))
+            {
+                return RedirectToPage("/Index");
+            }
 
-    Usuario = _db.ObtenerUsuario(nickname);
+            Usuario = _db.ObtenerUsuario(nickname);
 
-    if (Usuario == null)
-    {
-        ModelState.AddModelError("", "Usuario no encontrado.");
-    }
+            if (Usuario == null)
+            {
+                ModelState.AddModelError("", "Usuario no encontrado.");
+            }
 
-    return Page();
-}
+            return Page();
+        }
 
 
-        // Manejador POST para actualizar los datos
+        //POST para actualizar los datos
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)

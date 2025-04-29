@@ -84,23 +84,6 @@ body.dark-mode .navbar a {
 body.dark-mode .navbar a:hover {
     color: #FDC32F;
 }
-
-/* Sidebar */
-.sidebar {
-    display: flex;
-    flex-direction: row;
-    width: 300px;
-    height: 100vh;
-    position: fixed;
-    top: absolute;
-    left: 0;
-    z-index: 1;
-}
-
-.sidebar.dark-mode {
-    background-color: inherit;
-}
-
 /* Specific Backgrounds */
 .background-red.dark-mode {
     background-color: #7D150F;

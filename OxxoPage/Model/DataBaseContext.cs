@@ -667,6 +667,7 @@ namespace OxxoPage.Model
             return foto;
         }
 
+        //Rodrigo
         public Settings ObtenerUsuario(string nickname)
         {
             Settings usuario = null;
@@ -693,7 +694,6 @@ namespace OxxoPage.Model
             }
             return usuario;
         }
-
 
         public bool ActualizarUsuario(string nickname, string? nuevaContrasena, DateTime? fechaNacimiento, int? genero)
         {
