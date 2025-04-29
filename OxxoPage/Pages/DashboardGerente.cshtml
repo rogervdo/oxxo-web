@@ -1,0 +1,18 @@
+@page "/TabladeDatosGerente"
+@model DashboardGerente
+@{
+    ViewData["Title"] = "Tablero de Datos Gerente";
+    ViewData["NavTitle"] = "Datos Gerente";
+}
+
+<body class="tablerodedatos">
+    <br>
+    <div class="looker-contenedor">
+        <iframe class="looker-embebido"
+            src="@Model.URL_Embebido"
+            frameborder="0" allowfullscreen
+            style="border:0"
+            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+        </iframe>
+    </div>
+</body>
