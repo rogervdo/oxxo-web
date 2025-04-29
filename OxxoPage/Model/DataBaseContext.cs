@@ -485,7 +485,7 @@ public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP
             return foto;
         }
 
-        //Metodo para actualizar la imagen en base a la seleccionada
+        //Metodo para actualizar la imagen en base a la seleccionada u update en base al nombre
         public bool ActualizarFotografia(int idUsuario, string fotografia)
         {
             try
@@ -510,6 +510,48 @@ public List<Achievement> ObtenerLogrosUsuario(string nickname, out int currentXP
                 return false; // Retorna false en caso de error
             }
         }
+
+        //metodo para obtener la informacion del juego seleccionado basado en Id onPost
+        public GameInfo GetGameInfo(int idJuego)
+        {
+            GameInfo gameInfo = null;
+
+            using (var conexion = new MySqlConnection(ConnectionString))
+            {   //select 
+                conexion.Open();
+                string query = @"
+                SELECT descripcion, personajes, controles, como_ganar, como_perder, creditos, licencias
+                FROM juegos
+                WHERE id_juego = @IdJuego
+                LIMIT 1;
+            ";
+
+                using (var command = new MySqlCommand(query, conexion))
+                {
+                    command.Parameters.AddWithValue("@IdJuego", idJuego);
+                    //se cosntruye objeto GameInfo
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            gameInfo = new GameInfo
+                            {
+                                Descripcion = reader["descripcion"].ToString(),
+                                Personajes = reader["personajes"].ToString(),
+                                Controles = reader["controles"].ToString(),
+                                ComoGanar = reader["como_ganar"].ToString(),
+                                ComoPerder = reader["como_perder"].ToString(),
+                                Creditos = reader["creditos"].ToString(),
+                                Licencia = reader["licencias"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+
+            return gameInfo;
+        }
+
 
         // Método para actualizar la contraseña de un usuario RODRIGO
         public bool ActualizarUsuario(string nickname, string nuevaContrasena, DateTime fechaNacimiento, int genero)
