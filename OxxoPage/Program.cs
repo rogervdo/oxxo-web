@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.StaticFiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,15 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+
+var provider = new FileExtensionContentTypeProvider();
+provider.Mappings[".data"] = "application/octet-stream";
+provider.Mappings[".wasm"] = "application/wasm";
+app.UseStaticFiles(new StaticFileOptions()
+{
+    ContentTypeProvider = provider,
+});
+
 
 app.UseRouting();
 
