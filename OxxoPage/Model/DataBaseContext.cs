@@ -268,7 +268,7 @@ namespace OxxoPage.Model
                     }
 
                     // Calcular la meta diaria
-                    metricas.MetaDiaria = (int)Math.Ceiling(metricas.MetaMensual / 30.0m);
+                    metricas.MetaDiaria = (int)Math.Ceiling(metricas.MetaMensual / 11m);
 
                     // Calcular porcentajes y valores restantes
                     metricas.PorcentajeMeta = metricas.MetaMensual > 0
@@ -287,7 +287,7 @@ namespace OxxoPage.Model
                     metricas.TotalLogros = 147;
                     metricas.MetaMensual = 180;
                     metricas.CapacitacionesDia = 13;
-                    metricas.MetaDiaria = 6;
+                    metricas.MetaDiaria = 13;
                     metricas.PorcentajeMeta = 81.6m;
                     metricas.LogrosFaltantes = 33;
                     metricas.PorcentajeMetaDiaria = 109.72m;
